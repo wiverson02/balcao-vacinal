@@ -10,6 +10,13 @@ Precisa do Node.js 18+ (https://nodejs.org).
     npm test         # testes automatizados
     npm run build    # gera a pasta dist/ (site pronto para publicar)
 
+## Instalar como app (PWA) e uso offline
+- Depois de publicado em HTTPS (Vercel já serve), abra o site no celular: no Android/Chrome use "Instalar app"; no iPhone/Safari use Compartilhar > "Adicionar à Tela de Início".
+- O app inteiro (telas e dados) fica guardado no aparelho depois do primeiro acesso com internet e abre sem conexão.
+- Atualização automática: ao abrir com internet, baixa a versão nova e passa a usá-la na abertura seguinte. Quem não abrir com internet continua na versão antiga, então confira a data dos dados no rodapé.
+- Ícones em `public/icons/`; nome, cores e opções do app em `vite.config.js`.
+- A fonte Outfit vem do Google Fonts e fica em cache depois do primeiro acesso; sem ela o app usa a fonte do sistema.
+
 ## Estrutura
     src/data/calendario.json   calendários: privada (criança por faixa + grupos), sus, regras de atraso
     src/data/produtos.json     nomes comerciais da rede (CN), fichas (FI) e vacinas fora do calendário (EX)
@@ -21,6 +28,7 @@ Precisa do Node.js 18+ (https://nodejs.org).
     src/App.jsx                navegação por abas (#inicio, #privada, #sus, ...)
     src/styles.css             identidade visual
     src/App.test.jsx           testes das telas
+    src/lib.test.js            testes de idade, faixas e grupos (lib.js)
 
 ## Como atualizar os dados (sem mexer em código)
 - Novo calendário da SBIm: edite `src/data/calendario.json` e o texto do rodapé em `src/App.jsx`.
