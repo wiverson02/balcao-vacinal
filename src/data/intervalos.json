@@ -1,0 +1,62 @@
+[
+ [
+  "Hexavalente",
+  60,
+  "2 meses"
+ ],
+ [
+  "Pneumocócica conjugada",
+  60,
+  "2 meses"
+ ],
+ [
+  "Rotavírus",
+  60,
+  "2 meses, respeitando a idade máxima"
+ ],
+ [
+  "Meningocócica B",
+  60,
+  "2 meses"
+ ],
+ [
+  "Meningocócica ACWY",
+  60,
+  "2 meses"
+ ],
+ [
+  "Hepatite B (1ª para 2ª dose)",
+  30,
+  "1 mês"
+ ],
+ [
+  "Hepatite A",
+  180,
+  "6 meses"
+ ],
+ [
+  "HPV (2 doses)",
+  180,
+  "6 meses"
+ ],
+ [
+  "Influenza (1ª temporada)",
+  30,
+  "30 dias"
+ ],
+ [
+  "Dengue",
+  90,
+  "3 meses"
+ ],
+ [
+  "Herpes-zóster recombinante",
+  60,
+  "2 a 6 meses (mínimo de 2)"
+ ],
+ [
+  "Tríplice viral",
+  30,
+  "mínimo de 30 dias"
+ ]
+]

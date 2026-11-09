@@ -1,0 +1,1022 @@
+{
+ "privada": {
+  "crianca": [
+   [
+    "Ao nascer",
+    [
+     [
+      "BCG",
+      "Formas graves de tuberculose",
+      "Só no SUS: não é aplicada em serviços privados. Dose única, o mais cedo possível, em RN com 2.000 g ou mais."
+     ],
+     [
+      "Hepatite B",
+      "Hepatite B",
+      "1ª dose nas primeiras 12 horas de vida (esquema 0, 1 e 6 meses; 4 doses se usar vacina combinada)."
+     ],
+     [
+      "Nirsevimabe (VSR)",
+      "Vírus sincicial respiratório",
+      "Dose única, de preferência na maternidade, se a mãe não foi vacinada na gestação, ou em prematuros e bebês de risco."
+     ]
+    ]
+   ],
+   [
+    "2 meses",
+    [
+     [
+      "Hexavalente",
+      "Difteria, tétano, coqueluche, poliomielite, Hib e hepatite B",
+      "1ª dose."
+     ],
+     [
+      "Pneumocócica conjugada",
+      "Doenças pneumocócicas",
+      "1ª dose. A SBIm prefere VPC20 ou VPC15, no esquema 3+1 (2, 4, 6 meses e reforço aos 12)."
+     ],
+     [
+      "Rotavírus",
+      "Diarreia por rotavírus",
+      "1ª dose a partir de 6 semanas. Monovalente: 2 doses (2 e 4 meses); pentavalente: 3 doses (2, 4 e 6 meses)."
+     ]
+    ]
+   ],
+   [
+    "3 meses",
+    [
+     [
+      "Meningocócica B",
+      "Meningite e sepse por meningococo B",
+      "1ª dose."
+     ],
+     [
+      "Meningocócica ACWY",
+      "Meningococos A, C, W e Y",
+      "1ª dose."
+     ]
+    ]
+   ],
+   [
+    "4 meses",
+    [
+     [
+      "Hexavalente",
+      "Difteria, tétano, coqueluche, poliomielite, Hib e hepatite B",
+      "2ª dose."
+     ],
+     [
+      "Pneumocócica conjugada",
+      "Doenças pneumocócicas",
+      "2ª dose."
+     ],
+     [
+      "Rotavírus",
+      "Diarreia por rotavírus",
+      "2ª dose. Se a série tiver vacina pentavalente, são 3 doses."
+     ]
+    ]
+   ],
+   [
+    "5 meses",
+    [
+     [
+      "Meningocócica B",
+      "Meningite e sepse por meningococo B",
+      "2ª dose."
+     ],
+     [
+      "Meningocócica ACWY",
+      "Meningococos A, C, W e Y",
+      "2ª dose."
+     ]
+    ]
+   ],
+   [
+    "6 meses",
+    [
+     [
+      "Hexavalente",
+      "Difteria, tétano, coqueluche, poliomielite, Hib e hepatite B",
+      "3ª dose."
+     ],
+     [
+      "Pneumocócica conjugada",
+      "Doenças pneumocócicas",
+      "3ª dose, no esquema 3+1 para quem começou até os 6 meses."
+     ],
+     [
+      "Influenza",
+      "Gripe",
+      "A partir dos 6 meses. Na 1ª vez são 2 doses com 30 dias de intervalo; depois, anual."
+     ],
+     [
+      "Covid-19",
+      "Covid-19",
+      "Só no SUS: para crianças de 6 meses a menos de 5 anos, é vacina do PNI e não é aplicada em serviços privados."
+     ]
+    ]
+   ],
+   [
+    "7 meses",
+    [
+     [
+      "Influenza",
+      "Gripe",
+      "2ª dose, 30 dias após a 1ª, para quem começou aos 6 meses."
+     ]
+    ]
+   ],
+   [
+    "9 meses",
+    [
+     [
+      "Febre amarela",
+      "Febre amarela",
+      "1ª dose."
+     ]
+    ]
+   ],
+   [
+    "12 meses",
+    [
+     [
+      "Tríplice viral",
+      "Sarampo, caxumba e rubéola",
+      "1ª dose, junto com a varicela (ou use a tetraviral). Em menores de 2 anos, evite no mesmo dia da febre amarela: 30 dias de intervalo."
+     ],
+     [
+      "Varicela",
+      "Catapora",
+      "1ª dose aos 12 meses; a 2ª pode ser feita com a tetraviral aos 15 meses."
+     ],
+     [
+      "Hepatite A",
+      "Hepatite A",
+      "1ª dose."
+     ],
+     [
+      "Pneumocócica conjugada",
+      "Doenças pneumocócicas",
+      "Reforço."
+     ],
+     [
+      "Meningocócica ACWY",
+      "Meningococos A, C, W e Y",
+      "Reforço."
+     ],
+     [
+      "Meningocócica B",
+      "Meningite e sepse por meningococo B",
+      "Reforço, entre 12 e 15 meses."
+     ]
+    ]
+   ],
+   [
+    "15 meses",
+    [
+     [
+      "Tetraviral (SCRV)",
+      "Sarampo, caxumba, rubéola e varicela",
+      "2ª dose de tríplice viral e varicela, com 3 meses de intervalo da dose anterior."
+     ],
+     [
+      "DTPa + VIP",
+      "Difteria, tétano, coqueluche e poliomielite",
+      "1º reforço."
+     ]
+    ]
+   ],
+   [
+    "18 meses",
+    [
+     [
+      "Hepatite A",
+      "Hepatite A",
+      "2ª dose, 6 meses após a 1ª."
+     ]
+    ]
+   ],
+   [
+    "4-6 anos",
+    [
+     [
+      "DTPa",
+      "Difteria, tétano e coqueluche",
+      "Reforço."
+     ],
+     [
+      "VIP",
+      "Poliomielite inativada",
+      "Reforço."
+     ],
+     [
+      "Febre amarela",
+      "Febre amarela",
+      "Reforço, aos 4 anos."
+     ],
+     [
+      "Dengue",
+      "Dengue (4 sorotipos)",
+      "A partir dos 4 anos, 2 doses com 3 meses de intervalo."
+     ],
+     [
+      "Meningocócica ACWY",
+      "Meningococos A, C, W e Y",
+      "2º reforço entre 5 e 6 anos."
+     ]
+    ]
+   ],
+   [
+    "9-10 anos",
+    [
+     [
+      "HPV",
+      "Papilomavírus humano",
+      "HPV9 preferencial, 2 doses (0 e 6 meses). O PNI oferece HPV4 em dose única de 9 a 14 anos."
+     ],
+     [
+      "dTpa",
+      "Difteria, tétano e coqueluche",
+      "Reforço 5 anos após o anterior, de preferência entre 9 e 11 anos."
+     ]
+    ]
+   ]
+  ],
+  "grupos": {
+   "Adolescente": [
+    [
+     "HPV",
+     "Papilomavírus humano",
+     "HPV9 preferencial, 2 doses (0 e 6 meses) em menores de 20 anos. O PNI oferece HPV4 em dose única de 9 a 14 anos."
+    ],
+    [
+     "Meningocócica ACWY",
+     "Meningococos A, C, W e Y",
+     "Vacinados na infância: reforço aos 11 anos ou 5 anos após a última dose. Não vacinados até 15 anos: 2 doses com 5 anos de intervalo; a partir de 16 anos, 1 dose."
+    ],
+    [
+     "Meningocócica B",
+     "Meningite e sepse por meningococo B",
+     "2 doses com intervalo mínimo de 1 mês. Não é oferecida no SUS."
+    ],
+    [
+     "Hepatites A e B",
+     "Hepatites A e B",
+     "Hepatite A: 2 doses (0-6 meses). A+B combinada: 2 doses (0-6) abaixo de 16 anos e 3 doses (0-1-6) a partir dos 16. A hepatite B isolada é só do SUS."
+    ],
+    [
+     "dTpa",
+     "Difteria, tétano e coqueluche",
+     "Esquema completo: reforço 10 anos após a última dose, de preferência com dTpa. Incompleto: 1 dose de dTpa e dT até somar 3 doses. Sem histórico: dTpa e 2 doses de dT (0-2-4 a 8 meses)."
+    ],
+    [
+     "Tríplice viral",
+     "Sarampo, caxumba e rubéola",
+     "2 doses acima de 1 ano, com intervalo mínimo de 1 mês."
+    ],
+    [
+     "Varicela",
+     "Catapora",
+     "Suscetíveis: 2 doses. Abaixo de 13 anos, intervalo de 3 meses; a partir de 13, de 1 a 2 meses. Pode usar a tetraviral."
+    ],
+    [
+     "Influenza",
+     "Gripe",
+     "Dose anual."
+    ],
+    [
+     "Dengue",
+     "Dengue (4 sorotipos)",
+     "2 doses com 3 meses de intervalo."
+    ],
+    [
+     "Febre amarela",
+     "Febre amarela",
+     "SBIm: 2 doses, a 2ª 10 anos após a 1ª. Contraindicada em nutrizes até o bebê completar 6 meses."
+    ],
+    [
+     "Covid-19",
+     "Covid-19",
+     "Conforme o esquema vigente."
+    ]
+   ],
+   "Adulto": [
+    [
+     "Hepatites A e B",
+     "Hepatites A e B",
+     "Hepatite A: 2 doses (0-6 meses). A+B combinada: 3 doses (0-1-6). A hepatite B isolada é só do SUS."
+    ],
+    [
+     "dTpa / dT",
+     "Difteria, tétano e coqueluche",
+     "Esquema completo: reforço com dTpa a cada 10 anos. Incompleto: 1 dose de dTpa e dT até somar 3 doses. Sem histórico: dTpa e 2 doses de dT (0-2-4 a 8 meses)."
+    ],
+    [
+     "Tríplice viral",
+     "Sarampo, caxumba e rubéola",
+     "2 doses acima de 1 ano, com intervalo mínimo de 1 mês."
+    ],
+    [
+     "Varicela",
+     "Catapora",
+     "Suscetíveis: 2 doses com intervalo de 1 a 2 meses. Pode usar a tetraviral."
+    ],
+    [
+     "HPV",
+     "Papilomavírus humano",
+     "HPV9, 3 doses (0, 1 a 2 e 6 meses) a partir dos 20 anos. Acima de 45 anos, só em decisão compartilhada com o médico."
+    ],
+    [
+     "Influenza",
+     "Gripe",
+     "Dose anual."
+    ],
+    [
+     "Covid-19",
+     "Covid-19",
+     "Conforme o esquema vigente."
+    ],
+    [
+     "Febre amarela",
+     "Febre amarela",
+     "SBIm: 2 doses, a 2ª 10 anos após a 1ª. Contraindicada em nutrizes até o bebê completar 6 meses; em gestantes, só com avaliação médica."
+    ],
+    [
+     "Dengue",
+     "Dengue (4 sorotipos)",
+     "2 doses com 3 meses de intervalo, até 60 anos."
+    ],
+    [
+     "Herpes-zóster recombinante",
+     "Herpes-zóster",
+     "Rotina a partir de 50 anos: 2 doses com 2 meses de intervalo. Vale também para quem já teve zóster."
+    ],
+    [
+     "Meningocócica B",
+     "Meningite e sepse por meningococo B",
+     "Adultos até 50 anos, conforme risco epidemiológico. 2 doses com 1 mês de intervalo, quando indicada."
+    ],
+    [
+     "Pneumocócica conjugada",
+     "Doenças pneumocócicas",
+     "Rotina a partir dos 50 anos: VPC20 em dose única. Em qualquer idade, se houver comorbidade de risco."
+    ],
+    [
+     "Meningocócica ACWY",
+     "Meningococos A, C, W e Y",
+     "1 dose, conforme a situação epidemiológica."
+    ],
+    [
+     "VSR",
+     "Vírus sincicial respiratório",
+     "Não é rotina. A partir dos 18 anos, 1 dose para doença cardiovascular ou respiratória crônica relevante."
+    ]
+   ],
+   "Idoso": [
+    [
+     "Influenza",
+     "Gripe",
+     "Dose única anual, de preferência a trivalente de alta concentração (HD3V). Sem ela, usar a disponível (3V ou 4V)."
+    ],
+    [
+     "Pneumocócica conjugada",
+     "Doenças pneumocócicas",
+     "Rotina: VPC20 em dose única. Com a VPC20 não há esquema sequencial com a VPP23."
+    ],
+    [
+     "Herpes-zóster recombinante",
+     "Herpes-zóster",
+     "Rotina a partir de 50 anos: 2 doses com 2 meses de intervalo. Vale também para quem já teve zóster."
+    ],
+    [
+     "VSR",
+     "Vírus sincicial respiratório",
+     "1 dose, em qualquer época do ano. A partir dos 60 anos para quem tem risco de forma grave; rotina a partir dos 70 anos."
+    ],
+    [
+     "dTpa / dT",
+     "Difteria, tétano e coqueluche",
+     "Rotina: reforço com dTpa a cada 10 anos. Incompleto: 1 dose de dTpa e dT até somar 3 doses."
+    ],
+    [
+     "Hepatites A e B",
+     "Hepatites A e B",
+     "Só em não vacinados: A+B combinada, 3 doses (0-1-6). A hepatite B isolada é só do SUS; a hepatite A isolada, só após sorologia, exposição ou surto."
+    ],
+    [
+     "Covid-19",
+     "Covid-19",
+     "Só no SUS: 1 dose a cada 6 meses. Não é aplicada em serviços privados."
+    ],
+    [
+     "Febre amarela",
+     "Febre amarela",
+     "Para idosos não vacinados: avaliar risco e benefício. SBIm: 2 doses, a 2ª 10 anos depois."
+    ],
+    [
+     "Meningocócica ACWY",
+     "Meningococos A, C, W e Y",
+     "Só em surtos e viagens para áreas de risco: 1 dose."
+    ],
+    [
+     "Tríplice viral",
+     "Sarampo, caxumba e rubéola",
+     "Situações de risco aumentado: 1 dose, a critério médico. Contraindicada em imunodeprimidos."
+    ]
+   ],
+   "Gestante": [
+    [
+     "dTpa",
+     "Difteria, tétano e coqueluche",
+     "1 dose a cada gestação, a partir da 20ª semana. Esquema incompleto: completar com dT, com 1 mês entre as doses."
+    ],
+    [
+     "Influenza",
+     "Gripe",
+     "Dose única anual, na sazonalidade do vírus, mesmo no 1º trimestre."
+    ],
+    [
+     "VSR (materna)",
+     "Vírus sincicial respiratório",
+     "Abrysvo®, 1 dose a partir de 28 semanas, a cada gestação. A bula vai de 24 a 36 semanas; entre 24 e 27, a critério médico."
+    ],
+    [
+     "Hepatite B",
+     "Hepatite B",
+     "Só no SUS: 3 doses (0-1-6) em gestantes não vacinadas. Em serviços privados, só a combinada A e B."
+    ],
+    [
+     "Covid-19",
+     "Covid-19",
+     "Só no SUS: dose única a cada gestação. Não é aplicada em serviços privados."
+    ],
+    [
+     "Hepatite A",
+     "Hepatite A",
+     "Em situações especiais: 2 doses (0-6 meses). É inativada, sem risco para a gestante."
+    ],
+    [
+     "Pneumocócica conjugada",
+     "Doenças pneumocócicas",
+     "Só em gestantes de risco: VPC20 em dose única."
+    ],
+    [
+     "Meningocócica ACWY",
+     "Meningococos A, C, W e Y",
+     "Considerar conforme a situação epidemiológica ou comorbidades: 1 dose."
+    ],
+    [
+     "Meningocócica B",
+     "Meningite e sepse por meningococo B",
+     "Considerar conforme o risco: 2 doses com 1 mês de intervalo."
+    ]
+   ]
+  },
+  "resgateCrianca": {
+   "Hepatite B": "Esquema 0, 1 e 6 meses (4 doses se usar combinada com hepatite B). Mãe HBsAg positiva: aplicar também HBIG até 7 dias após o parto.",
+   "Rotavírus": "Em atraso: 1ª dose até 11 meses e 29 dias e última até 23 meses e 29 dias (uso off label). Intervalo mínimo de 30 dias. Se alguma dose for pentavalente ou desconhecida, aplicar 3 doses.",
+   "Pneumocócica conjugada": "Esquema 3+1 para quem inicia até os 6 meses, respeitando a bula para a idade de início. Quem tomou VPC10 se beneficia de doses adicionais de VPC20 ou VPC15. Saudável com VPC13 completa não precisa revacinar.",
+   "Meningocócica ACWY": "Quem tomou MenC: intervalo mínimo de 1 mês da última dose. Seguir o esquema do fabricante para a idade de início. 2º reforço aos 5-6 anos ou 5 anos após a última dose.",
+   "Meningocócica B": "A partir de 2 meses. De 12 a 23 meses: 2 doses com 2 meses de intervalo e reforço (ver comentário 9 do PDF). A partir de 24 meses: 2 doses com intervalo mínimo de 1 a 2 meses.",
+   "Influenza": "Primovacinação em menores de 9 anos: 2 doses com 30 dias de intervalo. Depois, dose única anual.",
+   "Febre amarela": "Doses aos 9 meses e aos 4 anos. Se a 1ª foi a partir dos 5 anos, o PNI considera dose única e a SBIm recomenda nova dose 10 anos depois. Em menores de 2 anos, 30 dias de intervalo da tríplice viral.",
+   "Hepatite A": "2 doses (0-6 meses). A partir de 12 meses, quem não tomou hepatite B no 1º ano pode usar a combinada A+B formulação adulto, em 2 doses (0-6 meses).",
+   "Tríplice viral": "2ª dose a partir de 15 meses, com 3 meses de intervalo da dose anterior. Em surto ou exposição domiciliar: 1ª dose a partir de 6 meses e mais 2 doses após 1 ano. 3ª dose só em risco epidemiológico.",
+   "Varicela": "Vacinada é quem recebeu 2 doses após 1 ano de idade, com 3 meses de intervalo. Em surto ou exposição domiciliar: 1ª dose a partir de 9 meses e mais 2 doses após 1 ano.",
+   "Tetraviral (SCRV)": "Pode substituir a 2ª dose de tríplice viral e varicela a partir de 15 meses, com 3 meses de intervalo da dose anterior.",
+   "HPV": "Não vacinados: 2 doses de HPV9 (0-6 meses). 1 dose de HPV4: completar com HPV9 após 6 meses. HPV2 ou HPV4 completo: 2 doses de HPV9 após 1 ano da última dose.",
+   "DTPa + VIP": "Inclua o reforço de Hib (15 a 18 meses), de preferência em vacina combinada. Não há Hib de rotina em crianças saudáveis a partir dos 5 anos.",
+   "VIP": "O PNI usa 4 doses (2, 4, 6 e 15 meses). A SBIm recomenda 2º reforço entre 4 e 6 anos, de preferência combinado com DTPa ou dTpa.",
+   "DTPa": "O reforço seguinte é com dTpa, 5 anos depois, de preferência entre 9 e 11 anos.",
+   "Dengue": "A partir de 4 anos, 2 doses com 3 meses de intervalo, independente de contato prévio com a dengue.",
+   "Nirsevimabe (VSR)": "Menores de 12 meses: 50 mg IM se peso abaixo de 5 kg; 100 mg se 5 kg ou mais. De 12 a 23 meses com risco: 200 mg (2 doses de 100 mg)."
+  },
+  "resgateGrupos": {
+   "Adolescente": [
+    [
+     "Regra geral",
+     "Qualquer dose não aplicada na idade recomendada deve ser feita na visita seguinte. Prefira vacinas combinadas e aplicações simultâneas na mesma visita."
+    ],
+    [
+     "dTpa / dT",
+     "Atualizar a dTpa com intervalo mínimo de 4 semanas da última dose de dT ou TT. Contactantes de lactentes: o reforço pode ser antecipado para 5 anos após a última dose com componente pertussis. Para viagem a país com pólio endêmica, usar dTpa-VIP. Vale também para quem já teve coqueluche."
+    ],
+    [
+     "HPV",
+     "Menores de 20 anos não vacinados: 2 doses de HPV9 (0-6 meses). Para quem já tomou HPV2 ou HPV4, ver o posicionamento da SBIm. Quem já foi exposto ao vírus pode vacinar. Contraindicada na gestação."
+    ],
+    [
+     "Meningocócica ACWY",
+     "Não vacinados até 15 anos: 2 doses com 5 anos de intervalo; a partir de 16 anos, 1 dose. Sem a ACWY disponível, pode-se usar a MenC."
+    ],
+    [
+     "Hepatites A e B",
+     "Não vacinados na infância devem ser vacinados o quanto antes. Hepatite A: 0-6 meses. A+B combinada: 0-6 meses abaixo de 16 anos e 0-1-6 a partir de 16."
+    ],
+    [
+     "Tríplice viral e varicela",
+     "SCR: 2 doses após 1 ano, intervalo mínimo de 1 mês. Varicela: 3 meses entre as doses abaixo de 13 anos; 1 a 2 meses a partir de 13. Para suscetíveis, pode-se usar a tetraviral. Contraindicadas na gestação."
+    ],
+    [
+     "Febre amarela",
+     "Se a 1ª dose foi a partir dos 5 anos, o PNI considera dose única e a SBIm recomenda nova dose 10 anos depois. Contraindicada em nutrizes até o bebê completar 6 meses; se for inevitável, suspender o aleitamento por 10 dias. Para o CIVP, aplicar até 10 dias antes da viagem."
+    ],
+    [
+     "Dengue",
+     "Qdenga®, licenciada de 4 a 60 anos, em 2 doses (0-3 meses), sem exigir contato prévio com a dengue. Contraindicada para gestantes e nutrizes."
+    ],
+    [
+     "Influenza",
+     "Dose anual. Em pessoas de risco, pode-se considerar 2ª dose a partir de 3 meses após a dose anual."
+    ]
+   ],
+   "Adulto": [
+    [
+     "Regra geral",
+     "Qualquer dose não aplicada na idade recomendada deve ser feita na visita seguinte. Prefira vacinas combinadas e aplicações simultâneas na mesma visita."
+    ],
+    [
+     "dTpa / dT",
+     "Atualizar a dTpa com intervalo mínimo de 4 semanas da última dose de dT ou TT. Contactantes de lactentes: o reforço pode ser antecipado para 5 anos após a última dose com componente pertussis. Para viagem a país com pólio endêmica, usar dTpa-VIP. Vale também para quem já teve coqueluche."
+    ],
+    [
+     "HPV",
+     "Não vacinados com 20 anos ou mais: 3 doses de HPV9 (0, 1 a 2 e 6 meses). Acima de 45 anos, só em decisão compartilhada com o médico. Quem já foi exposto pode vacinar. Contraindicada na gestação."
+    ],
+    [
+     "Hepatites A e B",
+     "Não vacinados e suscetíveis devem ser vacinados. Hepatite A: 0-6 meses. Hepatite B: 0-1-6. A+B combinada: 0-1-6."
+    ],
+    [
+     "Herpes-zóster recombinante",
+     "2 doses (0-2 meses). Quem já teve zóster pode vacinar, esperando 6 meses ou a resolução do quadro. Quem tomou a vacina atenuada pode receber a VZR, com 2 meses de intervalo."
+    ],
+    [
+     "Pneumocócica conjugada",
+     "VPC20 em dose única a partir dos 50 anos, ou em qualquer idade com comorbidade de risco."
+    ],
+    [
+     "Tríplice viral e varicela",
+     "SCR: 2 doses após 1 ano, intervalo mínimo de 1 mês; 3ª dose só em surto. Varicela: 2 doses com 1 a 2 meses de intervalo. Para suscetíveis, pode-se usar a tetraviral."
+    ],
+    [
+     "Febre amarela",
+     "Se a 1ª dose foi a partir dos 5 anos, o PNI considera dose única e a SBIm recomenda nova dose 10 anos depois. Contraindicada em nutrizes até o bebê completar 6 meses; se for inevitável, suspender o aleitamento por 10 dias. Para o CIVP, aplicar até 10 dias antes da viagem."
+    ],
+    [
+     "Dengue",
+     "Qdenga®, 2 doses (0-3 meses), até 60 anos, sem exigir contato prévio. Contraindicada para gestantes e lactantes."
+    ],
+    [
+     "Meningocócica B",
+     "Bexsero®, 2 doses com intervalo mínimo de 1 mês. Licenciada até 50 anos; acima disso é off label. Não se sabe a duração da proteção nem se há necessidade de reforço."
+    ],
+    [
+     "VSR",
+     "Arexvy® ou Abrysvo®, 1 dose IM, sem dados que comprovem doses adicionais. Só a Abrysvo® é licenciada para gestantes."
+    ],
+    [
+     "Influenza",
+     "Dose anual. Em pessoas de risco, pode-se considerar 2ª dose a partir de 3 meses após a dose anual."
+    ]
+   ],
+   "Idoso": [
+    [
+     "Regra geral",
+     "Qualquer dose não aplicada na idade recomendada deve ser feita na visita seguinte. Prefira vacinas combinadas e aplicações simultâneas na mesma visita."
+    ],
+    [
+     "Pneumocócica conjugada",
+     "Quem já recebeu VPP23: esperar 1 ano para a VPC20. Esquema sequencial incompleto com VPC13 ou VPC15 e/ou VPP23: concluir com VPC20 em dose única, respeitando 2 meses da última VPC13 ou VPC15 e 1 ano da VPP23. Esquema sequencial completo: 1 dose de VPC20 só a critério médico, com esses mesmos intervalos."
+    ],
+    [
+     "Influenza",
+     "Dose única anual, de preferência a HD3V. Sem ela, usar a 3V ou 4V disponível e, em risco epidemiológico, considerar 2ª dose a partir de 3 meses após a dose anual. A vacina do Hemisfério Sul pode ser dose extra para quem viaja ao Norte do país ou ao exterior."
+    ],
+    [
+     "Herpes-zóster recombinante",
+     "2 doses (0-2 meses), também para quem já teve zóster (esperar 6 meses ou a resolução do quadro). Quem tomou a vacina atenuada pode receber a VZR, com 2 meses de intervalo. Em imunodeprimidos, a VZR é recomendada."
+    ],
+    [
+     "dTpa / dT",
+     "Atualizar a dTpa com intervalo mínimo de 4 semanas da última dose de dT ou TT. Contactantes de lactentes: o reforço pode ser antecipado para 5 anos após a última dose com componente pertussis. Para viagem a país com pólio endêmica, usar dTpa-VIP. Vale também para quem já teve coqueluche."
+    ],
+    [
+     "Febre amarela",
+     "Para idosos não vacinados, a partir dos 60 anos o serviço avalia risco e benefício. PNI: dose única se aplicada a partir dos 5 anos. SBIm: 2 doses, a 2ª 10 anos depois. Para o CIVP, aplicar até 10 dias antes da viagem. Imunodeprimidos: avaliação médica."
+    ],
+    [
+     "VSR",
+     "Arexvy® ou Abrysvo®, 1 dose a qualquer momento. A partir dos 60 anos para quem tem risco de forma grave (cardiopatia, pneumopatia, diabetes, obesidade, nefropatia, hepatopatia, imunossupressão), fragilizados, acamados ou em instituições; rotina a partir dos 70 anos. Sem dados que comprovem doses adicionais."
+    ],
+    [
+     "Hepatites",
+     "Hepatite B (só SUS): 3 doses (0-1-6) em não vacinados. A+B combinada: 3 doses (0-1-6), pode substituir a vacinação isolada. Hepatite A: só após sorologia, exposição ou surto, 2 doses (0-6)."
+    ],
+    [
+     "Meningocócica ACWY e tríplice viral",
+     "ACWY: 1 dose em surtos e viagens para áreas de risco; sem ela, usar a MenC. Tríplice viral: 1 dose em risco aumentado, a critério médico; contraindicada em imunodeprimidos."
+    ]
+   ],
+   "Gestante": [
+    [
+     "Regra geral",
+     "Qualquer dose não aplicada na idade recomendada deve ser feita na visita seguinte. Prefira vacinas combinadas e aplicações simultâneas na mesma visita."
+    ],
+    [
+     "dTpa",
+     "3 ou mais doses com componente tétanico: 1 dose de dTpa a partir da 20ª semana. Com 1 dose: 1 dose de dT e 1 de dTpa (a partir da 20ª semana), com 1 mês entre elas. Com 2 doses: 1 dose de dTpa a partir da 20ª semana. Não vacinada ou histórico desconhecido: 2 doses de dT e 1 de dTpa (a partir da 20ª semana), com 1 mês entre elas. Quem não vacinou na gestação deve vacinar no puerpério, o mais cedo possível. Sem dTpa disponível, a dTpa-VIP pode substituí-la, a critério médico."
+    ],
+    [
+     "Influenza",
+     "Dose única anual, mesmo no 1º trimestre. Em risco epidemiológico, principalmente com fatores de risco, considerar 2ª dose a partir de 3 meses após a dose anual. A vacina do Hemisfério Sul pode ser dose extra em situação de risco ou viagem."
+    ],
+    [
+     "VSR",
+     "Abrysvo®, 1 dose IM a partir de 28 semanas, sem limite superior de idade gestacional, em gestantes de qualquer idade e a cada gestação. A Anvisa licencia de 24 a 36 semanas; entre 24 e 27, a critério médico. Pode ser coadministrada com as outras vacinas de rotina. A alternativa é o nirsevimabe no bebê."
+    ],
+    [
+     "Febre amarela",
+     "Normalmente contraindicada; só se o risco da infecção superar o da vacina. Gestante que viaja a país que exige o CIVP deve ser isentada pelo médico, se não houver risco de infecção. Contraindicada em nutrizes até o bebê completar 6 meses; se inevitável, suspender o aleitamento por 10 dias."
+    ],
+    [
+     "Contraindicadas",
+     "Tríplice viral, HPV e varicela: não vacinar na gestação; podem ser feitas no puerpério e na amamentação (HPV já iniciado: suspender e retomar no puerpério). Dengue: contraindicada em gestantes e nutrizes; se aplicada sem querer em lactante de bebê de até 6 meses, suspender a amamentação por 15 dias."
+    ],
+    [
+     "Hepatites, pneumocócica e meningocócicas",
+     "Hepatite B (só SUS): 3 doses (0-1-6) em não vacinadas. Hepatite A: 2 doses (0-6), vacina inativada. A+B: abaixo de 16 anos 0-6; a partir de 16, 0-1-6. VPC20 em dose única só em gestantes de risco. Meningo ACWY e B: considerar pela situação epidemiológica ou comorbidade; MenB em 2 doses com 1 mês (Bexsero®, até 50 anos)."
+    ]
+   ]
+  }
+ },
+ "sus": {
+  "crianca": [
+   [
+    "Ao nascer",
+    [
+     [
+      "BCG",
+      "Formas graves de tuberculose",
+      "Dose única."
+     ],
+     [
+      "Hepatite B",
+      "Hepatite B",
+      "1ª dose."
+     ]
+    ]
+   ],
+   [
+    "2 meses",
+    [
+     [
+      "Pentavalente (DTP + HB + Hib)",
+      "Difteria, tétano, coqueluche, hepatite B e meningite por Hib",
+      "1ª dose."
+     ],
+     [
+      "VIP",
+      "Poliomielite (paralisia infantil)",
+      "1ª dose."
+     ],
+     [
+      "Rotavírus (VORH)",
+      "Diarreia por rotavírus",
+      "1ª dose."
+     ],
+     [
+      "Pneumocócica",
+      "Doenças pneumocócicas invasivas e otite",
+      "1ª dose. No esquema misto novo, aos 2 meses é a Pneumo-20."
+     ]
+    ]
+   ],
+   [
+    "3 meses",
+    [
+     [
+      "Meningocócica C",
+      "Doença invasiva pelo meningococo C",
+      "1ª dose."
+     ]
+    ]
+   ],
+   [
+    "4 meses",
+    [
+     [
+      "Pentavalente (DTP + HB + Hib)",
+      "Difteria, tétano, coqueluche, hepatite B e meningite por Hib",
+      "2ª dose."
+     ],
+     [
+      "VIP",
+      "Poliomielite (paralisia infantil)",
+      "2ª dose."
+     ],
+     [
+      "Rotavírus (VORH)",
+      "Diarreia por rotavírus",
+      "2ª dose."
+     ],
+     [
+      "Pneumocócica",
+      "Doenças pneumocócicas invasivas e otite",
+      "2ª dose. No esquema misto, é a Pneumo-10."
+     ]
+    ]
+   ],
+   [
+    "5 meses",
+    [
+     [
+      "Meningocócica C",
+      "Doença invasiva pelo meningococo C",
+      "2ª dose."
+     ]
+    ]
+   ],
+   [
+    "6 meses",
+    [
+     [
+      "Pentavalente (DTP + HB + Hib)",
+      "Difteria, tétano, coqueluche, hepatite B e meningite por Hib",
+      "3ª dose."
+     ],
+     [
+      "VIP",
+      "Poliomielite (paralisia infantil)",
+      "3ª dose."
+     ],
+     [
+      "Covid-19 (Pfizer pediátrica)",
+      "Formas graves da covid-19",
+      "1ª dose."
+     ],
+     [
+      "Influenza trivalente",
+      "Gripe",
+      "1ª dose. Quem já recebeu ao menos uma dose em anos anteriores toma uma dose por temporada."
+     ]
+    ]
+   ],
+   [
+    "7 meses",
+    [
+     [
+      "Covid-19 (Pfizer pediátrica)",
+      "Formas graves da covid-19",
+      "2ª dose."
+     ],
+     [
+      "Influenza trivalente",
+      "Gripe",
+      "2ª dose, para quem faz a primeira vacinação."
+     ]
+    ]
+   ],
+   [
+    "9 meses",
+    [
+     [
+      "Febre amarela",
+      "Febre amarela",
+      "1ª dose."
+     ],
+     [
+      "Covid-19 (Pfizer pediátrica)",
+      "Formas graves da covid-19",
+      "3ª dose."
+     ]
+    ]
+   ],
+   [
+    "12 meses",
+    [
+     [
+      "Tríplice viral (SCR)",
+      "Sarampo, caxumba e rubéola",
+      "1ª dose."
+     ],
+     [
+      "Pneumocócica",
+      "Doenças pneumocócicas invasivas e otite",
+      "Reforço. No esquema misto, é a Pneumo-20."
+     ],
+     [
+      "Meningocócica ACWY",
+      "Meningococos A, C, W e Y",
+      "1º reforço."
+     ]
+    ]
+   ],
+   [
+    "15 meses",
+    [
+     [
+      "VIP",
+      "Poliomielite (paralisia infantil)",
+      "Reforço."
+     ],
+     [
+      "Hepatite A",
+      "Hepatite A",
+      "Dose única."
+     ],
+     [
+      "DTP (tríplice bacteriana)",
+      "Difteria, tétano e coqueluche",
+      "1º reforço."
+     ],
+     [
+      "Tetraviral (SCRV)",
+      "Sarampo, caxumba, rubéola e varicela",
+      "Dose única."
+     ]
+    ]
+   ],
+   [
+    "4 anos",
+    [
+     [
+      "DTP (tríplice bacteriana)",
+      "Difteria, tétano e coqueluche",
+      "2º reforço."
+     ],
+     [
+      "Varicela",
+      "Catapora",
+      "2ª dose."
+     ],
+     [
+      "Febre amarela",
+      "Febre amarela",
+      "Reforço."
+     ]
+    ]
+   ],
+   [
+    "9 anos",
+    [
+     [
+      "HPV quadrivalente",
+      "Papilomavírus humano 6, 11, 16 e 18",
+      "Dose única, dos 9 aos 14 anos."
+     ]
+    ]
+   ]
+  ],
+  "grupos": {
+   "Adolescente": [
+    [
+     "HPV quadrivalente",
+     "Papilomavírus humano 6, 11, 16 e 18",
+     "Dose única, dos 9 aos 14 anos."
+    ],
+    [
+     "Dengue",
+     "Dengue (sorotipos 1, 2, 3 e 4)",
+     "2 doses, dos 10 aos 14 anos."
+    ],
+    [
+     "Meningocócica ACWY",
+     "Meningococos A, C, W e Y",
+     "Dose única, dos 11 aos 14 anos."
+    ],
+    [
+     "Hepatite B",
+     "Hepatite B",
+     "3 doses, de 11 a 19 anos, conforme o histórico."
+    ],
+    [
+     "dT (dupla adulto)",
+     "Difteria e tétano",
+     "3 doses ou reforço, conforme o histórico."
+    ],
+    [
+     "Tríplice viral (SCR)",
+     "Sarampo, caxumba e rubéola",
+     "2 doses."
+    ],
+    [
+     "Febre amarela",
+     "Febre amarela",
+     "Dose única."
+    ]
+   ],
+   "Adulto": [
+    [
+     "Hepatite B",
+     "Hepatite B",
+     "3 doses, conforme o histórico."
+    ],
+    [
+     "dT (dupla adulto)",
+     "Difteria e tétano",
+     "3 doses; depois, reforço a cada 10 anos. Profissionais de saúde usam dTpa."
+    ],
+    [
+     "Febre amarela",
+     "Febre amarela",
+     "1 dose, conforme o histórico, em especial para quem mora ou viaja para área de risco."
+    ],
+    [
+     "Tríplice viral (SCR)",
+     "Sarampo, caxumba e rubéola",
+     "Até 29 anos, 2 doses; de 30 a 59, 1 dose; trabalhador de saúde, 2 doses."
+    ],
+    [
+     "Pneumocócica 23-valente",
+     "Doenças pneumocócicas",
+     "2 doses, somente indígenas sem histórico de pneumocócica conjugada."
+    ],
+    [
+     "Varicela",
+     "Catapora",
+     "2 doses, somente indígenas e trabalhadores de saúde sem histórico da doença."
+    ]
+   ],
+   "Idoso": [
+    [
+     "Influenza trivalente",
+     "Gripe",
+     "1 dose por ano, com a vacina da temporada."
+    ],
+    [
+     "Covid-19",
+     "Formas graves da covid-19",
+     "1 dose semestral."
+    ],
+    [
+     "Hepatite B",
+     "Hepatite B",
+     "3 doses, conforme o histórico."
+    ],
+    [
+     "dT (dupla adulto)",
+     "Difteria e tétano",
+     "3 doses; depois, reforço a cada 10 anos."
+    ],
+    [
+     "Febre amarela",
+     "Febre amarela",
+     "Em casos excepcionais, após avaliação de risco e benefício."
+    ],
+    [
+     "Tríplice viral (SCR)",
+     "Sarampo, caxumba e rubéola",
+     "2 doses, somente trabalhadores de saúde."
+    ],
+    [
+     "Pneumocócica 23-valente",
+     "Doenças pneumocócicas",
+     "2 doses, somente idosos acamados ou institucionalizados sem histórico; 2ª dose 5 anos após a 1ª."
+    ],
+    [
+     "Varicela",
+     "Catapora",
+     "2 doses, somente indígenas e trabalhadores de saúde, após avaliação caso a caso."
+    ]
+   ],
+   "Gestante": [
+    [
+     "Hepatite B",
+     "Hepatite B",
+     "3 doses, conforme o histórico."
+    ],
+    [
+     "dT (dupla adulto)",
+     "Difteria e tétano",
+     "3 doses, conforme o histórico."
+    ],
+    [
+     "Influenza trivalente",
+     "Gripe",
+     "1 dose por temporada."
+    ],
+    [
+     "Covid-19",
+     "Formas graves da covid-19",
+     "1 dose a cada gestação."
+    ],
+    [
+     "dTpa",
+     "Difteria, tétano e coqueluche",
+     "1 dose a partir da 20ª semana, em cada gestação."
+    ],
+    [
+     "VSR",
+     "Bronquiolite e pneumonia no bebê, nos primeiros 6 meses",
+     "1 dose a partir da 28ª semana, em cada gestação."
+    ],
+    [
+     "Febre amarela",
+     "Febre amarela",
+     "Só em casos excepcionais, com avaliação de risco e benefício."
+    ]
+   ]
+  }
+ }
+}

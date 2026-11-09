@@ -1,0 +1,37 @@
+{
+ "CN": {
+  "Hexavalente": "Hexaxim® (Sanofi) e Infanrix Hexa® (GSK)",
+  "Rotavírus": "Rotateq® (MSD), 3 doses",
+  "Pneumocócica conjugada": "Prevenar 20® (Pfizer) e Vaxneuvance® (MSD, VPC15)",
+  "Meningocócica B": "Bexsero® (GSK)",
+  "Meningocócica ACWY": "Menveo® (GSK) e Nimenrix® (Pfizer)",
+  "Dengue": "Qdenga® (Takeda)",
+  "HPV": "Gardasil 9® (MSD)",
+  "Herpes-zóster recombinante": "Shingrix® (GSK)",
+  "Influenza": "Influvac® tetra (Abbott); para idosos, Efluelda® (alta dose, Sanofi)",
+  "Febre amarela": "Stamaril® (Sanofi)",
+  "Tríplice viral": "MMR II® (MSD)",
+  "Varicela": "Varivax® (MSD)",
+  "Tetraviral (SCRV)": "Sem tetraviral na lista da rede: use MMR II® e Varivax® (MSD) em aplicações separadas",
+  "Hepatite A": "Vacqta® infantil e adulto (MSD)",
+  "Hepatites A e B": "Twinrix® (GSK) para A+B; Vacqta® (MSD) para hepatite A isolada",
+  "dTpa": "Refortrix® (GSK). A Refortrix IPV® (dTpa-VIP) pode substituí-la e é a indicada para viagem a país com pólio endêmica",
+  "dTpa / dT": "Refortrix® (dTpa) e Refortrix IPV® (dTpa-VIP), GSK",
+  "DTPa": "Refortrix® (dTpa) ou Refortrix IPV® (dTpa-VIP), GSK",
+  "VIP": "Refortrix IPV® (dTpa-VIP, GSK)",
+  "DTPa + VIP": "Hexaxim® (Sanofi) e Infanrix Hexa® (GSK)",
+  "VSR": "Arexvy® (GSK) e Abrysvo® (Pfizer)",
+  "VSR (materna)": "Abrysvo® (Pfizer)",
+  "Nirsevimabe (VSR)": "Beyfortus® (Sanofi). A lista da rede traz só a de 100 mg; confirme a de 50 mg para bebês abaixo de 5 kg",
+  "Febre tifoide": "Typhim® (Sanofi)"
+ },
+ "FI": {
+  "Meningocócica B": "Ficha Bexsero®: público-alvo são crianças e adolescentes, adultos até 50 anos conforme risco epidemiológico, viajantes para regiões de risco e pessoas com condições que aumentam o risco de doença meningocócica. Adultos até 50 anos: 2 doses com 1 mês de intervalo, quando indicada. Contraindicação: anafilaxia após dose anterior ou a algum componente."
+ },
+ "EX": [
+  [
+   "Febre tifoide",
+   "Febre tifoide, em viagens a áreas de risco"
+  ]
+ ]
+}
