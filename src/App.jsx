@@ -9,7 +9,7 @@ export default function App(){
   const [h,setH]=useState(lerHash);
   useEffect(()=>{const f=()=>{setH(lerHash());window.scrollTo(0,0)};window.addEventListener("hashchange",f);return()=>window.removeEventListener("hashchange",f)},[]);
   const aba=ABAS.find(x=>x[0]===h)||ABAS[0],View=aba[2];
-  return(<><header><div className="top"><div className="logo">+</div><b>Balcão Vacinal</b></div>
+  return(<><header><div className="top"><a href="#inicio"><div className="logo">+</div><b>Balcão Vacinal</b></a></div>
     <nav>{ABAS.map(([id,nome])=><a key={id} href={"#"+id} className={id===aba[0]?"on":""}>{nome}</a>)}</nav></header>
     <main><View/></main>
     <footer>Material de apoio ao farmacêutico vacinador: rede privada pela SBIm 2026/27 e SUS pelo PNI. A rede privada foi revisada com os PDFs da SBIm 2026/27 (criança, adolescente, adulto, idoso e gestante). Os nomes comerciais seguem a tabela da rede Pague Menos de 07/05/2026; a disponibilidade varia por loja. Dados: SBIm 2026/27 (versões de junho/2026), PNI 2026 e tabela Pague Menos de 07/05/2026. O app não substitui a avaliação profissional nem a caderneta do paciente.</footer>
