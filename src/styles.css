@@ -2,20 +2,21 @@
   box-sizing: border-box;
   padding-top: env(safe-area-inset-top, 0px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
-  --bg: #f3f5fb;
-  --card: #ffffff;
-  --tx: #101943;
-  --mu: #4b5678;
-  --pr: #2340dc;
+  --bg: #1000ba;
+  --card: #1d30d3;
+  --tx: #ffffff;
+  --mu: #d7ddff;
+  --pr: #899aff;
+  --header: #2942dc;
   --pf: #ffffff;
-  --soft: #e9edff;
-  --bd: #d3daf0;
-  --ac: #ff2645;
-  --atx: #101943;
-  --wb: #fff3d9;
-  --wt: #704000;
-  --er: #a71932;
-  --eb: #fff0f2;
+  --soft: #2234d0;
+  --bd: #929fff;
+  --ac: #e61240;
+  --atx: #ffffff;
+  --wb: #4b390c;
+  --wt: #ffe6a3;
+  --er: #ff8296;
+  --eb: #481b2a;
   color-scheme: light;
 }
 
@@ -42,7 +43,7 @@ body::before {
   position: fixed;
   inset: 0 0 auto;
   height: env(safe-area-inset-top, 0px);
-  background: var(--pr);
+  background: var(--header);
   z-index: 10;
 }
 
@@ -50,7 +51,7 @@ header {
   position: sticky;
   top: env(safe-area-inset-top, 0px);
   z-index: 9;
-  background: var(--pr);
+  background: var(--header);
 }
 
 .top,
@@ -186,9 +187,9 @@ h3 {
   padding: 26px 30px;
   border: 0;
   border-radius: 20px;
-  background: linear-gradient(135deg, #2340dc, #1d34bd);
+  background: linear-gradient(135deg, var(--header), #1d33c5);
   color: #ffffff;
-  box-shadow: 0 12px 28px rgb(35 64 220 / 16%);
+  box-shadow: 0 12px 28px rgb(0 0 0 / 18%);
 }
 
 .hero h1 {
@@ -288,17 +289,22 @@ h3 {
   min-height: 44px;
   padding: 9px 15px;
   border: 1.5px solid var(--bd);
-  border-radius: 12px;
-  background: var(--card);
-  color: var(--tx);
+  border-radius: 999px;
+  background: transparent;
+  color: #ffffff;
   font: inherit;
   font-weight: 650;
   cursor: pointer;
 }
 
+.chips button {
+  border-color: #ffffff;
+}
+
 .chips button:hover,
 .tabs button:hover {
-  border-color: var(--pr);
+  border-color: #ffffff;
+  background: rgb(255 255 255 / 10%);
 }
 
 .chips button.on,
@@ -337,7 +343,7 @@ details.c {
   border-top: 4px solid var(--pr);
   border-radius: 15px;
   background: var(--card);
-  box-shadow: 0 3px 12px rgb(22 35 87 / 4%);
+  box-shadow: 0 3px 12px rgb(0 0 0 / 16%);
 }
 
 details.c[open] {
@@ -365,7 +371,7 @@ details.c summary::after {
   position: absolute;
   top: 50%;
   right: 2px;
-  color: var(--pr);
+  color: #ffffff;
   content: "+";
   font-size: 24px;
   font-weight: 500;
@@ -407,7 +413,7 @@ details.c p {
 .warn {
   margin: 16px 0;
   padding: 13px 16px;
-  border-left: 4px solid #b66b00;
+  border-left: 4px solid #ffca55;
   border-radius: 10px;
   background: var(--wb);
   color: var(--wt);
@@ -439,7 +445,7 @@ select {
 }
 
 .hero .ln input[aria-invalid="true"] {
-  border-color: #a71932;
+  border-color: var(--er);
 }
 
 input::placeholder {
@@ -449,7 +455,7 @@ input::placeholder {
 
 .res {
   margin-top: 12px;
-  color: var(--pr);
+  color: #ffffff;
   font-size: 21px;
   font-weight: 700;
 }
@@ -529,8 +535,9 @@ a:focus-visible,
 summary:focus-visible,
 input:focus-visible,
 select:focus-visible {
-  outline: 3px solid var(--ac);
+  outline: 3px solid #ffffff;
   outline-offset: 3px;
+  box-shadow: 0 0 0 5px var(--bg);
 }
 
 .hero button:focus-visible,
