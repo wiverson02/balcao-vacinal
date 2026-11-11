@@ -205,14 +205,9 @@
     "4-6 anos",
     [
      [
-      "DTPa",
-      "Difteria, tétano e coqueluche",
-      "Reforço."
-     ],
-     [
-      "VIP",
-      "Poliomielite inativada",
-      "Reforço."
+      "dTpa-VIP",
+      "Difteria, tétano, coqueluche e poliomielite",
+      "2º reforço (entre 4 e 6 anos), aplicando tríplice bacteriana acelular + pólio inativada em uma única dose."
      ],
      [
       "Febre amarela",
@@ -312,7 +307,7 @@
      "Hepatite A: 2 doses (0-6 meses). A+B combinada: 3 doses (0-1-6). A hepatite B isolada é só do SUS."
     ],
     [
-     "dTpa / dT",
+     "dTpa",
      "Difteria, tétano e coqueluche",
      "Esquema completo: reforço com dTpa a cada 10 anos. Incompleto: 1 dose de dTpa e dT até somar 3 doses. Sem histórico: dTpa e 2 doses de dT (0-2-4 a 8 meses)."
     ],
@@ -399,7 +394,7 @@
      "1 dose, em qualquer época do ano. A partir dos 60 anos para quem tem risco de forma grave; rotina a partir dos 70 anos."
     ],
     [
-     "dTpa / dT",
+     "dTpa",
      "Difteria, tétano e coqueluche",
      "Rotina: reforço com dTpa a cada 10 anos. Incompleto: 1 dose de dTpa e dT até somar 3 doses."
     ],
@@ -491,8 +486,7 @@
    "Tetraviral (SCRV)": "Pode substituir a 2ª dose de tríplice viral e varicela a partir de 15 meses, com 3 meses de intervalo da dose anterior.",
    "HPV": "Não vacinados: 2 doses de HPV9 (0-6 meses). 1 dose de HPV4: completar com HPV9 após 6 meses. HPV2 ou HPV4 completo: 2 doses de HPV9 após 1 ano da última dose.",
    "DTPa + VIP": "Inclua o reforço de Hib (15 a 18 meses), de preferência em vacina combinada. Não há Hib de rotina em crianças saudáveis a partir dos 5 anos.",
-   "VIP": "O PNI usa 4 doses (2, 4, 6 e 15 meses). A SBIm recomenda 2º reforço entre 4 e 6 anos, de preferência combinado com DTPa ou dTpa.",
-   "DTPa": "O reforço seguinte é com dTpa, 5 anos depois, de preferência entre 9 e 11 anos.",
+   "dTpa-VIP": "Reforço indicado entre 4 e 6 anos (Refortrix IPV®). O reforço seguinte será com dTpa (Refortrix®) 5 anos depois, entre 9 e 11 anos.",
    "Dengue": "A partir de 4 anos, 2 doses com 3 meses de intervalo, independente de contato prévio com a dengue.",
    "Nirsevimabe (VSR)": "Menores de 12 meses: 50 mg IM se peso abaixo de 5 kg; 100 mg se 5 kg ou mais. De 12 a 23 meses com risco: 200 mg (2 doses de 100 mg)."
   },
@@ -503,7 +497,7 @@
      "Qualquer dose não aplicada na idade recomendada deve ser feita na visita seguinte. Prefira vacinas combinadas e aplicações simultâneas na mesma visita."
     ],
     [
-     "dTpa / dT",
+     "dTpa",
      "Atualizar a dTpa com intervalo mínimo de 4 semanas da última dose de dT ou TT. Contactantes de lactentes: o reforço pode ser antecipado para 5 anos após a última dose com componente pertussis. Para viagem a país com pólio endêmica, usar dTpa-VIP. Vale também para quem já teve coqueluche."
     ],
     [
@@ -541,7 +535,7 @@
      "Qualquer dose não aplicada na idade recomendada deve ser feita na visita seguinte. Prefira vacinas combinadas e aplicações simultâneas na mesma visita."
     ],
     [
-     "dTpa / dT",
+     "dTpa",
      "Atualizar a dTpa com intervalo mínimo de 4 semanas da última dose de dT ou TT. Contactantes de lactentes: o reforço pode ser antecipado para 5 anos após a última dose com componente pertussis. Para viagem a país com pólio endêmica, usar dTpa-VIP. Vale também para quem já teve coqueluche."
     ],
     [
@@ -603,7 +597,7 @@
      "2 doses (0-2 meses), também para quem já teve zóster (esperar 6 meses ou a resolução do quadro). Quem tomou a vacina atenuada pode receber a VZR, com 2 meses de intervalo. Em imunodeprimidos, a VZR é recomendada."
     ],
     [
-     "dTpa / dT",
+     "dTpa",
      "Atualizar a dTpa com intervalo mínimo de 4 semanas da última dose de dT ou TT. Contactantes de lactentes: o reforço pode ser antecipado para 5 anos após a última dose com componente pertussis. Para viagem a país com pólio endêmica, usar dTpa-VIP. Vale também para quem já teve coqueluche."
     ],
     [

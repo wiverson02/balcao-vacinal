@@ -71,24 +71,14 @@
   "beneficio": "Garante a imunização contra os dois tipos de hepatite (A e B) com menor número de injeções no esquema adulto e adolescente."
  },
  "dTpa": {
-  "marcas": "Refortrix® (GSK). A Refortrix IPV® (dTpa-VIP) pode substituí-la",
-  "diferencial_sus": "Acelular (menos reação)",
-  "beneficio": "Proteção atualizada contra tétano, difteria e coqueluche, com tecnologia purificada que diminui significativamente dor no braço e febre."
+  "marcas": "Refortrix® (GSK) — Refortrix IPV® pode substituí-la se necessário",
+  "diferencial_sus": "Acelular + Coqueluche",
+  "beneficio": "Reforço acelular (menos dor e febre) que inclui proteção contra coqueluche — ausente na dupla adulto (dT) do SUS — essencial a cada 10 anos para adolescentes, adultos, idosos, gestantes e rede de apoio de bebês."
  },
- "dTpa / dT": {
-  "marcas": "Refortrix® (dTpa) e Refortrix IPV® (dTpa-VIP), GSK",
-  "diferencial_sus": "Acelular (menos reação)",
-  "beneficio": "Reforço essencial a cada 10 anos contra tétano e coqueluche, ideal para pais, avós e rede de apoio do bebê."
- },
- "DTPa": {
-  "marcas": "Refortrix® (dTpa) ou Refortrix IPV® (dTpa-VIP), GSK",
-  "diferencial_sus": "Acelular (menos reação)",
-  "beneficio": "Reforço infantil seguro e com baixíssimo índice de reações sistêmicas se comparado à versão inteira do posto."
- },
- "VIP": {
-  "marcas": "Refortrix IPV® (dTpa-VIP, GSK)",
-  "diferencial_sus": "Pólio inativada",
-  "beneficio": "Vacina injetável 100% segura contra a poliomielite, sem o uso de vírus vivos (diferente da antiga gotinha)."
+ "dTpa-VIP": {
+  "marcas": "Refortrix IPV® (GSK)",
+  "diferencial_sus": "4 em 1 (com Pólio inativada)",
+  "beneficio": "Resolve em uma única picada o reforço infantil de 4 a 6 anos contra difteria, tétano, coqueluche e poliomielite injetável, além de ser indicada para viajantes e substituir a Refortrix® quando necessário."
  },
  "DTPa + VIP": {
   "marcas": "Hexaxim® (Sanofi) e Infanrix Hexa® (GSK)",
