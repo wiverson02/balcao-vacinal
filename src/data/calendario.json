@@ -37,7 +37,7 @@
      [
       "Rotavírus",
       "Diarreia por rotavírus",
-      "1ª dose a partir de 6 semanas. Monovalente: 2 doses (2 e 4 meses); pentavalente: 3 doses (2, 4 e 6 meses)."
+      "1ª dose (esquema completo de 3 doses: 2, 4 e 6 meses)."
      ]
     ]
    ],
@@ -72,7 +72,7 @@
      [
       "Rotavírus",
       "Diarreia por rotavírus",
-      "2ª dose. Se a série tiver vacina pentavalente, são 3 doses."
+      "2ª dose (esquema completo de 3 doses: 2, 4 e 6 meses)."
      ]
     ]
    ],
@@ -103,6 +103,11 @@
       "Pneumocócica conjugada",
       "Doenças pneumocócicas",
       "3ª dose, no esquema 3+1 para quem começou até os 6 meses."
+     ],
+     [
+      "Rotavírus",
+      "Diarreia por rotavírus",
+      "3ª dose (esquema completo de 3 doses: 2, 4 e 6 meses)."
      ],
      [
       "Influenza",
