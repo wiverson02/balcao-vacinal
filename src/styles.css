@@ -395,6 +395,21 @@ details.c summary b {
   overflow-wrap: anywhere;
 }
 
+.diferencial {
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 2px;
+  padding: 3px 8px;
+  border: 1px solid var(--bd);
+  border-radius: 999px;
+  background: var(--soft);
+  color: var(--tx);
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
 details.c summary small {
   color: var(--tx);
   font-size: 18px;
@@ -588,6 +603,11 @@ ul.pd {
 details.c p.fi {
   color: var(--mu);
   font-size: 15px;
+}
+
+details.c p.beneficio {
+  border-top: 1px solid var(--bd);
+  color: var(--tx);
 }
 
 @media (max-width: 640px) {

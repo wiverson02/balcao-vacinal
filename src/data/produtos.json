@@ -1,29 +1,120 @@
 {
  "CN": {
-  "Hexavalente": "Hexaxim® (Sanofi) e Infanrix Hexa® (GSK)",
-  "Rotavírus": "Rotateq® (MSD), 3 doses",
-  "Pneumocócica conjugada": "Prevenar 20® (Pfizer) e Vaxneuvance® (MSD, VPC15)",
-  "Meningocócica B": "Bexsero® (GSK)",
-  "Meningocócica ACWY": "Menveo® (GSK) e Nimenrix® (Pfizer)",
-  "Dengue": "Qdenga® (Takeda)",
-  "HPV": "Gardasil 9® (MSD)",
-  "Herpes-zóster recombinante": "Shingrix® (GSK)",
-  "Influenza": "Influvac® tetra (Abbott); para idosos, Efluelda® (alta dose, Sanofi)",
-  "Febre amarela": "Stamaril® (Sanofi)",
-  "Tríplice viral": "MMR II® (MSD)",
-  "Varicela": "Varivax® (MSD)",
-  "Tetraviral (SCRV)": "Sem tetraviral na lista da rede: use MMR II® e Varivax® (MSD) em aplicações separadas",
-  "Hepatite A": "Vacqta® infantil e adulto (MSD)",
-  "Hepatites A e B": "Twinrix® (GSK) para A+B; Vacqta® (MSD) para hepatite A isolada",
-  "dTpa": "Refortrix® (GSK). A Refortrix IPV® (dTpa-VIP) pode substituí-la e é a indicada para viagem a país com pólio endêmica",
-  "dTpa / dT": "Refortrix® (dTpa) e Refortrix IPV® (dTpa-VIP), GSK",
-  "DTPa": "Refortrix® (dTpa) ou Refortrix IPV® (dTpa-VIP), GSK",
-  "VIP": "Refortrix IPV® (dTpa-VIP, GSK)",
-  "DTPa + VIP": "Hexaxim® (Sanofi) e Infanrix Hexa® (GSK)",
-  "VSR": "Arexvy® (GSK) e Abrysvo® (Pfizer)",
-  "VSR (materna)": "Abrysvo® (Pfizer)",
-  "Nirsevimabe (VSR)": "Beyfortus® (Sanofi). A lista da rede traz só a de 100 mg; confirme a de 50 mg para bebês abaixo de 5 kg",
-  "Febre tifoide": "Typhim® (Sanofi)"
+ "Hexavalente": {
+  "marcas": "Hexaxim® (Sanofi) e Infanrix Hexa® (GSK)",
+  "diferencial_sus": "Acelular + 6 em 1",
+  "beneficio": "Reduz drasticamente o risco de febre e dor local por ser acelular, além de unir 6 proteções (incluindo a pólio inativada) em uma única picada."
+ },
+ "Rotavírus": {
+  "marcas": "Rotateq® (MSD), 3 doses",
+  "diferencial_sus": "Pentavalente (5 tipos)",
+  "beneficio": "Protege contra 5 sorotipos causadores de diarreia grave e internação, enquanto a versão oferecida no SUS protege contra apenas 1."
+ },
+ "Pneumocócica conjugada": {
+  "marcas": "Prevenar 20® (Pfizer) e Vaxneuvance® (MSD, VPC15)",
+  "diferencial_sus": "Cobre 15 ou 20 tipos",
+  "beneficio": "Maior e mais moderna cobertura contra pneumonias, meningites e otites do que a versão do SUS (que cobre apenas 10 tipos)."
+ },
+ "Meningocócica B": {
+  "marcas": "Bexsero® (GSK)",
+  "diferencial_sus": "Exclusiva Rede Privada",
+  "beneficio": "Cobre a principal causa de meningite bacteriana grave e sepse em bebês, crianças e adolescentes, não disponível na rede pública."
+ },
+ "Meningocócica ACWY": {
+  "marcas": "Menveo® (GSK) e Nimenrix® (Pfizer)",
+  "diferencial_sus": "Proteção ampliada",
+  "beneficio": "Amplia a proteção de 1 para 4 tipos de meningite (A, C, W e Y) logo nos primeiros meses de vida. No SUS, bebês recebem apenas proteção para o tipo C."
+ },
+ "Dengue": {
+  "marcas": "Qdenga® (Takeda)",
+  "diferencial_sus": "Público ampliado (4 a 60 anos)",
+  "beneficio": "Protege contra os 4 sorotipos da dengue, inclusive para quem nunca teve a doença e abrangendo a faixa etária não coberta pelo SUS."
+ },
+ "HPV": {
+  "marcas": "Gardasil 9® (MSD)",
+  "diferencial_sus": "Nonavalente (9 tipos)",
+  "beneficio": "Maior proteção mundial contra o câncer de colo de útero, vulva, ânus e verrugas genitais, cobrindo 9 tipos do vírus (o SUS cobre 4)."
+ },
+ "Herpes-zóster recombinante": {
+  "marcas": "Shingrix® (GSK)",
+  "diferencial_sus": "Exclusiva Rede Privada",
+  "beneficio": "Eficácia superior a 90% para evitar a reativação do vírus (cobreiro) e a neuralgia (dor crônica nos nervos), indicada a partir dos 50 anos."
+ },
+ "Influenza": {
+  "marcas": "Influvac® tetra (Abbott); para idosos, Efluelda® (alta dose, Sanofi)",
+  "diferencial_sus": "Tetravalente e Alta Dose (60+)",
+  "beneficio": "Protege contra 4 cepas da gripe (SUS protege contra 3). A Efluelda é a única superpotente específica para blindar a imunidade de idosos."
+ },
+ "Febre amarela": {
+  "marcas": "Stamaril® (Sanofi)",
+  "diferencial_sus": "Disponível para emissão de CIVP",
+  "beneficio": "Fundamental para emissão do Certificado Internacional de Vacinação (CIVP) em viagens ou para resgate de doses em atraso."
+ },
+ "Tríplice viral": {
+  "marcas": "MMR II® (MSD)",
+  "diferencial_sus": "Rede Privada",
+  "beneficio": "Proteção robusta contra sarampo, caxumba e rubéola para atualizar o calendário."
+ },
+ "Varicela": {
+  "marcas": "Varivax® (MSD)",
+  "diferencial_sus": "Esquema completo de 2 doses",
+  "beneficio": "Garante eficácia máxima com a aplicação de 2 doses específicas contra a catapora, minimizando casos de escape."
+ },
+ "Hepatite A": {
+  "marcas": "Vacqta® infantil e adulto (MSD)",
+  "diferencial_sus": "Esquema completo de 2 doses",
+  "beneficio": "Assegura proteção duradoura ao fígado com o esquema de 2 doses (o SUS oferece apenas 1 dose aos 15 meses)."
+ },
+ "Hepatites A e B": {
+  "marcas": "Twinrix® (GSK) para A+B; Vacqta® (MSD) para hepatite A isolada",
+  "diferencial_sus": "Proteção combinada",
+  "beneficio": "Garante a imunização contra os dois tipos de hepatite (A e B) com menor número de injeções no esquema adulto e adolescente."
+ },
+ "dTpa": {
+  "marcas": "Refortrix® (GSK). A Refortrix IPV® (dTpa-VIP) pode substituí-la",
+  "diferencial_sus": "Acelular (menos reação)",
+  "beneficio": "Proteção atualizada contra tétano, difteria e coqueluche, com tecnologia purificada que diminui significativamente dor no braço e febre."
+ },
+ "dTpa / dT": {
+  "marcas": "Refortrix® (dTpa) e Refortrix IPV® (dTpa-VIP), GSK",
+  "diferencial_sus": "Acelular (menos reação)",
+  "beneficio": "Reforço essencial a cada 10 anos contra tétano e coqueluche, ideal para pais, avós e rede de apoio do bebê."
+ },
+ "DTPa": {
+  "marcas": "Refortrix® (dTpa) ou Refortrix IPV® (dTpa-VIP), GSK",
+  "diferencial_sus": "Acelular (menos reação)",
+  "beneficio": "Reforço infantil seguro e com baixíssimo índice de reações sistêmicas se comparado à versão inteira do posto."
+ },
+ "VIP": {
+  "marcas": "Refortrix IPV® (dTpa-VIP, GSK)",
+  "diferencial_sus": "Pólio inativada",
+  "beneficio": "Vacina injetável 100% segura contra a poliomielite, sem o uso de vírus vivos (diferente da antiga gotinha)."
+ },
+ "DTPa + VIP": {
+  "marcas": "Hexaxim® (Sanofi) e Infanrix Hexa® (GSK)",
+  "diferencial_sus": "Acelular + Pólio (combo)",
+  "beneficio": "Reforço aos 15 meses que entrega proteção acelular contra coqueluche e pólio inativada de forma simultânea."
+ },
+ "VSR": {
+  "marcas": "Arexvy® (GSK) e Abrysvo® (Pfizer)",
+  "diferencial_sus": "Exclusiva Rede Privada",
+  "beneficio": "Inovação para blindar adultos 60+ contra pneumonias graves causadas pelo Vírus Sincicial Respiratório."
+ },
+ "VSR (materna)": {
+  "marcas": "Abrysvo® (Pfizer)",
+  "diferencial_sus": "Exclusiva Rede Privada",
+  "beneficio": "Aplicada na gestante para transferir anticorpos e proteger o recém-nascido contra a bronquiolite nos primeiros e mais críticos meses de vida."
+ },
+ "Nirsevimabe (VSR)": {
+  "marcas": "Beyfortus® (Sanofi)",
+  "diferencial_sus": "Exclusiva Rede Privada",
+  "beneficio": "Anticorpo monoclonal inovador que blinda o bebê diretamente contra a bronquiolite e internações pelo vírus VSR em sua primeira temporada."
+ },
+ "Febre tifoide": {
+  "marcas": "Typhim® (Sanofi)",
+  "diferencial_sus": "Exclusiva Rede Privada",
+  "beneficio": "Proteção fundamental transmitida por água e alimentos para quem viaja para áreas endêmicas."
+ }
  },
  "FI": {
   "Meningocócica B": "Ficha Bexsero®: público-alvo são crianças e adolescentes, adultos até 50 anos conforme risco epidemiológico, viajantes para regiões de risco e pessoas com condições que aumentam o risco de doença meningocócica. Adultos até 50 anos: 2 doses com 1 mês de intervalo, quando indicada. Contraindicação: anafilaxia após dose anterior ou a algum componente."
