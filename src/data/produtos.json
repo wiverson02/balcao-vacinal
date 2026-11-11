@@ -2,8 +2,8 @@
  "CN": {
  "Hexavalente": {
   "marcas": "Hexaxim® (Sanofi) e Infanrix Hexa® (GSK)",
-  "diferencial_sus": "Acelular + 6 em 1",
-  "beneficio": "Reduz drasticamente o risco de febre e dor local por ser acelular, além de unir 6 proteções (incluindo a pólio inativada) em uma única picada."
+  "diferencial_sus": "Hexavalente acelular (6 em 1)",
+  "beneficio": "Reúne seis proteções em uma única aplicação, com componente acelular contra a coqueluche e pólio inativada. O bebê leva menos picadas por consulta, com mais conforto para ele e menos idas à farmácia para a família."
  },
  "Rotavírus": {
   "marcas": "Rotateq® (MSD), 3 doses",
@@ -77,8 +77,8 @@
  },
  "dTpa-VIP": {
   "marcas": "Refortrix IPV® (GSK)",
-  "diferencial_sus": "4 em 1 (com Pólio inativada)",
-  "beneficio": "Resolve em uma única picada o reforço infantil de 4 a 6 anos contra difteria, tétano, coqueluche e poliomielite injetável, além de ser indicada para viajantes e substituir a Refortrix® quando necessário."
+  "diferencial_sus": "4 em 1 (com pólio inativada)",
+  "beneficio": "Resolve em uma única picada o reforço de 4 a 6 anos contra difteria, tétano, coqueluche e poliomielite inativada. Também serve para quem precisa atualizar a proteção contra esses quatro agravos, como viajantes."
  },
  "DTPa + VIP": {
   "marcas": "Hexaxim® (Sanofi) e Infanrix Hexa® (GSK)",
