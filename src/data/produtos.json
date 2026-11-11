@@ -41,9 +41,9 @@
   "beneficio": "Eficácia superior a 90% para evitar a reativação do vírus (cobreiro) e a neuralgia (dor crônica nos nervos), indicada a partir dos 50 anos."
  },
  "Influenza": {
-  "marcas": "Influvac® tetra (Abbott); para idosos, Efluelda® (alta dose, Sanofi)",
-  "diferencial_sus": "Tetravalente e Alta Dose (60+)",
-  "beneficio": "Protege contra 4 cepas da gripe (SUS protege contra 3). A Efluelda é a única superpotente específica para blindar a imunidade de idosos."
+  "marcas": "Influvac® tetra (Abbott)",
+  "diferencial_sus": "Tetravalente",
+  "beneficio": "Protege contra 4 cepas da gripe (SUS protege contra 3)."
  },
  "Febre amarela": {
   "marcas": "Stamaril® (Sanofi)",
