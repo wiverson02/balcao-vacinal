@@ -3,7 +3,7 @@
  "Hexavalente": {
   "marcas": "Hexaxim® (Sanofi) e Infanrix Hexa® (GSK)",
   "diferencial_sus": "Hexavalente acelular (6 em 1)",
-  "beneficio": "Reúne seis proteções em uma única aplicação, com componente acelular contra a coqueluche e pólio inativada. O bebê leva menos picadas por consulta, com mais conforto para ele e menos idas à farmácia para a família."
+  "beneficio": "Reúne seis proteções em uma única vacina, com componente acelular contra a coqueluche, que a SBIm considera preferível por causar eventos adversos menos frequentes e menos intensos. Menos picadas para o bebê em cada visita."
  },
  "Rotavírus": {
   "marcas": "Rotateq® (MSD), 3 doses",
@@ -53,7 +53,7 @@
  "Tríplice viral": {
   "marcas": "MMR II® (MSD)",
   "diferencial_sus": "Rede Privada",
-  "beneficio": "Proteção robusta contra sarampo, caxumba e rubéola para atualizar o calendário."
+  "beneficio": "Protege contra sarampo, caxumba e rubéola em duas doses: a 1ª aos 12 meses e a 2ª a partir dos 15 meses. Em surto ou exposição domiciliar, a 1ª dose pode ser antecipada para a partir dos 6 meses, e ainda são necessárias mais duas doses após 1 ano de idade."
  },
  "Varicela": {
   "marcas": "Varivax® (MSD)",
@@ -79,11 +79,6 @@
   "marcas": "Refortrix IPV® (GSK)",
   "diferencial_sus": "4 em 1 (com pólio inativada)",
   "beneficio": "Resolve em uma única picada o reforço de 4 a 6 anos contra difteria, tétano, coqueluche e poliomielite inativada. Também serve para quem precisa atualizar a proteção contra esses quatro agravos, como viajantes."
- },
- "DTPa + VIP": {
-  "marcas": "Hexaxim® (Sanofi) e Infanrix Hexa® (GSK)",
-  "diferencial_sus": "Acelular + Pólio (combo)",
-  "beneficio": "Reforço aos 15 meses que entrega proteção acelular contra coqueluche e pólio inativada de forma simultânea."
  },
  "VSR": {
   "marcas": "Arexvy® (GSK) e Abrysvo® (Pfizer)",

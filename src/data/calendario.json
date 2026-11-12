@@ -182,7 +182,7 @@
      [
       "Tetraviral (SCRV)",
       "Sarampo, caxumba, rubéola e varicela",
-      "2ª dose de tríplice viral e varicela, com 3 meses de intervalo da dose anterior."
+      "2ª dose de tríplice viral e varicela, preferencialmente com a tetraviral (SCRV) a partir dos 15 meses, com 3 meses de intervalo da dose anterior."
      ],
      [
       "DTPa + VIP",
@@ -481,9 +481,9 @@
    "Influenza": "Primovacinação em menores de 9 anos: 2 doses com 30 dias de intervalo. Depois, dose única anual.",
    "Febre amarela": "Doses aos 9 meses e aos 4 anos. Se a 1ª foi a partir dos 5 anos, o PNI considera dose única e a SBIm recomenda nova dose 10 anos depois. Em menores de 2 anos, 30 dias de intervalo da tríplice viral.",
    "Hepatite A": "2 doses (0-6 meses). A partir de 12 meses, quem não tomou hepatite B no 1º ano pode usar a combinada A+B formulação adulto, em 2 doses (0-6 meses).",
-   "Tríplice viral": "2ª dose a partir de 15 meses, com 3 meses de intervalo da dose anterior. Em surto ou exposição domiciliar: 1ª dose a partir de 6 meses e mais 2 doses após 1 ano. 3ª dose só em risco epidemiológico.",
+   "Tríplice viral": "2ª dose a partir de 15 meses, preferencialmente com a tetraviral (SCRV), com 3 meses de intervalo da dose anterior. Em surto ou exposição domiciliar: 1ª dose a partir de 6 meses e mais 2 doses após 1 ano. 3ª dose só em risco epidemiológico.",
    "Varicela": "Vacinada é quem recebeu 2 doses após 1 ano de idade, com 3 meses de intervalo. Em surto ou exposição domiciliar: 1ª dose a partir de 9 meses e mais 2 doses após 1 ano.",
-   "Tetraviral (SCRV)": "Pode substituir a 2ª dose de tríplice viral e varicela a partir de 15 meses, com 3 meses de intervalo da dose anterior.",
+   "Tetraviral (SCRV)": "A SBIm prefere a tetraviral (SCRV) para a 2ª dose de tríplice viral e varicela, a partir de 15 meses, com 3 meses de intervalo da dose anterior.",
    "HPV": "Não vacinados: 2 doses de HPV9 (0-6 meses). 1 dose de HPV4: completar com HPV9 após 6 meses. HPV2 ou HPV4 completo: 2 doses de HPV9 após 1 ano da última dose.",
    "DTPa + VIP": "Inclua o reforço de Hib (15 a 18 meses), de preferência em vacina combinada. Não há Hib de rotina em crianças saudáveis a partir dos 5 anos.",
    "dTpa-VIP": "Reforço indicado entre 4 e 6 anos (Refortrix IPV®). O reforço seguinte será com dTpa (Refortrix®) 5 anos depois, entre 9 e 11 anos.",
