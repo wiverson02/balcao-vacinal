@@ -22,6 +22,9 @@ Precisa do Node.js 18+ (https://nodejs.org).
     src/data/produtos.json     nomes comerciais da rede (CN), fichas (FI) e vacinas fora do calendário (EX)
     src/data/intervalos.json   intervalos de referência da calculadora
     src/data/materiais.json    links dos PDFs oficiais
+    src/data/fontes.json       registro dos documentos-fonte (SBIm, PNI, Anvisa, tabela da rede)
+    src/data/meta.json         data dos dados (rodapé) e fonte de cada seção
+    docs/                      como atualizar os dados e registro de decisões
     src/lib.js                 idade em meses, faixas e grupos
     src/components/Card.jsx    cartão de vacina (com etiqueta da rede)
     src/views/                 uma tela por arquivo (Inicio, Calendario, Guia, Intervalos, Caderneta, Materiais)
@@ -29,8 +32,10 @@ Precisa do Node.js 18+ (https://nodejs.org).
     src/styles.css             identidade visual
     src/App.test.jsx           testes das telas
     src/lib.test.js            testes de idade, faixas e grupos (lib.js)
+    src/dados.test.js          validação dos JSONs de src/data (rode ao editar qualquer dado)
 
 ## Como atualizar os dados (sem mexer em código)
+Passo a passo completo em `docs/COMO-ATUALIZAR-DADOS.md`. Resumo:
 - Novo calendário da SBIm: edite `src/data/calendario.json` e o texto do rodapé em `src/App.jsx`.
 - Tabela da Pague Menos: edite `src/data/produtos.json` (chave = nome da vacina no calendário).
 - Cada vacina é uma lista `[nome, protege contra, esquema]`. Esquemas "Só no SUS: ..." aparecem na caderneta como encaminhamento à UBS.

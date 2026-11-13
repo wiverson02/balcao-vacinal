@@ -1,2 +1,9 @@
 node_modules
 dist
+fontes/
+.playwright-mcp/
+.vscode/
+/after-*.png
+/baseline-*.png
+/review-*.png
+/dark-navy-*.png

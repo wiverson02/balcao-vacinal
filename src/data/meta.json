@@ -1,0 +1,21 @@
+{
+ "atualizadoEm": "2026-11-12",
+ "secoes": {
+  "privada.crianca": ["sbim-crianca-2026-27"],
+  "privada.grupos.Adolescente": ["sbim-adolescente-2026-27"],
+  "privada.grupos.Adulto": ["sbim-adulto-2026-27"],
+  "privada.grupos.Idoso": ["sbim-idoso-2026-27"],
+  "privada.grupos.Gestante": ["sbim-gestante-2026-27"],
+  "privada.resgateCrianca": ["sbim-crianca-2026-27"],
+  "privada.resgateGrupos.Adolescente": ["sbim-adolescente-2026-27"],
+  "privada.resgateGrupos.Adulto": ["sbim-adulto-2026-27"],
+  "privada.resgateGrupos.Idoso": ["sbim-idoso-2026-27"],
+  "privada.resgateGrupos.Gestante": ["sbim-gestante-2026-27"],
+  "sus.crianca": ["pni-calendario-nacional-2026"],
+  "sus.grupos.Adolescente": ["pni-calendario-nacional-2026"],
+  "sus.grupos.Adulto": ["pni-calendario-nacional-2026"],
+  "sus.grupos.Idoso": ["pni-calendario-nacional-2026"],
+  "sus.grupos.Gestante": ["pni-calendario-nacional-2026"],
+  "produtos.CN": ["tabela-pague-menos-2026-05-07"]
+ }
+}
