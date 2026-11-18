@@ -56,26 +56,22 @@ describe("txtIdade",()=>{
   });
 });
 
-describe("tabelas de faixas (TP privada, TS SUS)",()=>{
+describe("limites de faixa (TP privada, TS SUS), lidos do calendario.json",()=>{
   it("estão em ordem estritamente crescente e começam em 0",()=>{
     for(const T of [TP,TS]){
       expect(T[0]).toBe(0);
       for(let i=1;i<T.length;i++)expect(T[i]).toBeGreaterThan(T[i-1]);
     }
   });
-  // Se alguém editar o calendário sem ajustar TP/TS, estes testes avisam.
-  it("têm uma entrada para cada faixa da criança em calendario.json",()=>{
-    expect(TP.length).toBe(calendario.privada.crianca.length);
-    expect(TS.length).toBe(calendario.sus.crianca.length);
-  });
+  // TP e TS agora vêm do 3º item de cada faixa em calendario.json. Aqui conferimos só se esse número bate com o rótulo.
   it("o limite de cada faixa bate com o rótulo dela no calendário",()=>{
     const emMeses=(r)=>{
       if(/ao nascer/i.test(r))return 0;
       const m=r.match(/^(\d+)(?:-\d+)?\s*(meses|anos)/i);
       return m?(+m[1])*(m[2].toLowerCase()==="anos"?12:1):null;
     };
-    calendario.privada.crianca.forEach((f,i)=>expect(emMeses(f[0]),f[0]).toBe(TP[i]));
-    calendario.sus.crianca.forEach((f,i)=>expect(emMeses(f[0]),f[0]).toBe(TS[i]));
+    calendario.privada.crianca.forEach((f,i)=>{expect(emMeses(f[0]),f[0]).toBe(f[2]);expect(TP[i]).toBe(f[2])});
+    calendario.sus.crianca.forEach((f,i)=>{expect(emMeses(f[0]),f[0]).toBe(f[2]);expect(TS[i]).toBe(f[2])});
   });
 });
 

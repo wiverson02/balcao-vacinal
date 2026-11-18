@@ -19,7 +19,8 @@
       "Vírus sincicial respiratório",
       "Dose única, de preferência na maternidade, se a mãe não foi vacinada na gestação, ou em prematuros e bebês de risco."
      ]
-    ]
+    ],
+    0
    ],
    [
     "2 meses",
@@ -39,7 +40,8 @@
       "Diarreia por rotavírus",
       "1ª dose (esquema completo de 3 doses: 2, 4 e 6 meses)."
      ]
-    ]
+    ],
+    2
    ],
    [
     "3 meses",
@@ -54,7 +56,8 @@
       "Meningococos A, C, W e Y",
       "1ª dose."
      ]
-    ]
+    ],
+    3
    ],
    [
     "4 meses",
@@ -74,7 +77,8 @@
       "Diarreia por rotavírus",
       "2ª dose (esquema completo de 3 doses: 2, 4 e 6 meses)."
      ]
-    ]
+    ],
+    4
    ],
    [
     "5 meses",
@@ -89,7 +93,8 @@
       "Meningococos A, C, W e Y",
       "2ª dose."
      ]
-    ]
+    ],
+    5
    ],
    [
     "6 meses",
@@ -119,7 +124,8 @@
       "Covid-19",
       "Só no SUS: para crianças de 6 meses a menos de 5 anos, é vacina do PNI e não é aplicada em serviços privados."
      ]
-    ]
+    ],
+    6
    ],
    [
     "7 meses",
@@ -129,7 +135,8 @@
       "Gripe",
       "2ª dose, 30 dias após a 1ª, para quem começou aos 6 meses."
      ]
-    ]
+    ],
+    7
    ],
    [
     "9 meses",
@@ -139,7 +146,8 @@
       "Febre amarela",
       "1ª dose."
      ]
-    ]
+    ],
+    9
    ],
    [
     "12 meses",
@@ -174,7 +182,8 @@
       "Meningite e sepse por meningococo B",
       "Reforço, entre 12 e 15 meses."
      ]
-    ]
+    ],
+    12
    ],
    [
     "15 meses",
@@ -189,7 +198,8 @@
       "Difteria, tétano, coqueluche e poliomielite",
       "1º reforço."
      ]
-    ]
+    ],
+    15
    ],
    [
     "18 meses",
@@ -199,7 +209,8 @@
       "Hepatite A",
       "2ª dose, 6 meses após a 1ª."
      ]
-    ]
+    ],
+    18
    ],
    [
     "4-6 anos",
@@ -224,7 +235,8 @@
       "Meningococos A, C, W e Y",
       "2º reforço entre 5 e 6 anos."
      ]
-    ]
+    ],
+    48
    ],
    [
     "9-10 anos",
@@ -239,7 +251,8 @@
       "Difteria, tétano e coqueluche",
       "Reforço 5 anos após o anterior, de preferência entre 9 e 11 anos."
      ]
-    ]
+    ],
+    108
    ]
   ],
   "grupos": {
@@ -664,7 +677,8 @@
       "Hepatite B",
       "1ª dose."
      ]
-    ]
+    ],
+    0
    ],
    [
     "2 meses",
@@ -689,7 +703,8 @@
       "Doenças pneumocócicas invasivas e otite",
       "1ª dose. No esquema misto novo, aos 2 meses é a Pneumo-20."
      ]
-    ]
+    ],
+    2
    ],
    [
     "3 meses",
@@ -699,7 +714,8 @@
       "Doença invasiva pelo meningococo C",
       "1ª dose."
      ]
-    ]
+    ],
+    3
    ],
    [
     "4 meses",
@@ -724,7 +740,8 @@
       "Doenças pneumocócicas invasivas e otite",
       "2ª dose. No esquema misto, é a Pneumo-10."
      ]
-    ]
+    ],
+    4
    ],
    [
     "5 meses",
@@ -734,7 +751,8 @@
       "Doença invasiva pelo meningococo C",
       "2ª dose."
      ]
-    ]
+    ],
+    5
    ],
    [
     "6 meses",
@@ -759,7 +777,8 @@
       "Gripe",
       "1ª dose. Quem já recebeu ao menos uma dose em anos anteriores toma uma dose por temporada."
      ]
-    ]
+    ],
+    6
    ],
    [
     "7 meses",
@@ -774,7 +793,8 @@
       "Gripe",
       "2ª dose, para quem faz a primeira vacinação."
      ]
-    ]
+    ],
+    7
    ],
    [
     "9 meses",
@@ -789,7 +809,8 @@
       "Formas graves da covid-19",
       "3ª dose."
      ]
-    ]
+    ],
+    9
    ],
    [
     "12 meses",
@@ -809,7 +830,8 @@
       "Meningococos A, C, W e Y",
       "1º reforço."
      ]
-    ]
+    ],
+    12
    ],
    [
     "15 meses",
@@ -834,7 +856,8 @@
       "Sarampo, caxumba, rubéola e varicela",
       "Dose única."
      ]
-    ]
+    ],
+    15
    ],
    [
     "4 anos",
@@ -854,7 +877,8 @@
       "Febre amarela",
       "Reforço."
      ]
-    ]
+    ],
+    48
    ],
    [
     "9 anos",
@@ -864,7 +888,8 @@
       "Papilomavírus humano 6, 11, 16 e 18",
       "Dose única, dos 9 aos 14 anos."
      ]
-    ]
+    ],
+    108
    ]
   ],
   "grupos": {
