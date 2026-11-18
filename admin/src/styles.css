@@ -1,0 +1,34 @@
+:root { --azul: #2942dc; --fundo: #f5f6fb; --borda: #d8dbe8; --texto: #1c2033; --verde: #1f7a3d; --amarelo: #8a6100; --vermelho: #b3261e; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, "Segoe UI", sans-serif; background: var(--fundo); color: var(--texto); line-height: 1.45; }
+header { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; padding: 10px 20px; background: #fff; border-bottom: 1px solid var(--borda); position: sticky; top: 0; z-index: 2; }
+header nav { display: flex; gap: 6px; }
+.quem { margin-left: auto; font-size: 14px; }
+main { max-width: 980px; margin: 0 auto; padding: 20px; }
+footer { max-width: 980px; margin: 0 auto; padding: 0 20px 40px; font-size: 13px; color: #555b73; }
+.cartao { background: #fff; border: 1px solid var(--borda); border-radius: 12px; margin-top: 60px; }
+.estreito { max-width: 420px; }
+h1 { font-size: 22px; margin-top: 0; } h2 { font-size: 18px; margin: 20px 0 8px; } h3 { font-size: 15px; margin: 14px 0 6px; color: #555b73; }
+button { font: inherit; padding: 6px 12px; border: 1px solid var(--borda); border-radius: 8px; background: #fff; cursor: pointer; }
+button:hover:not(:disabled) { border-color: var(--azul); } button:disabled { opacity: .4; cursor: default; }
+button.on { background: var(--azul); color: #fff; border-color: var(--azul); }
+button.primario { background: var(--azul); color: #fff; border-color: var(--azul); }
+button.perigo { color: var(--vermelho); }
+.abas, .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.chips button small { opacity: .75; }
+.lista { list-style: none; padding: 0; margin: 0 0 12px; display: grid; gap: 8px; }
+.item { background: #fff; border: 1px solid var(--borda); border-radius: 10px; padding: 10px 12px; }
+.item.rascunho { border-style: dashed; } .item.arquivado { opacity: .6; }
+.linha { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.acoes { margin-left: auto; display: flex; gap: 4px; }
+.esquema { margin: 6px 0 0; font-size: 14px; color: #3a4059; }
+.chip { font-size: 12px; padding: 1px 8px; border-radius: 999px; border: 1px solid currentColor; }
+.chip.aprovado { color: var(--verde); } .chip.rascunho { color: var(--amarelo); } .chip.arquivado { color: #666; }
+.formulario { display: grid; gap: 10px; margin: 10px 0; padding: 12px; background: var(--fundo); border-radius: 10px; }
+.formulario label { display: grid; gap: 4px; font-size: 14px; font-weight: 600; }
+.duas { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+input, select, textarea { font: inherit; padding: 7px 9px; border: 1px solid var(--borda); border-radius: 8px; width: 100%; background: #fff; }
+.botoes { display: flex; gap: 8px; }
+.erro { color: var(--vermelho); font-weight: 600; } .ajuda { font-size: 14px; color: #555b73; }
+code { background: #eceefa; padding: 1px 5px; border-radius: 4px; }
+@media (max-width: 640px) { .duas { grid-template-columns: 1fr; } .acoes { margin-left: 0; } }

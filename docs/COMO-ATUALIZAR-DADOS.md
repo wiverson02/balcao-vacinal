@@ -2,6 +2,8 @@
 
 Todos os dados ficam em `src/data/`. Não é preciso mexer em código para atualizá-los.
 
+> **Com o painel (`docs/PAINEL.md`) em uso:** vacinas, faixas e fontes são editadas só pelo painel e chegam aos JSONs por `npm run publicar`. Editar `calendario.json` (campos `crianca` e `grupos`) ou `fontes.json` à mão passa a valer só se o banco também for alterado, porque o próximo `publicar` sobrescreve esses trechos. O resto desta página continua valendo para `produtos.json`, `intervalos.json`, `materiais.json` e os textos de resgate.
+
 ## Antes de começar
 1. Trabalhe na branch `develop`, nunca direto na `main`.
 2. Guarde os PDFs oficiais na pasta `fontes/` do seu computador. Ela não vai para o Git.

@@ -24,7 +24,10 @@ Precisa do Node.js 18+ (https://nodejs.org).
     src/data/materiais.json    links dos PDFs oficiais
     src/data/fontes.json       registro dos documentos-fonte (SBIm, PNI, Anvisa, tabela da rede)
     src/data/meta.json         data dos dados (rodapé) e fonte de cada seção
-    docs/                      como atualizar os dados e registro de decisões
+    docs/                      como atualizar os dados, painel de edição e registro de decisões
+    admin/                     painel de edição (Supabase), roda só no seu computador
+    scripts/                   npm run semear (carga inicial) e npm run publicar (banco → JSONs)
+    supabase/migrations/       tabelas e permissões do painel
     src/lib.js                 idade em meses, faixas e grupos
     src/components/Card.jsx    cartão de vacina (com etiqueta da rede)
     src/views/                 uma tela por arquivo (Inicio, Calendario, Guia, Intervalos, Caderneta, Materiais)

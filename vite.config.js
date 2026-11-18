@@ -41,5 +41,5 @@ export default defineConfig({
     })
   ],
   base:"./",
-  test:{environment:"jsdom"}
+  test:{environment:"jsdom",exclude:["**/node_modules/**","admin/**"]}
 });
