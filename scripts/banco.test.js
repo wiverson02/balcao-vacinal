@@ -2,7 +2,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { describe, it, expect, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { semearBanco, publicarDoBanco } from "./lib/banco.js";
 import { textoCalendario, textoFontes, textoMeta, linhasDoCalendario, verificarPublicacao } from "./lib/conversao.js";
 
@@ -13,9 +13,11 @@ const ler = (dir, nome) => lf(fs.readFileSync(path.join(dir, nome), "utf-8"));
 // Banco de mentira, em memória, que imita só o que os scripts usam do supabase-js.
 function bancoFalso() {
   const tabelas = { fontes: [], blocos: [], itens: [] };
+  const estado = { rpcChamadas: 0, erroRpc: null, erroExportRpc: null, exportacao: undefined };
   let seq = 0;
   return {
     tabelas,
+    estado,
     from(nome) {
       const t = tabelas[nome];
       return {
@@ -32,13 +34,53 @@ function bancoFalso() {
         },
       };
     },
+    async rpc(nome, args) {
+      estado.rpcChamadas++;
+      if (nome === "exportar_editorial") {
+        if (estado.erroExportRpc) return { data: null, error: estado.erroExportRpc };
+        if (estado.exportacao !== undefined) return { data: estado.exportacao, error: null };
+        return {
+          data: {
+            blocos: [...tabelas.blocos],
+            itens: [...tabelas.itens],
+            fontes: [...tabelas.fontes],
+          },
+          error: null,
+        };
+      }
+      if (nome === "semear_editorial") {
+        if (estado.erroRpc) return { data: null, error: estado.erroRpc };
+        for (const [tabela, chave] of [
+          ["fontes", "p_fontes"],
+          ["blocos", "p_blocos"],
+          ["itens", "p_itens"],
+        ]) {
+          tabelas[tabela].push(...args[chave]);
+        }
+        return { data: null, error: null };
+      }
+      throw new Error(`RPC inesperada: ${nome}`);
+    },
   };
 }
 
 let dir;
 beforeEach(() => {
   dir = fs.mkdtempSync(path.join(os.tmpdir(), "bv-"));
-  for (const n of ["calendario.json", "fontes.json", "meta.json"]) fs.copyFileSync(path.join(DATA, n), path.join(dir, n));
+  try {
+    for (const n of ["calendario.json", "fontes.json", "meta.json"]) {
+      fs.copyFileSync(path.join(DATA, n), path.join(dir, n));
+    }
+  } catch (erro) {
+    fs.rmSync(dir, { recursive: true, force: true });
+    dir = undefined;
+    throw erro;
+  }
+});
+
+afterEach(() => {
+  if (dir) fs.rmSync(dir, { recursive: true, force: true });
+  dir = undefined;
 });
 
 describe("formato dos arquivos gerados", () => {
@@ -68,6 +110,34 @@ describe("semear e publicar (ida e volta)", () => {
     const banco = bancoFalso();
     await semearBanco(banco, dir);
     await expect(semearBanco(banco, dir)).rejects.toThrow(/vazio/);
+  });
+
+  it.each(["fontes", "blocos", "itens"])(
+    "semear recusa banco com registros em %s antes de chamar a RPC",
+    async (tabela) => {
+      const banco = bancoFalso();
+      banco.tabelas[tabela].push({ id: "existente" });
+
+      await expect(semearBanco(banco, dir)).rejects.toThrow(tabela);
+      expect(banco.estado.rpcChamadas).toBe(0);
+    },
+  );
+
+  it("não altera tabelas quando a RPC transacional retorna erro", async () => {
+    const banco = bancoFalso();
+    banco.estado.erroRpc = { message: "falha simulada", code: "XX000" };
+
+    await expect(semearBanco(banco, dir)).rejects.toThrow(/transação do PostgreSQL/);
+    expect(banco.estado.rpcChamadas).toBe(1);
+    expect(banco.tabelas).toEqual({ fontes: [], blocos: [], itens: [] });
+  });
+
+  it("explica quando a função transacional ainda não foi instalada", async () => {
+    const banco = bancoFalso();
+    banco.estado.erroRpc = { message: "function not found", code: "PGRST202" };
+
+    await expect(semearBanco(banco, dir)).rejects.toThrow(/20261118134000_semear_atomico\.sql/);
+    expect(banco.tabelas).toEqual({ fontes: [], blocos: [], itens: [] });
   });
 
   it("editar um item no banco muda só o calendário, atualiza a data e mantém o resgate", async () => {
@@ -107,6 +177,131 @@ describe("semear e publicar (ida e volta)", () => {
     expect(pub.ok).toBe(false);
     expect(pub.problemas.join()).toContain("privada / Idoso");
     expect(ler(dir, "calendario.json")).toBe(antes);
+  });
+
+  it.each(["fontes", "blocos", "itens"])(
+    "bloqueia a publicação se a exportação de %s estiver vazia, sem tocar nos JSONs",
+    async (tabela) => {
+      const banco = bancoFalso();
+      await semearBanco(banco, dir);
+      banco.tabelas[tabela] = [];
+      const nomes = ["calendario.json", "fontes.json", "meta.json"];
+      const antes = nomes.map((nome) => ler(dir, nome));
+      const antesDeEscrever = vi.fn();
+
+      const pub = await publicarDoBanco(banco, dir, "2030-01-01", antesDeEscrever);
+
+      expect(pub.ok).toBe(false);
+      expect(pub.problemas.join(" ")).toContain(`não contém ${tabela}`);
+      expect(nomes.map((nome) => ler(dir, nome))).toEqual(antes);
+      expect(antesDeEscrever).not.toHaveBeenCalled();
+    },
+  );
+
+  it("bloqueia estrutura incompleta da RPC sem tocar nos JSONs", async () => {
+    const banco = bancoFalso();
+    await semearBanco(banco, dir);
+    banco.estado.exportacao = {
+      fontes: [...banco.tabelas.fontes],
+      blocos: [...banco.tabelas.blocos],
+      itens: [...banco.tabelas.itens],
+    };
+    banco.estado.exportacao.itens[0].esquema = "";
+    const nomes = ["calendario.json", "fontes.json", "meta.json"];
+    const antes = nomes.map((nome) => ler(dir, nome));
+    const antesDeEscrever = vi.fn();
+
+    const pub = await publicarDoBanco(banco, dir, "2030-01-01", antesDeEscrever);
+
+    expect(pub.ok).toBe(false);
+    expect(pub.problemas.join(" ")).toContain("não tem esquema");
+    expect(nomes.map((nome) => ler(dir, nome))).toEqual(antes);
+    expect(antesDeEscrever).not.toHaveBeenCalled();
+  });
+
+  it("bloqueia a publicação quando não há itens aprovados", async () => {
+    const banco = bancoFalso();
+    await semearBanco(banco, dir);
+    banco.tabelas.itens.forEach((item) => {
+      item.status = "rascunho";
+    });
+    const nomes = ["calendario.json", "fontes.json", "meta.json"];
+    const antes = nomes.map((nome) => ler(dir, nome));
+    const antesDeEscrever = vi.fn();
+
+    const pub = await publicarDoBanco(banco, dir, "2030-01-01", antesDeEscrever);
+
+    expect(pub.ok).toBe(false);
+    expect(pub.problemas).toContain("A exportação não contém nenhum item aprovado.");
+    expect(nomes.map((nome) => ler(dir, nome))).toEqual(antes);
+    expect(antesDeEscrever).not.toHaveBeenCalled();
+  });
+
+  it("não conserva metadados de seções removidas", async () => {
+    const banco = bancoFalso();
+    await semearBanco(banco, dir);
+    const metaPath = path.join(dir, "meta.json");
+    const meta = JSON.parse(fs.readFileSync(metaPath, "utf-8"));
+    meta.secoes["privada.grupos.Bloco removido"] = ["fonte-antiga"];
+    fs.writeFileSync(metaPath, JSON.stringify(meta));
+
+    await publicarDoBanco(banco, dir, "2030-01-01");
+
+    const metaPublicada = JSON.parse(fs.readFileSync(metaPath, "utf-8"));
+    expect(metaPublicada.secoes).not.toHaveProperty("privada.grupos.Bloco removido");
+  });
+
+  it("restaura os JSONs originais se uma substituição atômica falhar", async () => {
+    const banco = bancoFalso();
+    await semearBanco(banco, dir);
+    banco.tabelas.itens.find((i) => i.nome === "Hexavalente").esquema = "TEXTO NOVO";
+    const nomes = ["calendario.json", "fontes.json", "meta.json"];
+    const antes = nomes.map((nome) => fs.readFileSync(path.join(dir, nome)));
+    const renameOriginal = fs.renameSync.bind(fs);
+    let falhou = false;
+    const spy = vi.spyOn(fs, "renameSync").mockImplementation((origem, destino) => {
+      if (
+        !falhou &&
+        destino === path.join(dir, "meta.json") &&
+        origem.includes(".balcao-vacinal-publicar-")
+      ) {
+        falhou = true;
+        throw new Error("falha simulada");
+      }
+      return renameOriginal(origem, destino);
+    });
+
+    try {
+      await expect(publicarDoBanco(banco, dir, "2030-01-01")).rejects.toThrow(/originais foram restaurados/);
+    } finally {
+      spy.mockRestore();
+    }
+
+    expect(falhou).toBe(true);
+    expect(nomes.map((nome) => fs.readFileSync(path.join(dir, nome)))).toEqual(antes);
+  });
+
+  it("aborta a escrita se o preflight detectar alterações locais", async () => {
+    const banco = bancoFalso();
+    await semearBanco(banco, dir);
+    banco.tabelas.itens.find((i) => i.nome === "Hexavalente").esquema = "TEXTO NOVO";
+    const nomes = ["calendario.json", "fontes.json", "meta.json"];
+    const antes = nomes.map((nome) => ler(dir, nome));
+    const antesDeEscrever = () => {
+      throw new Error("Há alterações locais em src/data.");
+    };
+
+    await expect(
+      publicarDoBanco(banco, dir, "2030-01-01", antesDeEscrever),
+    ).rejects.toThrow(/alterações locais/);
+    expect(nomes.map((nome) => ler(dir, nome))).toEqual(antes);
+  });
+
+  it("explica quando a RPC de exportação não está instalada", async () => {
+    const banco = bancoFalso();
+    banco.estado.erroExportRpc = { message: "function not found", code: "PGRST202" };
+
+    await expect(publicarDoBanco(banco, dir)).rejects.toThrow(/exportar_editorial/);
   });
 
   it("nova fonte e data de conferência aparecem no fontes.json", async () => {

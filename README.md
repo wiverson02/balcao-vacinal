@@ -37,9 +37,12 @@ Precisa do Node.js 18+ (https://nodejs.org).
     src/lib.test.js            testes de idade, faixas e grupos (lib.js)
     src/dados.test.js          validação dos JSONs de src/data (rode ao editar qualquer dado)
 
-## Como atualizar os dados (sem mexer em código)
-Passo a passo completo em `docs/COMO-ATUALIZAR-DADOS.md`. Resumo:
-- Novo calendário da SBIm: edite `src/data/calendario.json` e o texto do rodapé em `src/App.jsx`.
+## Como atualizar os dados
+O calendário e as fontes são editados no painel administrativo, que guarda o conteúdo editorial no Supabase. Depois de revisar e aprovar as alterações, rode `npm run publicar` na raiz do projeto para exportá-las para `src/data/`. O aplicativo público continua lendo esses arquivos JSON e não consulta o Supabase.
+
+Não edite `calendario.json`, `fontes.json` ou as seções editoriais de `meta.json` manualmente como fluxo normal: a próxima publicação pode sobrescrevê-los. Consulte `docs/PAINEL.md` para o fluxo do painel. Os demais dados, como nomes comerciais, intervalos e materiais, continuam sendo mantidos nos arquivos correspondentes, conforme `docs/COMO-ATUALIZAR-DADOS.md`.
+
+Para dados ainda mantidos em arquivos:
 - Tabela da Pague Menos: edite `src/data/produtos.json` (chave = nome da vacina no calendário).
 - Cada vacina é uma lista `[nome, protege contra, esquema]`. Esquemas "Só no SUS: ..." aparecem na caderneta como encaminhamento à UBS.
 

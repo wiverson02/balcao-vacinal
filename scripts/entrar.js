@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { createClient } from "@supabase/supabase-js";
+import { validarConfiguracaoSupabase } from "../admin/src/validarConfiguracao.js";
 
 const raiz = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 dotenv.config({ path: path.join(raiz, "admin", ".env.local") });
@@ -20,6 +21,10 @@ export async function conectar() {
   if (!EDITOR_PASSWORD) faltando.push("EDITOR_PASSWORD");
   if (faltando.length) {
     throw new Error(`Falta preencher no arquivo admin/.env.local ou .env.local: ${faltando.join(", ")}`);
+  }
+  const erroConfiguracao = validarConfiguracaoSupabase(url, chave);
+  if (erroConfiguracao) {
+    throw new Error(`Configuração inválida para os scripts: ${erroConfiguracao}`);
   }
   const client = createClient(url, chave, { auth: { persistSession: false } });
   const { error } = await client.auth.signInWithPassword({ email: EDITOR_EMAIL, password: EDITOR_PASSWORD });
