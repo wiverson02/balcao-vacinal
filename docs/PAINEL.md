@@ -8,6 +8,12 @@ Painel (admin/) → Supabase → npm run publicar → JSONs em src/data → comm
 
 Só itens com status **aprovado** vão para o app. Rascunho e arquivado ficam no banco.
 
+## Acesso em produção
+
+O painel está publicado em [https://balcao-vacinal-d68k.vercel.app/](https://balcao-vacinal-d68k.vercel.app/). A tela de login fica na raiz do endereço; não há uma rota `/admin` ou `/login`.
+
+O painel é uma aplicação Vercel separada do site público e usa o mesmo projeto Supabase. A implantação deve receber `VITE_SUPABASE_URL` e `VITE_SUPABASE_PUBLISHABLE_KEY`; nunca configure uma chave `service_role`/`sb_secret_` ou a senha do editor na Vercel. O acesso aos dados continua protegido pela autenticação, pela tabela `public.editores` e pelas políticas RLS.
+
 ## Regra de ouro
 Depois da carga inicial, **vacinas e fontes são editadas só pelo painel**. O `npm run publicar` reescreve `calendario.json` (campos `crianca` e `grupos`), `fontes.json` e as seções de `meta.json` a partir do banco; uma edição feita à mão nesses trechos seria perdida. Continuam à mão: `produtos.json`, `intervalos.json`, `materiais.json`, `resgateCrianca` e `resgateGrupos` (dentro de `calendario.json`).
 
@@ -46,17 +52,17 @@ Antes do primeiro seed, o smoke test SQL opcional `supabase/tests/seed_editorial
 
 ## Dia a dia
 
-1. `cd admin` e `npm run dev`. Abra o endereço que aparecer (normalmente http://localhost:5173) e entre.
+1. Acesse o painel de produção acima ou, para desenvolvimento local, execute `cd admin` e `npm run dev` (normalmente abre em http://localhost:5173).
 2. Edite em **Vacinas**, **Blocos** e **Fontes**. Item novo nasce como rascunho. Para aprovar é preciso ter fonte.
-3. Na raiz do projeto: `npm run publicar`. O script atualiza os JSONs, avisa se algum bloco ficou sem item aprovado e roda os testes.
-4. `git diff src/data` para conferir o que mudou, commit e push na `develop`. Confira o preview e faça o Pull Request para a `main`.
+3. Na raiz de um checkout local na branch `develop`, execute `npm run publicar`. O script atualiza os JSONs, avisa se algum bloco ficou sem item aprovado e roda os testes.
+4. Revise `git diff src/data`, envie as alterações pela `develop`, confira o preview e faça o Pull Request para a `main`. O painel não publica os JSONs automaticamente.
 
 ## Segurança
 - A chave publicável pode ficar no painel porque as permissões são do banco (RLS): só quem está em `public.editores` lê ou escreve.
 - O painel valida URL e formato da chave e recusa chaves `sb_secret_` e `service_role`; essa checagem no navegador é uma proteção adicional, não substitui RLS.
 - A chave secreta (`service_role`) não é usada em lugar nenhum. Não a coloque nos `.env`.
 - `.env`, `.env.local` e arquivos `.env.*.local` são ignorados pelo Git. Use somente exemplos fictícios em arquivos `.env.example`.
-- O painel roda só no seu computador por enquanto. Publicá-lo na internet exige um segundo projeto na Vercel apontando para a pasta `admin`, mas não exige um segundo projeto Supabase.
+- O painel está publicado em https://balcao-vacinal-d68k.vercel.app/ como projeto Vercel separado; isso não exige um segundo projeto Supabase.
 - Projetos gratuitos do Supabase podem ser pausados por inatividade; dá para reativar pelo painel do Supabase.
 
 ## O que ainda não está no painel

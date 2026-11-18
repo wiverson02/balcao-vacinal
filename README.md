@@ -25,7 +25,7 @@ Precisa do Node.js 18+ (https://nodejs.org).
     src/data/fontes.json       registro dos documentos-fonte (SBIm, PNI, Anvisa, tabela da rede)
     src/data/meta.json         data dos dados (rodapé) e fonte de cada seção
     docs/                      como atualizar os dados, painel de edição e registro de decisões
-    admin/                     painel de edição (Supabase), roda só no seu computador
+    admin/                     painel de edição (Supabase), também publicado na Vercel
     scripts/                   npm run semear (carga inicial) e npm run publicar (banco → JSONs)
     supabase/migrations/       tabelas e permissões do painel
     src/lib.js                 idade em meses, faixas e grupos
@@ -41,6 +41,10 @@ Precisa do Node.js 18+ (https://nodejs.org).
 O calendário e as fontes são editados no painel administrativo, que guarda o conteúdo editorial no Supabase. Depois de revisar e aprovar as alterações, rode `npm run publicar` na raiz do projeto para exportá-las para `src/data/`. O aplicativo público continua lendo esses arquivos JSON e não consulta o Supabase.
 
 Não edite `calendario.json`, `fontes.json` ou as seções editoriais de `meta.json` manualmente como fluxo normal: a próxima publicação pode sobrescrevê-los. Consulte `docs/PAINEL.md` para o fluxo do painel. Os demais dados, como nomes comerciais, intervalos e materiais, continuam sendo mantidos nos arquivos correspondentes, conforme `docs/COMO-ATUALIZAR-DADOS.md`.
+
+## Painel administrativo
+
+Acesse o painel publicado em [balcao-vacinal-d68k.vercel.app](https://balcao-vacinal-d68k.vercel.app/). O login fica na raiz do endereço. O painel usa Supabase Authentication e o mesmo projeto Supabase do fluxo editorial; somente editores autorizados podem acessar os dados.
 
 Para dados ainda mantidos em arquivos:
 - Tabela da Pague Menos: edite `src/data/produtos.json` (chave = nome da vacina no calendário).
