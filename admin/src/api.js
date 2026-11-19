@@ -50,6 +50,14 @@ export const apagarBloco = (id) => supabase.from("blocos").delete().eq("id", id)
 // Itens (vacinas)
 export const listarItens = (blocoId) =>
   supabase.from("itens").select("*").eq("bloco_id", blocoId).order("ordem").order("criado_em").then(conferir);
+export async function listarTodosItens() {
+  const itens = [];
+  for (let de = 0; ; de += 1000) {
+    const pagina = await supabase.from("itens").select("*").order("ordem").order("id").range(de, de + 999).then(conferir);
+    itens.push(...pagina);
+    if (pagina.length < 1000) return itens;
+  }
+}
 export const criarItem = (i) => supabase.from("itens").insert(i).then(conferir);
 export const atualizarItem = (id, i) => supabase.from("itens").update(i).eq("id", id).then(conferir);
 export const apagarItem = (id) => supabase.from("itens").delete().eq("id", id).then(conferir);

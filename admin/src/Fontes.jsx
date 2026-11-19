@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { listarFontes, criarFonte, atualizarFonte, apagarFonte } from "./api";
 import { proximaOrdem } from "./ordem";
+import { formatarAtualizadoEm } from "./Studio";
 
 const hoje = () => {
   const d = new Date();
@@ -8,13 +9,12 @@ const hoje = () => {
 };
 const limpar = (v) => (v.trim() === "" ? null : v.trim());
 
-function FonteForm({ fonte, onSalvar, onCancelar }) {
+function FonteForm({ fonte, onSalvar, onCancelar, salvando = false }) {
   const [v, setV] = useState({ id: "", instituicao: "", titulo: "", arquivo: "", url: "", conferido_em: "", ...Object.fromEntries(Object.entries(fonte ?? {}).map(([k, x]) => [k, x ?? ""])) });
   const [erro, setErro] = useState("");
   const campo = (n) => ({ value: v[n], onChange: (e) => setV({ ...v, [n]: e.target.value }) });
 
-  async function enviar(e) {
-    e.preventDefault();
+  async function gravar() {
     setErro("");
     try {
       await onSalvar({
@@ -30,6 +30,11 @@ function FonteForm({ fonte, onSalvar, onCancelar }) {
     }
   }
 
+  function enviar(e) {
+    e.preventDefault();
+    void gravar();
+  }
+
   return (
     <form className="formulario" onSubmit={enviar}>
       <label>Id (letras minúsculas, números e hífen; não muda depois)<input {...campo("id")} readOnly={Boolean(fonte)} required /></label>
@@ -43,51 +48,84 @@ function FonteForm({ fonte, onSalvar, onCancelar }) {
         Conferido contra o documento em
         <span className="duas">
           <input type="date" {...campo("conferido_em")} />
-          <button type="button" onClick={() => setV({ ...v, conferido_em: hoje() })}>Conferi hoje</button>
+          <button type="button" disabled={salvando} onClick={() => setV({ ...v, conferido_em: hoje() })}>Conferi hoje</button>
         </span>
       </label>
-      {erro && <p className="erro" role="alert">{erro}</p>}
+      {erro && <div className="erro" role="alert"><p>{erro}</p><button type="button" disabled={salvando} onClick={() => void gravar()}>Tentar novamente</button></div>}
       <div className="botoes">
-        <button className="primario">Salvar</button>
-        <button type="button" onClick={onCancelar}>Cancelar</button>
+        <button className="primario" disabled={salvando}>{salvando ? "Salvando..." : "Salvar"}</button>
+        <button type="button" disabled={salvando} onClick={onCancelar}>Cancelar</button>
       </div>
     </form>
   );
 }
 
-export default function Fontes() {
+export default function Fontes({ onAlteracao, foco, onFocoConsumido }) {
   const [fontes, setFontes] = useState([]);
   const [editando, setEditando] = useState(null); // id, "nova" ou null
   const [erro, setErro] = useState("");
+  const [carregando, setCarregando] = useState(true);
+  const [salvando, setSalvando] = useState(false);
+  const [retryAction, setRetryAction] = useState(null);
 
   const carregar = useCallback(async () => {
+    setErro("");
+    setRetryAction(null);
+    setCarregando(true);
     try {
       setFontes(await listarFontes());
     } catch (e) {
       setErro(e.message);
+    } finally {
+      setCarregando(false);
     }
   }, []);
   useEffect(() => { carregar(); }, [carregar]);
+  useEffect(() => {
+    if (foco?.tipo !== "fonte" || !fontes.some((fonte) => fonte.id === foco.id)) return;
+    setEditando(foco.id);
+    onFocoConsumido?.();
+  }, [foco, fontes, onFocoConsumido]);
 
-  const salvar = (fonte, valores) => {
+  const salvar = async (fonte, valores) => {
     const acao = fonte ? atualizarFonte(fonte.id, valores) : criarFonte({ ...valores, ordem: proximaOrdem(fontes) });
-    return acao.then(() => { setEditando(null); return carregar(); });
+    setErro("");
+    setSalvando(true);
+    try {
+      await acao;
+      setEditando(null);
+      await carregar();
+      await onAlteracao?.();
+    } catch (falha) {
+      setErro(falha.message);
+      throw falha;
+    } finally {
+      setSalvando(false);
+    }
   };
   const excluir = async (f) => {
     if (!window.confirm(`Excluir a fonte "${f.id}"? Só funciona se nenhum item a usar.`)) return;
     setErro("");
+    setSalvando(true);
+    let operacaoConcluida = false;
     try {
       await apagarFonte(f.id);
+      operacaoConcluida = true;
       await carregar();
+      await onAlteracao?.();
     } catch (e) {
       setErro(e.message);
+      if (!operacaoConcluida) setRetryAction(() => () => excluir(f));
+    } finally {
+      setSalvando(false);
     }
   };
 
   return (
     <>
       <p className="ajuda">Cada item aprovado precisa apontar para uma fonte. Preencha “conferido em” depois de comparar o conteúdo com o PDF.</p>
-      {erro && <p className="erro" role="alert">{erro}</p>}
+      {erro && <div className="erro" role="alert"><p>{erro}</p><button type="button" disabled={carregando || salvando} onClick={() => retryAction ? void retryAction() : void carregar()}>Tentar novamente</button></div>}
+      {carregando && <p role="status">Carregando fontes...</p>}
       <ul className="lista">
         {fontes.map((f) => (
           <li key={f.id} className="item">
@@ -95,19 +133,22 @@ export default function Fontes() {
               <b>{f.titulo}</b>
               <small>{f.instituicao} · {f.id}</small>
               <span className={`chip ${f.conferido_em ? "aprovado" : "rascunho"}`}>{f.conferido_em ? `conferida em ${f.conferido_em}` : "não conferida"}</span>
+              <time className="atualizado-em" dateTime={f.atualizado_em ?? ""}>
+                Atualizado em {formatarAtualizadoEm(f.atualizado_em)}
+              </time>
               <span className="acoes">
-                <button onClick={() => setEditando(editando === f.id ? null : f.id)}>Editar</button>
-                <button className="perigo" onClick={() => excluir(f)}>Excluir</button>
+                <button disabled={Boolean(erro) || carregando || salvando} onClick={() => setEditando(editando === f.id ? null : f.id)}>Editar</button>
+                <button className="perigo" disabled={Boolean(erro) || carregando || salvando} onClick={() => excluir(f)}>Excluir</button>
               </span>
             </div>
-            {editando === f.id && <FonteForm fonte={f} onSalvar={(v) => salvar(f, v)} onCancelar={() => setEditando(null)} />}
+            {editando === f.id && <FonteForm fonte={f} salvando={salvando} onSalvar={(v) => salvar(f, v)} onCancelar={() => setEditando(null)} />}
           </li>
         ))}
       </ul>
       {editando === "nova" ? (
-        <FonteForm onSalvar={(v) => salvar(null, v)} onCancelar={() => setEditando(null)} />
+        <FonteForm salvando={salvando} onSalvar={(v) => salvar(null, v)} onCancelar={() => setEditando(null)} />
       ) : (
-        <button className="primario" onClick={() => setEditando("nova")}>+ Nova fonte</button>
+        <button className="primario" disabled={Boolean(erro) || carregando || salvando} onClick={() => setEditando("nova")}>+ Nova fonte</button>
       )}
     </>
   );

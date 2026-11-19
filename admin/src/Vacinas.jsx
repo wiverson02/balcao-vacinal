@@ -5,7 +5,7 @@ import ItemForm from "./ItemForm";
 
 const REDES = [["privada", "Rede privada (SBIm)"], ["sus", "SUS (PNI)"]];
 
-export default function Vacinas() {
+export default function Vacinas({ onAlteracao, foco, onFocoConsumido }) {
   const [fontes, setFontes] = useState([]);
   const [blocos, setBlocos] = useState([]);
   const [contagem, setContagem] = useState({});
@@ -52,7 +52,24 @@ export default function Vacinas() {
     recarregarItens(bloco?.id);
   }, [bloco?.id, recarregarItens]);
 
-  const aposMudar = () => Promise.all([recarregarItens(bloco.id), recarregarBase()]);
+  useEffect(() => {
+    if (foco?.tipo !== "item") return;
+    const blocoAlvo = blocos.find((b) => b.id === foco.blocoId);
+    if (!blocoAlvo) return;
+    setRede(blocoAlvo.rede);
+    setBlocoId(blocoAlvo.id);
+  }, [foco, blocos]);
+
+  useEffect(() => {
+    if (foco?.tipo !== "item" || !itens.some((item) => item.id === foco.id)) return;
+    setEditando(foco.id);
+    onFocoConsumido?.();
+  }, [foco, itens, onFocoConsumido]);
+
+  const aposMudar = async () => {
+    await Promise.all([recarregarItens(bloco.id), recarregarBase()]);
+    await onAlteracao?.();
+  };
 
   const salvar = (valores) =>
     editando === "novo"
@@ -68,6 +85,7 @@ export default function Vacinas() {
     tentar(async () => {
       await gravarOrdens("itens", trocarComVizinho(itens, item.id, direcao), bloco.id);
       await recarregarItens(bloco.id);
+      await onAlteracao?.();
     });
 
   const rotuloBloco = (b) => (b.tipo === "faixa" ? b.rotulo : `Grupo: ${b.rotulo}`);

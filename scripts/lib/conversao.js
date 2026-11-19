@@ -125,6 +125,27 @@ export function verificarPublicacao({ blocos, itens, fontes }) {
   return problemas;
 }
 
+export function diagnosticarProntidaoPublicacao({
+  blocos = [],
+  itens = [],
+  guiaVacinas = [],
+  fontes = [],
+} = {}) {
+  const fontesPorId = new Map(fontes.map((fonte) => [fonte.id, fonte]));
+  const semFonteConferida = (registro) =>
+    registro.status === "aprovado" && !fontesPorId.get(registro.fonte_id)?.conferido_em;
+
+  return {
+    blocosSemItensAprovados: blocos.filter(
+      (bloco) => !itens.some((item) => item.bloco_id === bloco.id && item.status === "aprovado"),
+    ),
+    itensAprovadosSemFonteConferida: itens.filter(semFonteConferida),
+    guiaAprovadoSemFonteConferida: guiaVacinas.filter(semFonteConferida),
+    itensRascunho: itens.filter((item) => item.status === "rascunho"),
+    guiaRascunho: guiaVacinas.filter((vacina) => vacina.status === "rascunho"),
+  };
+}
+
 // ---------------------------------------------------------------------------
 // Texto dos arquivos (mesmo formato dos JSONs de hoje, para o Git mostrar só o que mudou)
 // ---------------------------------------------------------------------------
