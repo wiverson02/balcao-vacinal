@@ -3,6 +3,7 @@ import { configurado, erroConfiguracao, sessaoAtual, aoMudarSessao, entrar, sair
 import Vacinas from "./Vacinas";
 import Blocos from "./Blocos";
 import Fontes from "./Fontes";
+import GuiaVacinas from "./GuiaVacinas";
 
 function Configuracao() {
   return (
@@ -55,6 +56,7 @@ function Login() {
 
 const ABAS = [
   ["vacinas", "Vacinas", Vacinas],
+  ["guia", "Guia", GuiaVacinas],
   ["blocos", "Blocos", Blocos],
   ["fontes", "Fontes", Fontes],
 ];

@@ -2,7 +2,7 @@
 
 Todos os dados ficam em `src/data/`. Não é preciso mexer em código para atualizá-los.
 
-> **Com o painel (`docs/PAINEL.md`) em uso:** vacinas, faixas e fontes são editadas só pelo painel e chegam aos JSONs por `npm run publicar`. Editar `calendario.json` (campos `crianca` e `grupos`) ou `fontes.json` à mão passa a valer só se o banco também for alterado, porque o próximo `publicar` sobrescreve esses trechos. O resto desta página continua valendo para `produtos.json`, `intervalos.json`, `materiais.json` e os textos de resgate.
+> **Com o painel (`docs/PAINEL.md`) em uso:** vacinas, faixas, blocos adicionais, fontes e fichas aprovadas do Guia são editadas no painel e chegam aos JSONs por `npm run publicar`. Editar os campos `crianca` e `grupos` de `calendario.json`, `fontes.json` ou `guia_vacinas.json` à mão passa a valer só se o banco também for alterado, porque a próxima publicação pode sobrescrevê-los. `produtos.json` permanece como fallback legado; `intervalos.json`, `materiais.json` e os textos de resgate continuam manuais.
 
 ## Antes de começar
 1. Trabalhe na branch `develop`, nunca direto na `main`.
@@ -12,8 +12,9 @@ Todos os dados ficam em `src/data/`. Não é preciso mexer em código para atual
 
 | O que mudou | Arquivo | Formato |
 |---|---|---|
-| Vacina, esquema ou faixa de idade | `calendario.json` | faixa da criança: `["2 meses", [vacinas...], 2]` (rótulo, vacinas, idade mínima em meses). Vacina: `["Nome", "Protege contra", "Esquema"]` |
-| Nome comercial ou disponibilidade na rede | `produtos.json` | a chave é o nome da vacina exatamente como está no calendário |
+| Vacina, esquema, faixa de idade ou bloco adicional | Painel | O bloco extra tem tipo, título e conteúdo; o calendário público o recebe no quarto elemento opcional da tupla |
+| Ficha clínica/comercial do Guia | Painel | Aprove apenas após revisão e vínculo de uma fonte; `npm run publicar` gera `guia_vacinas.json` |
+| Nome comercial legado ou fallback | `produtos.json` | a chave é o nome da vacina exatamente como está no calendário |
 | Intervalo mínimo entre doses | `intervalos.json` | `["Nome", dias, "texto"]` |
 | Links dos PDFs oficiais | `materiais.json` | `["url", "título", "descrição"]` |
 | Um documento novo ou nova versão | `fontes.json` | ver abaixo |

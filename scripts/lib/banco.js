@@ -7,6 +7,7 @@ import {
   linhasDoCalendario, linhasDasFontes, calendarioDasLinhas, fontesDasLinhas, secoesDasLinhas,
   verificarPublicacao, chaveBloco, textoCalendario, textoFontes, textoMeta,
 } from "./conversao.js";
+import { linhasDoGuia } from "./guia.js";
 
 const PAGINA = 1000;
 
@@ -30,7 +31,7 @@ function validarEstruturaEditorial(exportacao) {
   }
 
   const problemas = [];
-  for (const tabela of ["fontes", "blocos", "itens"]) {
+  for (const tabela of ["fontes", "blocos", "itens", "guia_vacinas"]) {
     if (!Array.isArray(exportacao[tabela])) {
       problemas.push(`A RPC exportar_editorial retornou "${tabela}" fora do formato de lista.`);
     }
@@ -141,11 +142,99 @@ function validarEstruturaEditorial(exportacao) {
         problemas.push(`${nome} tem ${campo} inválido.`);
       }
     }
+    if (item.extras != null && !Array.isArray(item.extras)) {
+      problemas.push(`${nome} tem extras fora do formato de lista.`);
+    }
+    if (Array.isArray(item.extras)) {
+      item.extras.forEach((extra, indiceExtra) => {
+        if (
+          !objeto(extra) ||
+          !["alerta", "nota", "esquema", "contraindicacao"].includes(extra.tipo) ||
+          !textoValido(extra.titulo) ||
+          !textoValido(extra.conteudo)
+        ) {
+          problemas.push(`${nome} tem o bloco extra ${indiceExtra + 1} inválido.`);
+        }
+      });
+    }
   });
 
   if (!itens.some((item) => objeto(item) && item.status === "aprovado")) {
     problemas.push("A exportação não contém nenhum item aprovado.");
   }
+  return problemas;
+}
+
+const CAMPOS_LISTA_GUIA = [
+  "apresentacoes",
+  "faixa_etaria",
+  "esquema_doses",
+  "indicacoes",
+  "diferenciais_clinicos",
+  "intervalos_minimos",
+  "eventos_adversos",
+  "contraindicacoes",
+  "extras",
+];
+
+function validarGuiaVacinas(linhas, idsFontes) {
+  const problemas = [];
+  const slugs = new Set();
+  linhas.forEach((vacina, indice) => {
+    const nome = `Guia ${indice + 1}`;
+    if (!objeto(vacina)) {
+      problemas.push(`${nome} não é um objeto válido.`);
+      return;
+    }
+    if (!textoValido(vacina.slug) || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(vacina.slug)) {
+      problemas.push(`${nome} tem slug ausente ou inválido.`);
+    } else if (slugs.has(vacina.slug)) {
+      problemas.push(`${nome} repete o slug "${vacina.slug}".`);
+    } else {
+      slugs.add(vacina.slug);
+    }
+    if (!Number.isInteger(vacina.ordem)) problemas.push(`${nome} tem ordem inválida.`);
+    if (!["rascunho", "aprovado"].includes(vacina.status)) problemas.push(`${nome} tem status inválido.`);
+    if (!textoValido(vacina.nome)) problemas.push(`${nome} não tem nome.`);
+    if (!["pni", "privada", "ambas"].includes(vacina.rede)) problemas.push(`${nome} tem rede inválida.`);
+    if (vacina.fonte_id != null && !idsFontes.has(vacina.fonte_id)) {
+      problemas.push(`${nome} referencia uma fonte inexistente.`);
+    }
+    if (vacina.status === "aprovado" && !vacina.fonte_id) {
+      problemas.push(`${nome} está aprovado sem fonte.`);
+    }
+    for (const campo of CAMPOS_LISTA_GUIA) {
+      if (!Array.isArray(vacina[campo])) {
+        problemas.push(`${nome} tem ${campo} fora do formato de lista.`);
+      } else if (campo !== "extras" && vacina[campo].some((valor) => typeof valor !== "string")) {
+        problemas.push(`${nome} tem um valor inválido em ${campo}.`);
+      }
+    }
+    if (Array.isArray(vacina.extras)) {
+      vacina.extras.forEach((extra, indiceExtra) => {
+        if (
+          !objeto(extra) ||
+          !["alerta", "nota", "esquema", "contraindicacao"].includes(extra.tipo) ||
+          !textoValido(extra.titulo) ||
+          !textoValido(extra.conteudo)
+        ) {
+          problemas.push(`${nome} tem o bloco extra ${indiceExtra + 1} inválido.`);
+        }
+      });
+    }
+    for (const campo of [
+      "nome_comercial",
+      "fabricante",
+      "beneficio",
+      "conservacao_temperatura",
+      "diluicao_preparo",
+      "via_sitio_aplicacao",
+    ]) {
+      if (vacina[campo] != null && typeof vacina[campo] !== "string") {
+        problemas.push(`${nome} tem ${campo} inválido.`);
+      }
+    }
+  });
   return problemas;
 }
 
@@ -194,6 +283,23 @@ export async function semearBanco(client, dir) {
     throw new Error(`A carga inicial falhou na transação do PostgreSQL: ${error.message}`);
   }
   return { fontes: fontes.length, blocos: blocos.length, itens: itens.length };
+}
+
+export async function semearGuiaVacinas(client, produtos) {
+  const linhas = linhasDoGuia(produtos);
+  const { data: inseridos, error } = await client.rpc("semear_guia_vacinas", {
+    p_guia_vacinas: linhas,
+  });
+  if (error?.code === "PGRST202") {
+    throw new Error("A RPC semear_guia_vacinas não está instalada. Aplique a migration 20261118213413_guia_vacinas_e_reordenacao.sql.");
+  }
+  if (error) {
+    throw new Error(`A importação do guia de vacinas falhou na transação do PostgreSQL: ${error.message}`);
+  }
+  if (!Number.isInteger(inseridos) || inseridos < 0 || inseridos > linhas.length) {
+    throw new Error("A RPC semear_guia_vacinas retornou uma contagem inválida.");
+  }
+  return { total: linhas.length, inseridos, existentes: linhas.length - inseridos };
 }
 
 const dataLocal = (d = new Date()) =>
@@ -278,7 +384,7 @@ export function substituirArquivosAtomico(arquivos) {
   }
 }
 
-// Lê o banco e reescreve calendario.json, fontes.json e meta.json (só o que mudou).
+// Lê o banco e reescreve os JSONs públicos (só o que mudou).
 export async function publicarDoBanco(client, dir, hoje = dataLocal(), antesDeEscrever = null) {
   const { data: exportacao, error } = await client.rpc("exportar_editorial");
   if (error?.code === "PGRST202") {
@@ -288,16 +394,28 @@ export async function publicarDoBanco(client, dir, hoje = dataLocal(), antesDeEs
   const problemasEstrutura = validarEstruturaEditorial(exportacao);
   if (problemasEstrutura.length) return { ok: false, problemas: problemasEstrutura };
 
-  const { blocos, itens, fontes: fontesLinhas } = exportacao;
+  const { blocos, itens, fontes: fontesLinhas, guia_vacinas: guiaLinhas } = exportacao;
+  const fontesIds = new Set(fontesLinhas.map((fonte) => fonte.id));
   const problemas = verificarPublicacao({ blocos, itens, fontes: fontesLinhas });
+  problemas.push(...validarGuiaVacinas(guiaLinhas, fontesIds));
   if (problemas.length) return { ok: false, problemas };
 
   const calAtual = lerJson(dir, "calendario.json");
   const metaAtual = lerJson(dir, "meta.json");
   const fontesAtual = lerJson(dir, "fontes.json");
+  const guiaAtual = lerJson(dir, "guia_vacinas.json");
 
   const calNovo = calendarioDasLinhas({ blocos, itens }, calAtual);
   const fontesNovo = fontesDasLinhas(fontesLinhas);
+  const guiaNovo = guiaLinhas
+    .filter((vacina) => vacina.status === "aprovado")
+    .map(({
+      id,
+      atualizado_em,
+      atualizado_por,
+      status,
+      ...vacina
+    }) => vacina);
   const secoesGeradas = secoesDasLinhas({ blocos, itens });
   const secaoGerenciada = /^(privada|sus)\.(crianca|grupos\.)/;
   const secoesNovo = {};
@@ -316,10 +434,19 @@ export async function publicarDoBanco(client, dir, hoje = dataLocal(), antesDeEs
   const mudou = {
     calendario: !igual(calNovo, calAtual),
     fontes: !igual(fontesNovo, fontesAtual),
-    meta: !igual(secoesNovo, metaAtual.secoes),
+    meta: false,
+    guia_vacinas: !igual(guiaNovo, guiaAtual),
   };
   const metaNovo = { ...metaAtual, secoes: secoesNovo };
-  if (mudou.calendario || mudou.fontes || mudou.meta) metaNovo.atualizadoEm = hoje;
+  if (
+    mudou.calendario ||
+    mudou.fontes ||
+    !igual(secoesNovo, metaAtual.secoes) ||
+    mudou.guia_vacinas
+  ) {
+    metaNovo.atualizadoEm = hoje;
+  }
+  mudou.meta = !igual(metaNovo, metaAtual);
 
   const arquivos = [];
   if (mudou.calendario) {
@@ -328,7 +455,13 @@ export async function publicarDoBanco(client, dir, hoje = dataLocal(), antesDeEs
   if (mudou.fontes) {
     arquivos.push({ caminho: path.join(dir, "fontes.json"), conteudo: textoFontes(fontesNovo) });
   }
-  if (mudou.meta || mudou.calendario || mudou.fontes) {
+  if (mudou.guia_vacinas) {
+    arquivos.push({
+      caminho: path.join(dir, "guia_vacinas.json"),
+      conteudo: JSON.stringify(guiaNovo, null, 1) + "\n",
+    });
+  }
+  if (mudou.meta || mudou.calendario || mudou.fontes || mudou.guia_vacinas) {
     arquivos.push({ caminho: path.join(dir, "meta.json"), conteudo: textoMeta(metaNovo) });
   }
   if (arquivos.length) {

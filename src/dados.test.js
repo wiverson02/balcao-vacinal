@@ -5,6 +5,7 @@ import intervalos from "./data/intervalos.json";
 import materiais from "./data/materiais.json";
 import fontes from "./data/fontes.json";
 import meta from "./data/meta.json";
+import guiaVacinas from "./data/guia_vacinas.json";
 
 // Estes testes protegem os dados, não a tela. Rode `npm test` depois de editar qualquer JSON em src/data/.
 // Se um deles falhar, a mensagem diz qual vacina ou faixa está com problema.
@@ -48,10 +49,14 @@ describe("calendario.json: vacinas (nome, protege contra, esquema)",()=>{
     cal[modo].crianca.forEach(f=>f[1].forEach(v=>todas.push([`${modo} / ${f[0]}`,v])));
     Object.entries(cal[modo].grupos).forEach(([g,l])=>l.forEach(v=>todas.push([`${modo} / ${g}`,v])));
   }
-  it("toda vacina tem exatamente 3 textos preenchidos e sem espaço sobrando",()=>{
+  it("toda vacina tem 3 textos e, opcionalmente, uma lista de blocos extras válidos",()=>{
     todas.forEach(([onde,v])=>{
-      expect(v.length,`${onde}: ${JSON.stringify(v)}`).toBe(3);
-      v.forEach((x,i)=>expect(texto(x),`${onde} / ${v[0]}: campo ${i} vazio ou com espaço sobrando`).toBe(true));
+      expect([3,4],`${onde}: ${JSON.stringify(v)}`).toContain(v.length);
+      v.slice(0,3).forEach((x,i)=>expect(texto(x),`${onde} / ${v[0]}: campo ${i} vazio ou com espaço sobrando`).toBe(true));
+      if(v.length===4){
+        expect(Array.isArray(v[3]),`${onde} / ${v[0]}: extras`).toBe(true);
+        v[3].forEach((extra)=>expect(["alerta","nota","esquema","contraindicacao"]).toContain(extra.tipo));
+      }
     });
   });
   it("a rede privada e o SUS têm os mesmos grupos de adolescente, adulto, idoso e gestante",()=>{
@@ -153,4 +158,19 @@ describe("meta.json: data dos dados e fonte de cada seção",()=>{
     const validas=new Set([...secoesDoCalendario(),"produtos.CN","produtos.FI","intervalos"]);
     Object.keys(meta.secoes).forEach(k=>expect(validas.has(k),`seção desconhecida em meta.json: ${k}`).toBe(true));
   });
+});
+
+describe("guia_vacinas.json: conteúdo editorial aprovado",()=>{
+    it("é uma lista de registros públicos válidos",()=>{
+      expect(Array.isArray(guiaVacinas)).toBe(true);
+      guiaVacinas.forEach((vacina)=>{
+        expect(texto(vacina.slug)).toBe(true);
+        expect(texto(vacina.nome)).toBe(true);
+        expect(Number.isInteger(vacina.ordem)).toBe(true);
+        expect(["pni","privada","ambas"]).toContain(vacina.rede);
+        for(const campo of ["apresentacoes","faixa_etaria","esquema_doses","indicacoes","diferenciais_clinicos","intervalos_minimos","eventos_adversos","contraindicacoes","extras"]){
+          expect(Array.isArray(vacina[campo]),`${vacina.nome}: ${campo}`).toBe(true);
+        }
+      });
+    });
 });

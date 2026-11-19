@@ -4,7 +4,14 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { semearBanco, publicarDoBanco } from "./lib/banco.js";
-import { textoCalendario, textoFontes, textoMeta, linhasDoCalendario, verificarPublicacao } from "./lib/conversao.js";
+import {
+  textoCalendario,
+  textoFontes,
+  textoMeta,
+  linhasDoCalendario,
+  calendarioDasLinhas,
+  verificarPublicacao,
+} from "./lib/conversao.js";
 
 const DATA = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "src", "data");
 const lf = (s) => s.replace(/\r\n/g, "\n");
@@ -12,7 +19,7 @@ const ler = (dir, nome) => lf(fs.readFileSync(path.join(dir, nome), "utf-8"));
 
 // Banco de mentira, em memória, que imita só o que os scripts usam do supabase-js.
 function bancoFalso() {
-  const tabelas = { fontes: [], blocos: [], itens: [] };
+  const tabelas = { fontes: [], blocos: [], itens: [], guia_vacinas: [] };
   const estado = { rpcChamadas: 0, erroRpc: null, erroExportRpc: null, exportacao: undefined };
   let seq = 0;
   return {
@@ -44,6 +51,7 @@ function bancoFalso() {
             blocos: [...tabelas.blocos],
             itens: [...tabelas.itens],
             fontes: [...tabelas.fontes],
+            guia_vacinas: [...tabelas.guia_vacinas],
           },
           error: null,
         };
@@ -68,7 +76,7 @@ let dir;
 beforeEach(() => {
   dir = fs.mkdtempSync(path.join(os.tmpdir(), "bv-"));
   try {
-    for (const n of ["calendario.json", "fontes.json", "meta.json"]) {
+    for (const n of ["calendario.json", "fontes.json", "guia_vacinas.json", "meta.json"]) {
       fs.copyFileSync(path.join(DATA, n), path.join(dir, n));
     }
   } catch (erro) {
@@ -90,6 +98,28 @@ describe("formato dos arquivos gerados", () => {
     expect(textoFontes(lerJson("fontes.json"))).toBe(ler(DATA, "fontes.json"));
     expect(textoMeta(lerJson("meta.json"))).toBe(ler(DATA, "meta.json"));
   });
+
+  it("faz round-trip dos extras opcionais sem alterar itens que não os têm", () => {
+    const calendario = JSON.parse(fs.readFileSync(path.join(DATA, "calendario.json"), "utf-8"));
+    const meta = JSON.parse(fs.readFileSync(path.join(DATA, "meta.json"), "utf-8"));
+    calendario.privada.crianca[0][1][0].push([
+      { tipo: "alerta", titulo: "Importante", conteudo: "Texto do alerta" },
+    ]);
+    const { blocos, itens } = linhasDoCalendario(calendario, meta);
+    const blocosComId = blocos.map((bloco, indice) => ({ ...bloco, id: `bloco-${indice}` }));
+    const itensComId = itens.map(({ bloco_ref, ...item }) => ({
+      ...item,
+      bloco_id: blocosComId.find((bloco) => `${bloco.rede}|${bloco.tipo}|${bloco.rotulo}` === bloco_ref).id,
+    }));
+
+    const resultado = calendarioDasLinhas({ blocos: blocosComId, itens: itensComId }, calendario);
+
+    expect(resultado.privada.crianca[0][1][0]).toHaveLength(4);
+    expect(resultado.privada.crianca[0][1][0][3]).toEqual([
+      { tipo: "alerta", titulo: "Importante", conteudo: "Texto do alerta" },
+    ]);
+    expect(resultado.privada.crianca[0][1][1]).toHaveLength(3);
+  });
 });
 
 describe("semear e publicar (ida e volta)", () => {
@@ -99,11 +129,11 @@ describe("semear e publicar (ida e volta)", () => {
     expect(r.blocos).toBe(13 + 12 + 4 + 4);
     expect(banco.tabelas.itens.every((i) => i.status === "aprovado" && i.fonte_id)).toBe(true);
 
-    const antes = ["calendario.json", "fontes.json", "meta.json"].map((n) => ler(dir, n));
+    const antes = ["calendario.json", "fontes.json", "guia_vacinas.json", "meta.json"].map((n) => ler(dir, n));
     const pub = await publicarDoBanco(banco, dir, "2030-01-01");
     expect(pub.ok).toBe(true);
-    expect(pub.mudou).toEqual({ calendario: false, fontes: false, meta: false });
-    expect(["calendario.json", "fontes.json", "meta.json"].map((n) => ler(dir, n))).toEqual(antes);
+    expect(pub.mudou).toEqual({ calendario: false, fontes: false, meta: false, guia_vacinas: false });
+    expect(["calendario.json", "fontes.json", "guia_vacinas.json", "meta.json"].map((n) => ler(dir, n))).toEqual(antes);
   });
 
   it("semear se recusa a rodar com o banco já preenchido", async () => {
@@ -129,7 +159,7 @@ describe("semear e publicar (ida e volta)", () => {
 
     await expect(semearBanco(banco, dir)).rejects.toThrow(/transação do PostgreSQL/);
     expect(banco.estado.rpcChamadas).toBe(1);
-    expect(banco.tabelas).toEqual({ fontes: [], blocos: [], itens: [] });
+    expect(banco.tabelas).toEqual({ fontes: [], blocos: [], itens: [], guia_vacinas: [] });
   });
 
   it("explica quando a função transacional ainda não foi instalada", async () => {
@@ -137,7 +167,7 @@ describe("semear e publicar (ida e volta)", () => {
     banco.estado.erroRpc = { message: "function not found", code: "PGRST202" };
 
     await expect(semearBanco(banco, dir)).rejects.toThrow(/20261118134000_semear_atomico\.sql/);
-    expect(banco.tabelas).toEqual({ fontes: [], blocos: [], itens: [] });
+    expect(banco.tabelas).toEqual({ fontes: [], blocos: [], itens: [], guia_vacinas: [] });
   });
 
   it("editar um item no banco muda só o calendário, atualiza a data e mantém o resgate", async () => {
@@ -146,7 +176,7 @@ describe("semear e publicar (ida e volta)", () => {
     const item = banco.tabelas.itens.find((i) => i.nome === "Hexavalente");
     item.esquema = "TEXTO NOVO";
     const pub = await publicarDoBanco(banco, dir, "2030-01-01");
-    expect(pub.mudou).toEqual({ calendario: true, fontes: false, meta: false });
+    expect(pub.mudou).toEqual({ calendario: true, fontes: false, meta: true, guia_vacinas: false });
     const cal = JSON.parse(fs.readFileSync(path.join(dir, "calendario.json"), "utf-8"));
     expect(JSON.stringify(cal.privada.crianca)).toContain("TEXTO NOVO");
     const original = JSON.parse(fs.readFileSync(path.join(DATA, "calendario.json"), "utf-8"));
@@ -167,6 +197,84 @@ describe("semear e publicar (ida e volta)", () => {
     expect(pub.totais.rascunhos).toBe(1);
   });
 
+  it("publica somente vacinas aprovadas do guia e as converte para JSON", async () => {
+    const banco = bancoFalso();
+    await semearBanco(banco, dir);
+    banco.tabelas.guia_vacinas.push({
+      slug: "vacina-teste",
+      ordem: 1,
+      status: "aprovado",
+      fonte_id: banco.tabelas.fontes[0].id,
+      nome: "Vacina teste",
+      nome_comercial: null,
+      fabricante: null,
+      rede: "ambas",
+      apresentacoes: [],
+      faixa_etaria: [],
+      esquema_doses: [],
+      indicacoes: ["Indicação de teste"],
+      diferenciais_clinicos: [],
+      beneficio: null,
+      conservacao_temperatura: null,
+      diluicao_preparo: null,
+      via_sitio_aplicacao: null,
+      intervalos_minimos: [],
+      eventos_adversos: [],
+      contraindicacoes: [],
+      extras: [],
+      atualizado_em: "2030-01-01",
+      atualizado_por: "editor",
+    });
+    banco.tabelas.guia_vacinas.push({
+      ...banco.tabelas.guia_vacinas[0],
+      slug: "rascunho-teste",
+      status: "rascunho",
+    });
+
+    const pub = await publicarDoBanco(banco, dir, "2030-01-01");
+    const guia = JSON.parse(fs.readFileSync(path.join(dir, "guia_vacinas.json"), "utf-8"));
+
+    expect(pub.ok).toBe(true);
+    expect(pub.mudou.guia_vacinas).toBe(true);
+    expect(pub.mudou.meta).toBe(true);
+    expect(guia).toHaveLength(1);
+    expect(guia[0]).toMatchObject({
+      slug: "vacina-teste",
+      nome: "Vacina teste",
+      indicacoes: ["Indicação de teste"],
+    });
+    expect(guia[0]).not.toHaveProperty("status");
+    expect(guia[0]).not.toHaveProperty("atualizado_por");
+  });
+
+  it("bloqueia a publicação de vacina aprovada sem fonte", async () => {
+    const banco = bancoFalso();
+    await semearBanco(banco, dir);
+    banco.tabelas.guia_vacinas.push({
+      slug: "vacina-sem-fonte",
+      ordem: 1,
+      status: "aprovado",
+      fonte_id: null,
+      nome: "Vacina sem fonte",
+      rede: "ambas",
+      apresentacoes: [],
+      faixa_etaria: [],
+      esquema_doses: [],
+      indicacoes: [],
+      diferenciais_clinicos: [],
+      intervalos_minimos: [],
+      eventos_adversos: [],
+      contraindicacoes: [],
+      extras: [],
+    });
+
+    const pub = await publicarDoBanco(banco, dir);
+
+    expect(pub.ok).toBe(false);
+    expect(pub.problemas).toContain("Guia 1 está aprovado sem fonte.");
+    expect(ler(dir, "guia_vacinas.json")).toBe("[]\n");
+  });
+
   it("não publica se um bloco ficar sem item aprovado, e não mexe nos arquivos", async () => {
     const banco = bancoFalso();
     await semearBanco(banco, dir);
@@ -185,7 +293,7 @@ describe("semear e publicar (ida e volta)", () => {
       const banco = bancoFalso();
       await semearBanco(banco, dir);
       banco.tabelas[tabela] = [];
-      const nomes = ["calendario.json", "fontes.json", "meta.json"];
+      const nomes = ["calendario.json", "fontes.json", "guia_vacinas.json", "meta.json"];
       const antes = nomes.map((nome) => ler(dir, nome));
       const antesDeEscrever = vi.fn();
 
@@ -205,9 +313,10 @@ describe("semear e publicar (ida e volta)", () => {
       fontes: [...banco.tabelas.fontes],
       blocos: [...banco.tabelas.blocos],
       itens: [...banco.tabelas.itens],
+      guia_vacinas: [...banco.tabelas.guia_vacinas],
     };
     banco.estado.exportacao.itens[0].esquema = "";
-    const nomes = ["calendario.json", "fontes.json", "meta.json"];
+    const nomes = ["calendario.json", "fontes.json", "guia_vacinas.json", "meta.json"];
     const antes = nomes.map((nome) => ler(dir, nome));
     const antesDeEscrever = vi.fn();
 
@@ -225,7 +334,7 @@ describe("semear e publicar (ida e volta)", () => {
     banco.tabelas.itens.forEach((item) => {
       item.status = "rascunho";
     });
-    const nomes = ["calendario.json", "fontes.json", "meta.json"];
+    const nomes = ["calendario.json", "fontes.json", "guia_vacinas.json", "meta.json"];
     const antes = nomes.map((nome) => ler(dir, nome));
     const antesDeEscrever = vi.fn();
 
@@ -255,7 +364,7 @@ describe("semear e publicar (ida e volta)", () => {
     const banco = bancoFalso();
     await semearBanco(banco, dir);
     banco.tabelas.itens.find((i) => i.nome === "Hexavalente").esquema = "TEXTO NOVO";
-    const nomes = ["calendario.json", "fontes.json", "meta.json"];
+    const nomes = ["calendario.json", "fontes.json", "guia_vacinas.json", "meta.json"];
     const antes = nomes.map((nome) => fs.readFileSync(path.join(dir, nome)));
     const renameOriginal = fs.renameSync.bind(fs);
     let falhou = false;
@@ -285,7 +394,7 @@ describe("semear e publicar (ida e volta)", () => {
     const banco = bancoFalso();
     await semearBanco(banco, dir);
     banco.tabelas.itens.find((i) => i.nome === "Hexavalente").esquema = "TEXTO NOVO";
-    const nomes = ["calendario.json", "fontes.json", "meta.json"];
+    const nomes = ["calendario.json", "fontes.json", "guia_vacinas.json", "meta.json"];
     const antes = nomes.map((nome) => ler(dir, nome));
     const antesDeEscrever = () => {
       throw new Error("Há alterações locais em src/data.");

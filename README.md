@@ -38,9 +38,9 @@ Precisa do Node.js 18+ (https://nodejs.org).
     src/dados.test.js          validação dos JSONs de src/data (rode ao editar qualquer dado)
 
 ## Como atualizar os dados
-O calendário e as fontes são editados no painel administrativo, que guarda o conteúdo editorial no Supabase. Depois de revisar e aprovar as alterações, rode `npm run publicar` na raiz do projeto para exportá-las para `src/data/`. O aplicativo público continua lendo esses arquivos JSON e não consulta o Supabase.
+O calendário, seus blocos adicionais, as fontes e o Guia de vacinas são editados no painel administrativo, que guarda o conteúdo editorial no Supabase. Depois de revisar e aprovar as alterações, rode `npm run publicar` na raiz do projeto para exportá-las para `src/data/`. O aplicativo público continua lendo esses arquivos JSON e não consulta o Supabase.
 
-Não edite `calendario.json`, `fontes.json` ou as seções editoriais de `meta.json` manualmente como fluxo normal: a próxima publicação pode sobrescrevê-los. Consulte `docs/PAINEL.md` para o fluxo do painel. Os demais dados, como nomes comerciais, intervalos e materiais, continuam sendo mantidos nos arquivos correspondentes, conforme `docs/COMO-ATUALIZAR-DADOS.md`.
+Não edite `calendario.json`, `fontes.json`, `guia_vacinas.json` ou as seções editoriais de `meta.json` manualmente como fluxo normal: a próxima publicação pode sobrescrevê-los. Consulte `docs/PAINEL.md` para o fluxo do painel. Os demais dados, como intervalos e materiais, continuam sendo mantidos nos arquivos correspondentes, conforme `docs/COMO-ATUALIZAR-DADOS.md`.
 
 ## Painel administrativo
 

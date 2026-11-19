@@ -8,7 +8,7 @@ import { publicarDoBanco, substituirArquivosAtomico } from "./lib/banco.js";
 
 const raiz = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dir = path.join(raiz, "src", "data");
-const nomesArquivos = ["calendario.json", "fontes.json", "meta.json"];
+const nomesArquivos = ["calendario.json", "fontes.json", "guia_vacinas.json", "meta.json"];
 
 function exigirDadosPublicosLimpos() {
   const estado = execFileSync("git", ["status", "--porcelain", "--", "src/data"], {

@@ -1,10 +1,18 @@
 import { useState } from "react";
 
-const vazio = { nome: "", protege: "", esquema: "", fonte_id: "", pagina: "", trecho: "", status: "rascunho" };
+const vazio = { nome: "", protege: "", esquema: "", fonte_id: "", pagina: "", trecho: "", status: "rascunho", extras: [] };
 const limpar = (v) => (v.trim() === "" ? null : v.trim());
+const TIPOS_EXTRA = ["alerta", "nota", "esquema", "contraindicacao"];
 
 export default function ItemForm({ item, fontes, onSalvar, onCancelar, onExcluir }) {
-  const [v, setV] = useState(item ? { ...vazio, ...Object.fromEntries(Object.entries(item).map(([k, x]) => [k, x ?? ""])) } : vazio);
+  const [v, setV] = useState(() => ({
+    ...vazio,
+    ...item,
+    fonte_id: item?.fonte_id ?? "",
+    pagina: item?.pagina ?? "",
+    trecho: item?.trecho ?? "",
+    extras: Array.isArray(item?.extras) ? item.extras.map((extra) => ({ ...extra })) : [],
+  }));
   const [erro, setErro] = useState("");
   const [salvando, setSalvando] = useState(false);
   const campo = (nome) => ({ value: v[nome], onChange: (e) => setV({ ...v, [nome]: e.target.value }) });
@@ -26,6 +34,11 @@ export default function ItemForm({ item, fontes, onSalvar, onCancelar, onExcluir
         pagina: limpar(v.pagina),
         trecho: limpar(v.trecho),
         status: v.status,
+        extras: v.extras.map((extra) => ({
+          tipo: extra.tipo,
+          titulo: extra.titulo.trim(),
+          conteudo: extra.conteudo.trim(),
+        })),
       });
     } catch (err) {
       setErro(err.message);
@@ -49,6 +62,56 @@ export default function ItemForm({ item, fontes, onSalvar, onCancelar, onExcluir
         <label>Página<input {...campo("pagina")} placeholder="ex.: 4" /></label>
       </div>
       <label>Trecho literal do documento (para conferir depois)<textarea rows={2} {...campo("trecho")} /></label>
+      <fieldset>
+        <legend>Blocos adicionais</legend>
+        {v.extras.map((extra, indice) => (
+          <div className="item-extra formulario" key={indice}>
+            <label>
+              Tipo
+              <select
+                value={extra.tipo}
+                onChange={(e) => setV({
+                  ...v,
+                  extras: v.extras.map((x, i) => i === indice ? { ...x, tipo: e.target.value } : x),
+                })}
+              >
+                {TIPOS_EXTRA.map((tipo) => <option key={tipo} value={tipo}>{tipo}</option>)}
+              </select>
+            </label>
+            <label>
+              Título
+              <input
+                value={extra.titulo}
+                onChange={(e) => setV({
+                  ...v,
+                  extras: v.extras.map((x, i) => i === indice ? { ...x, titulo: e.target.value } : x),
+                })}
+                required
+              />
+            </label>
+            <label>
+              Conteúdo
+              <textarea
+                rows={3}
+                value={extra.conteudo}
+                onChange={(e) => setV({
+                  ...v,
+                  extras: v.extras.map((x, i) => i === indice ? { ...x, conteudo: e.target.value } : x),
+                })}
+                required
+              />
+            </label>
+            <button type="button" className="perigo" onClick={() => setV({
+              ...v,
+              extras: v.extras.filter((_, i) => i !== indice),
+            })}>Remover bloco</button>
+          </div>
+        ))}
+        <button type="button" onClick={() => setV({
+          ...v,
+          extras: [...v.extras, { tipo: "nota", titulo: "", conteudo: "" }],
+        })}>+ Adicionar bloco</button>
+      </fieldset>
       <label>
         Status
         <select {...campo("status")}>

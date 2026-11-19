@@ -54,6 +54,14 @@ export const criarItem = (i) => supabase.from("itens").insert(i).then(conferir);
 export const atualizarItem = (id, i) => supabase.from("itens").update(i).eq("id", id).then(conferir);
 export const apagarItem = (id) => supabase.from("itens").delete().eq("id", id).then(conferir);
 
+// Guia de vacinas
+export const listarGuiaVacinas = () =>
+  supabase.from("guia_vacinas").select("*").order("ordem").order("nome").then(conferir);
+export const criarGuiaVacina = (vacina) => supabase.from("guia_vacinas").insert(vacina).then(conferir);
+export const atualizarGuiaVacina = (id, vacina) =>
+  supabase.from("guia_vacinas").update(vacina).eq("id", id).then(conferir);
+export const apagarGuiaVacina = (id) => supabase.from("guia_vacinas").delete().eq("id", id).then(conferir);
+
 // Contagem por bloco e status (para mostrar quantos aprovados e rascunhos cada bloco tem).
 export async function contarItens() {
   const contagem = {};
@@ -67,5 +75,16 @@ export async function contarItens() {
   }
 }
 
-export const gravarOrdens = (tabela, pares) =>
-  Promise.all(pares.map(([id, ordem]) => supabase.from(tabela).update({ ordem }).eq("id", id).then(conferir)));
+export const gravarOrdens = (tabela, pares, blocoId) => {
+  const p_ids = [...pares].sort((a, b) => a[1] - b[1]).map(([id]) => id);
+  if (tabela === "blocos") {
+    return supabase.rpc("reordenar_blocos", { p_ids }).then(conferir);
+  }
+  if (tabela === "itens" && blocoId) {
+    return supabase.rpc("reordenar_itens", { p_bloco_id: blocoId, p_ids }).then(conferir);
+  }
+  if (tabela === "guia_vacinas") {
+    return supabase.rpc("reordenar_guia_vacinas", { p_ids }).then(conferir);
+  }
+  throw new Error("Não foi possível identificar a lista para reordenar.");
+};

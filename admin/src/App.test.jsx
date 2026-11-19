@@ -16,6 +16,10 @@ const api = vi.hoisted(() => ({
   criarItem: vi.fn(),
   atualizarItem: vi.fn(),
   apagarItem: vi.fn(),
+  listarGuiaVacinas: vi.fn(),
+  criarGuiaVacina: vi.fn(),
+  atualizarGuiaVacina: vi.fn(),
+  apagarGuiaVacina: vi.fn(),
   gravarOrdens: vi.fn(),
   criarBloco: vi.fn(), atualizarBloco: vi.fn(), apagarBloco: vi.fn(),
   criarFonte: vi.fn(), atualizarFonte: vi.fn(), apagarFonte: vi.fn(),
@@ -63,6 +67,10 @@ beforeEach(() => {
   api.criarItem.mockResolvedValue(null);
   api.atualizarItem.mockResolvedValue(null);
   api.apagarItem.mockResolvedValue(null);
+  api.listarGuiaVacinas.mockResolvedValue([]);
+  api.criarGuiaVacina.mockResolvedValue(null);
+  api.atualizarGuiaVacina.mockResolvedValue(null);
+  api.apagarGuiaVacina.mockResolvedValue(null);
   api.gravarOrdens.mockResolvedValue([]);
 });
 
@@ -153,8 +161,21 @@ describe("tela de vacinas", () => {
     fireEvent.click(screen.getByRole("button", { name: "Salvar" }));
     await waitFor(() => expect(api.atualizarItem).toHaveBeenCalledWith("i1", {
       nome: "BCG", protege: "Tuberculose", esquema: "Dose única, ao nascer",
-      fonte_id: "f1", pagina: null, trecho: null, status: "aprovado",
+      fonte_id: "f1", pagina: null, trecho: null, status: "aprovado", extras: [],
     }));
+  });
+
+  it("salva os blocos extras do item como lista estruturada", async () => {
+    render(<App />);
+    await screen.findByText("BCG");
+    fireEvent.click(screen.getAllByRole("button", { name: "Editar" })[0]);
+    fireEvent.click(screen.getByRole("button", { name: "+ Adicionar bloco" }));
+    fireEvent.change(screen.getByLabelText("Título"), { target: { value: "  Atenção  " } });
+    fireEvent.change(screen.getByLabelText("Conteúdo"), { target: { value: "  Orientação  " } });
+    fireEvent.click(screen.getByRole("button", { name: "Salvar" }));
+    await waitFor(() => expect(api.atualizarItem).toHaveBeenCalledWith("i1", expect.objectContaining({
+      extras: [{ tipo: "nota", titulo: "Atenção", conteudo: "Orientação" }],
+    })));
   });
 
   it("erro do banco aparece no formulário e o formulário continua aberto", async () => {
@@ -207,7 +228,7 @@ describe("tela de vacinas", () => {
     render(<App />);
     await screen.findByText("BCG");
     fireEvent.click(screen.getByRole("button", { name: "Descer BCG" }));
-    await waitFor(() => expect(api.gravarOrdens).toHaveBeenCalledWith("itens", [["i2", 1], ["i1", 2]]));
+    await waitFor(() => expect(api.gravarOrdens).toHaveBeenCalledWith("itens", [["i2", 1], ["i1", 2]], "b1"));
   });
 
   it("nova vacina entra como rascunho no fim do bloco", async () => {
@@ -320,5 +341,39 @@ describe("tela de blocos", () => {
     const linha = screen.getByText("Ao nascer").closest("li");
     fireEvent.click(within(linha).getByRole("button", { name: "Excluir" }));
     await waitFor(() => expect(api.apagarBloco).toHaveBeenCalledWith("b1"));
+  });
+});
+
+describe("tela do guia de vacinas", () => {
+  async function abrirGuia() {
+    render(<App />);
+    fireEvent.click(await screen.findByRole("button", { name: "Guia" }));
+    expect(await screen.findByText("Guia de vacinas", { selector: "h2" })).toBeTruthy();
+  }
+
+  it("cria um registro de guia como rascunho e transforma listas em arrays", async () => {
+    await abrirGuia();
+    fireEvent.click(screen.getByRole("button", { name: "+ Nova vacina no guia" }));
+    fireEvent.change(screen.getByLabelText("Nome da vacina"), { target: { value: "Vacina teste" } });
+    fireEvent.change(screen.getByLabelText(/Indicações/), { target: { value: "Indicação A\nIndicação B" } });
+    fireEvent.click(screen.getByRole("button", { name: "Salvar" }));
+    await waitFor(() => expect(api.criarGuiaVacina).toHaveBeenCalledWith(expect.objectContaining({
+      slug: "vacina-teste",
+      nome: "Vacina teste",
+      status: "rascunho",
+      fonte_id: null,
+      indicacoes: ["Indicação A", "Indicação B"],
+      extras: [],
+    })));
+  });
+
+  it("não aprova um registro de guia sem fonte", async () => {
+    await abrirGuia();
+    fireEvent.click(screen.getByRole("button", { name: "+ Nova vacina no guia" }));
+    fireEvent.change(screen.getByLabelText("Nome da vacina"), { target: { value: "Vacina teste" } });
+    fireEvent.change(screen.getByLabelText("Status"), { target: { value: "aprovado" } });
+    fireEvent.click(screen.getByRole("button", { name: "Salvar" }));
+    expect((await screen.findByRole("alert")).textContent).toContain("escolha uma fonte");
+    expect(api.criarGuiaVacina).not.toHaveBeenCalled();
   });
 });

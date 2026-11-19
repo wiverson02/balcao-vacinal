@@ -66,7 +66,7 @@ export default function Vacinas() {
 
   const mover = (item, direcao) =>
     tentar(async () => {
-      await gravarOrdens("itens", trocarComVizinho(itens, item.id, direcao));
+      await gravarOrdens("itens", trocarComVizinho(itens, item.id, direcao), bloco.id);
       await recarregarItens(bloco.id);
     });
 

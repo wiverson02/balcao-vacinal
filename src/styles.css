@@ -610,6 +610,24 @@ details.c p.beneficio {
   color: var(--tx);
 }
 
+.guia-detalhe,
+.extra {
+  margin: 8px 0 0;
+  padding: 8px 10px;
+  border-left: 3px solid var(--ac);
+  background: var(--soft);
+  overflow-wrap: anywhere;
+}
+
+.extra p {
+  margin: 4px 0 0;
+}
+
+.extra-alerta,
+.extra-contraindicacao {
+  border-left-color: #b3261e;
+}
+
 @media (max-width: 640px) {
   .top {
     padding: 10px 16px 2px;

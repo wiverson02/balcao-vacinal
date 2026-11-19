@@ -4,11 +4,11 @@ import { trocarComVizinho, proximaOrdem } from "./ordem";
 const lista = [{ id: "a", ordem: 1 }, { id: "b", ordem: 2 }, { id: "c", ordem: 3 }];
 
 describe("trocarComVizinho", () => {
-  it("desce o primeiro: devolve só os dois que mudaram", () => {
-    expect(trocarComVizinho(lista, "a", 1)).toEqual([["b", 1], ["a", 2]]);
+  it("desce o primeiro e devolve a ordem completa para a RPC", () => {
+    expect(trocarComVizinho(lista, "a", 1)).toEqual([["b", 1], ["a", 2], ["c", 3]]);
   });
   it("sobe o último", () => {
-    expect(trocarComVizinho(lista, "c", -1)).toEqual([["c", 2], ["b", 3]]);
+    expect(trocarComVizinho(lista, "c", -1)).toEqual([["a", 1], ["c", 2], ["b", 3]]);
   });
   it("não faz nada nas pontas nem com id desconhecido", () => {
     expect(trocarComVizinho(lista, "a", -1)).toEqual([]);

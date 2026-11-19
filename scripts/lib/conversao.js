@@ -24,13 +24,14 @@ export function linhasDoCalendario(calendario, meta) {
     const novoBloco = (tipo, rotulo, idadeMin, vacinas) => {
       const fonteId = meta.secoes[chaveSecao(rede, tipo, rotulo)]?.[0] ?? null;
       blocos.push({ rede, tipo, rotulo, idade_min_meses: idadeMin, ordem: ++ordemBloco });
-      vacinas.forEach(([nome, protege, esquema], i) => {
+      vacinas.forEach(([nome, protege, esquema, extras], i) => {
         itens.push({
           bloco_ref: chaveBloco(rede, tipo, rotulo),
           ordem: i + 1,
           nome,
           protege,
           esquema,
+          extras: extras ?? [],
           fonte_id: fonteId,
           status: "aprovado",
         });
@@ -67,7 +68,11 @@ export function calendarioDasLinhas({ blocos, itens }, base) {
     aprovados
       .filter((i) => i.bloco_id === bloco.id)
       .sort(porOrdem)
-      .map((i) => [i.nome, i.protege, i.esquema]);
+      .map((i) => {
+        const vacina = [i.nome, i.protege, i.esquema];
+        if (i.extras?.length) vacina.push(i.extras);
+        return vacina;
+      });
   for (const rede of REDES) {
     const daRede = blocos.filter((b) => b.rede === rede).sort(porOrdem);
     saida[rede].crianca = daRede

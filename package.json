@@ -9,6 +9,7 @@
   "preview": "vite preview",
   "test": "vitest run",
   "semear": "node scripts/semear.mjs",
+  "semear-guia": "node scripts/semear-guia.mjs",
   "publicar": "node scripts/publicar.mjs"
  },
  "dependencies": {
