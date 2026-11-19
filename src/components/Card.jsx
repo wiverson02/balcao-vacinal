@@ -1,3 +1,4 @@
+import "./Card.css";
 import produtos from "../data/produtos.json";
 const TIPOS_EXTRA=new Set(["alerta","nota","esquema","contraindicacao"]);
 function ConteudoGuia({dados}){

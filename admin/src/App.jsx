@@ -68,9 +68,9 @@ function Login() {
 }
 
 const ABAS = [
-  ["vacinas", "Vacinas", Vacinas],
-  ["guia", "Guia", GuiaVacinas],
-  ["blocos", "Blocos", Blocos],
+  ["vacinas", "Calendário", Vacinas],
+  ["guia", "Guia clínico", GuiaVacinas],
+  ["blocos", "Estrutura", Blocos],
   ["fontes", "Fontes", Fontes],
 ];
 
@@ -90,6 +90,20 @@ const textoDeValores = (valor) => {
   return [];
 };
 const pluralizar = (total, singular, plural) => `${total} ${total === 1 ? singular : plural}`;
+const moverTabComSetas = (evento) => {
+  if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(evento.key)) return;
+  const abas = [...evento.currentTarget.querySelectorAll('[role="tab"]')];
+  const indice = abas.indexOf(document.activeElement);
+  if (indice < 0) return;
+  evento.preventDefault();
+  const proximo = evento.key === "Home"
+    ? 0
+    : evento.key === "End"
+      ? abas.length - 1
+      : (indice + (evento.key === "ArrowRight" ? 1 : abas.length - 1)) % abas.length;
+  abas[proximo]?.focus();
+  abas[proximo]?.click();
+};
 
 function registrosGlobais(dados) {
   if (!dados) return [];
@@ -184,7 +198,9 @@ function Painel({ email }) {
   const [busca, setBusca] = useState("");
   const [filtro, setFiltro] = useState("todos");
   const [foco, setFoco] = useState(null);
+  const [focarResultados, setFocarResultados] = useState(false);
   const campoBusca = useRef(null);
+  const resultadosRef = useRef(null);
   const Tela = ABAS.find((a) => a[0] === aba)[2];
 
   const carregarDados = useCallback(async () => {
@@ -213,7 +229,6 @@ function Painel({ email }) {
     window.addEventListener("keydown", atalhos);
     return () => window.removeEventListener("keydown", atalhos);
   }, []);
-
   const diagnostico = useMemo(
     () => dados ? diagnosticarProntidaoPublicacao(dados) : null,
     [dados],
@@ -223,6 +238,12 @@ function Painel({ email }) {
     () => filtrarRegistros(registros, filtro, diagnostico, busca),
     [registros, filtro, diagnostico, busca],
   );
+  useEffect(() => {
+    if (!focarResultados) return;
+    resultadosRef.current?.focus();
+    resultadosRef.current?.scrollIntoView?.({ behavior: "smooth", block: "start" });
+    setFocarResultados(false);
+  }, [focarResultados, resultados.length]);
   const totalSemFonteConferida = diagnostico
     ? diagnostico.itensAprovadosSemFonteConferida.length + diagnostico.guiaAprovadoSemFonteConferida.length
     : 0;
@@ -249,13 +270,14 @@ function Painel({ email }) {
   const selecionarAlerta = (id) => {
     setBusca("");
     setFiltro(id);
+    setFocarResultados(true);
   };
 
   return (
     <>
       <header>
         <b>Painel · Balcão Vacinal</b>
-        <nav role="tablist" aria-label="Seções do painel">
+        <nav role="tablist" aria-label="Seções do painel" onKeyDown={moverTabComSetas}>
           {ABAS.map(([id, nome]) => (
             <button
               key={id}
@@ -273,8 +295,15 @@ function Painel({ email }) {
       </header>
       <main>
         <section className="ferramentas-painel">
-          <section className="semaforo" aria-labelledby="titulo-semaforo">
-            <h1 id="titulo-semaforo">Semáforo de Prontidão para Publicar</h1>
+          <details className="semaforo">
+            <summary>
+              <b>Prontidão para publicar</b>
+              {diagnostico && (
+                <span className="resumo-prontidao">
+                  {diagnostico.blocosSemItensAprovados.length} bloqueios · {totalSemFonteConferida} fontes a conferir · {totalRascunhos} rascunhos
+                </span>
+              )}
+            </summary>
             {erroDados && (
               <p className="erro" role="alert">
                 Não foi possível atualizar o diagnóstico editorial: {erroDados}
@@ -287,7 +316,7 @@ function Painel({ email }) {
               <div className="indicadores-prontidao">
                 <button
                   type="button"
-                  className="indicador bloqueante"
+                  className={`indicador bloqueante ${diagnostico.blocosSemItensAprovados.length ? "alerta" : "resolvido"}`}
                   aria-pressed={filtro === "blocosSemAprovados"}
                   onClick={() => selecionarAlerta("blocosSemAprovados")}
                 >
@@ -295,7 +324,7 @@ function Painel({ email }) {
                 </button>
                 <button
                   type="button"
-                  className="indicador conferir"
+                  className={`indicador conferir ${totalSemFonteConferida ? "alerta" : "resolvido"}`}
                   aria-pressed={filtro === "semFonteConferida"}
                   onClick={() => selecionarAlerta("semFonteConferida")}
                 >
@@ -303,7 +332,7 @@ function Painel({ email }) {
                 </button>
                 <button
                   type="button"
-                  className="indicador rascunhos"
+                  className={`indicador rascunhos ${totalRascunhos ? "alerta" : "resolvido"}`}
                   aria-pressed={filtro === "rascunhos"}
                   onClick={() => selecionarAlerta("rascunhos")}
                 >
@@ -311,10 +340,10 @@ function Painel({ email }) {
                 </button>
               </div>
             )}
-          </section>
+          </details>
           <section className="busca-global" aria-label="Busca e filtros globais">
-            <label htmlFor="busca-global">Busca global</label>
             <div className="campo-busca">
+              <label htmlFor="busca-global">Buscar em tudo</label>
               <input
                 id="busca-global"
                 ref={campoBusca}
@@ -326,20 +355,30 @@ function Painel({ email }) {
               />
               <kbd>Ctrl+K</kbd>
             </div>
-            <div className="filtros-status" role="group" aria-label="Filtros rápidos por status">
-              {FILTROS.map(([id, nome]) => (
-                <button
-                  key={id}
-                  type="button"
-                  aria-pressed={filtro === id}
-                  className={filtro === id ? "on" : ""}
-                  onClick={() => setFiltro(id)}
-                >{nome}</button>
-              ))}
-            </div>
+            <details className="filtros-status-menu">
+              <summary>
+                {filtro === "todos"
+                  ? "Filtros rápidos"
+                  : `Filtro: ${FILTROS.find(([id]) => id === filtro)?.[1] ?? "Blocos sem itens aprovados"}`}
+              </summary>
+              <div className="filtros-status" role="group" aria-label="Filtros rápidos por status">
+                {FILTROS.map(([id, nome]) => (
+                  <button
+                    key={id}
+                    type="button"
+                    aria-pressed={filtro === id}
+                    className={filtro === id ? "on" : ""}
+                    onClick={(evento) => {
+                      setFiltro(id);
+                      evento.currentTarget.closest("details").open = false;
+                    }}
+                  >{nome}</button>
+                ))}
+              </div>
+            </details>
           </section>
           {(busca.trim() || filtro !== "todos") && (
-            <section className="resultados-globais" aria-label="Resultados globais" aria-live="polite">
+            <section ref={resultadosRef} tabIndex={-1} className="resultados-globais" aria-label="Resultados globais" aria-live="polite">
               <h2>Resultados ({resultados.length})</h2>
               {resultados.length ? (
                 <ul className="lista">
@@ -366,7 +405,7 @@ function Painel({ email }) {
       </main>
       <footer>
         Só itens com status <b>aprovado</b> chegam ao app. As mudanças daqui só aparecem no site depois de rodar
-        <code> npm run publicar</code> no projeto, commitar e enviar para a <code>develop</code>.
+        <code> npm run publicar</code> no projeto. Revise os JSONs gerados, faça commit e envie para <code>main</code>; o deploy público é automático.
       </footer>
     </>
   );

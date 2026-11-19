@@ -8,6 +8,13 @@ const hoje = () => {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 };
 const limpar = (v) => (v.trim() === "" ? null : v.trim());
+const identificadorFonte = (instituicao, titulo) =>
+  `${instituicao}-${titulo}`
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
 
 function FonteForm({ fonte, onSalvar, onCancelar, salvando = false }) {
   const [v, setV] = useState({ id: "", instituicao: "", titulo: "", arquivo: "", url: "", conferido_em: "", ...Object.fromEntries(Object.entries(fonte ?? {}).map(([k, x]) => [k, x ?? ""])) });
@@ -18,7 +25,7 @@ function FonteForm({ fonte, onSalvar, onCancelar, salvando = false }) {
     setErro("");
     try {
       await onSalvar({
-        id: v.id.trim(),
+        id: fonte?.id ?? identificadorFonte(v.instituicao.trim(), v.titulo.trim()),
         instituicao: v.instituicao.trim(),
         titulo: v.titulo.trim(),
         arquivo: limpar(v.arquivo),
@@ -37,7 +44,7 @@ function FonteForm({ fonte, onSalvar, onCancelar, salvando = false }) {
 
   return (
     <form className="formulario" onSubmit={enviar}>
-      <label>Id (letras minúsculas, números e hífen; não muda depois)<input {...campo("id")} readOnly={Boolean(fonte)} required /></label>
+      {!fonte && <p className="ajuda">O identificador interno é criado automaticamente e não aparece no aplicativo.</p>}
       <div className="duas">
         <label>Instituição<input {...campo("instituicao")} required /></label>
         <label>Título do documento<input {...campo("titulo")} required /></label>
@@ -123,6 +130,7 @@ export default function Fontes({ onAlteracao, foco, onFocoConsumido }) {
 
   return (
     <>
+      <h1>Fontes oficiais</h1>
       <p className="ajuda">Cada item aprovado precisa apontar para uma fonte. Preencha “conferido em” depois de comparar o conteúdo com o PDF.</p>
       {erro && <div className="erro" role="alert"><p>{erro}</p><button type="button" disabled={carregando || salvando} onClick={() => retryAction ? void retryAction() : void carregar()}>Tentar novamente</button></div>}
       {carregando && <p role="status">Carregando fontes...</p>}
@@ -131,7 +139,7 @@ export default function Fontes({ onAlteracao, foco, onFocoConsumido }) {
           <li key={f.id} className="item">
             <div className="linha">
               <b>{f.titulo}</b>
-              <small>{f.instituicao} · {f.id}</small>
+              <small>{f.instituicao}</small>
               <span className={`chip ${f.conferido_em ? "aprovado" : "rascunho"}`}>{f.conferido_em ? `conferida em ${f.conferido_em}` : "não conferida"}</span>
               <time className="atualizado-em" dateTime={f.atualizado_em ?? ""}>
                 Atualizado em {formatarAtualizadoEm(f.atualizado_em)}

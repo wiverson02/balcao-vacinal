@@ -96,6 +96,7 @@ export default function Vacinas({ onAlteracao, foco, onFocoConsumido }) {
 
   return (
     <>
+      <h1>Calendário vacinal</h1>
       <div className="abas">
         {REDES.map(([id, nome]) => (
           <button key={id} className={id === rede ? "on" : ""} onClick={() => { setRede(id); setBlocoId(null); }}>{nome}</button>
@@ -127,13 +128,13 @@ export default function Vacinas({ onAlteracao, foco, onFocoConsumido }) {
                 </div>
                 <p className="esquema"><i>{item.protege}.</i> {item.esquema}</p>
                 {editando === item.id && (
-                  <ItemForm item={item} fontes={fontes} onSalvar={salvar} onCancelar={() => setEditando(null)} onExcluir={() => excluir(item)} />
+                  <ItemForm item={item} fontes={fontes} privado={rede === "privada"} onSalvar={salvar} onCancelar={() => setEditando(null)} onExcluir={() => excluir(item)} />
                 )}
               </li>
             ))}
           </ul>
           {editando === "novo" ? (
-            <ItemForm fontes={fontes} onSalvar={salvar} onCancelar={() => setEditando(null)} />
+            <ItemForm fontes={fontes} privado={rede === "privada"} onSalvar={salvar} onCancelar={() => setEditando(null)} />
           ) : (
             <button className="primario" onClick={() => setEditando("novo")}>+ Nova vacina neste bloco</button>
           )}

@@ -9,6 +9,8 @@ import {
 } from "./api";
 import { proximaOrdem, trocarComVizinho } from "./ordem";
 import { CardConferenciaFonte, formatarAtualizadoEm, StudioSplit } from "./Studio";
+import Card from "../../src/components/Card";
+import { criarModeloCardGuia } from "../../src/lib/guiaCardModel";
 
 const CAMPOS_LISTA = [
   ["apresentacoes", "Apresentações"],
@@ -28,7 +30,12 @@ const CAMPOS_TEXTO = [
   ["diluicao_preparo", "Diluição e preparo"],
   ["via_sitio_aplicacao", "Via e sítio de aplicação"],
 ];
-const TIPOS_EXTRA = ["alerta", "nota", "esquema", "contraindicacao"];
+const TIPOS_EXTRA = [
+  ["alerta", "Alerta"],
+  ["nota", "Nota"],
+  ["esquema", "Esquema"],
+  ["contraindicacao", "Contraindicação"],
+];
 
 const slugify = (texto) => texto
   .normalize("NFD")
@@ -41,6 +48,7 @@ const textoParaLista = (texto) => texto.split("\n").map((linha) => linha.trim())
 
 function GuiaVacinaForm({ vacina, fontes, ordem, onSalvar, onCancelar, salvando: salvandoExterno = false }) {
   const formRef = useRef(null);
+  useEffect(() => { formRef.current?.querySelector("input, select, textarea")?.focus(); }, []);
   const inicial = {
     slug: vacina?.slug ?? "",
     nome: vacina?.nome ?? "",
@@ -119,33 +127,22 @@ function GuiaVacinaForm({ vacina, fontes, ordem, onSalvar, onCancelar, salvando:
   const atualizarExtra = (indice, chave, valor) =>
     setExtras(extras.map((extra, i) => i === indice ? { ...extra, [chave]: valor } : extra));
 
-  const preview = (
-    <article className="cartao-preview">
-      <header><b>{valores.nome.trim() || "Nome da vacina"}</b></header>
-      {valores.nome_comercial.trim() && <p className="preview-comercial">{valores.nome_comercial}</p>}
-      {valores.fabricante.trim() && <p><b>Fabricante:</b> {valores.fabricante}</p>}
-      {valores.beneficio.trim() && <p>{valores.beneficio}</p>}
-      {CAMPOS_LISTA.map(([nome, rotulo]) => {
-        const lista = textoParaLista(valores[nome]);
-        return lista.length ? <p key={nome}><b>{rotulo}:</b> {lista.join("; ")}</p> : null;
-      })}
-      {CAMPOS_TEXTO.filter(([nome]) => !["nome_comercial", "fabricante", "beneficio"].includes(nome)).map(([nome, rotulo]) =>
-        valores[nome].trim() ? <p key={nome}><b>{rotulo}:</b> {valores[nome]}</p> : null,
-      )}
-      {extras.filter((extra) => extra.titulo.trim() || extra.conteudo.trim()).map((extra, indice) => (
-        <section className={`preview-extra preview-extra-${extra.tipo}`} key={indice}>
-          <b>{extra.titulo.trim() || extra.tipo}</b>
-          <p>{extra.conteudo.trim() || "Conteúdo do bloco adicional"}</p>
-        </section>
-      ))}
-    </article>
-  );
+  const dadosPreview = {
+    ...valores,
+    ...Object.fromEntries(CAMPOS_LISTA.map(([nome]) => [nome, textoParaLista(valores[nome])])),
+    extras,
+  };
+  const preview = <Card {...criarModeloCardGuia(valores.nome.trim() || "Nova vacina", dadosPreview)} />;
 
   return (
     <StudioSplit preview={preview}>
       <form ref={formRef} className="formulario" onSubmit={(evento) => { evento.preventDefault(); void persistir("rascunho"); }}>
         <label>Nome da vacina<input {...campo("nome")} required /></label>
-        <label>Slug<input {...campo("slug")} placeholder={slugify(valores.nome) || "gerado a partir do nome"} /></label>
+        <details className="campo-avancado">
+          <summary>Identificador técnico (avançado)</summary>
+          <label>Slug<input {...campo("slug")} placeholder={slugify(valores.nome) || "gerado automaticamente pelo nome"} /></label>
+          <small>Usado internamente para identificar a ficha; não aparece no aplicativo.</small>
+        </details>
         <div className="duas">
           <label>Rede
             <select {...campo("rede")}>
@@ -157,24 +154,44 @@ function GuiaVacinaForm({ vacina, fontes, ordem, onSalvar, onCancelar, salvando:
           <label>Fonte
             <select {...campo("fonte_id")}>
               <option value="">— escolha —</option>
-              {fontes.map((itemFonte) => <option key={itemFonte.id} value={itemFonte.id}>{itemFonte.id} · {itemFonte.titulo}</option>)}
+              {fontes.map((itemFonte) => <option key={itemFonte.id} value={itemFonte.id}>{itemFonte.instituicao} · {itemFonte.titulo}</option>)}
             </select>
           </label>
         </div>
-        <CardConferenciaFonte fonte={fonte} />
-        {CAMPOS_TEXTO.map(([nome, rotulo]) => (
-          <label key={nome}>{rotulo}<textarea rows={2} {...campo(nome)} /></label>
-        ))}
-        {CAMPOS_LISTA.map(([nome, rotulo]) => (
-          <label key={nome}>{rotulo} (um valor por linha)<textarea rows={3} {...campo(nome)} /></label>
-        ))}
+        <CardConferenciaFonte fonte={fonte} referenciaNaoSuportada />
+        <fieldset className="grupo-campos">
+          <legend>Dados comerciais e clínicos</legend>
+          {CAMPOS_TEXTO.slice(0, 3).map(([nome, rotulo]) => (
+            <label key={nome}>{rotulo}<textarea rows={2} {...campo(nome)} /></label>
+          ))}
+          {CAMPOS_LISTA.slice(0, 5).map(([nome, rotulo]) => (
+            <label key={nome}>
+              {rotulo}
+              <textarea rows={2} {...campo(nome)} />
+              <small className="ajuda">Um item por linha; cada linha será apresentada como uma informação separada.</small>
+            </label>
+          ))}
+        </fieldset>
+        <fieldset className="grupo-campos">
+          <legend>Sala de vacina</legend>
+          {CAMPOS_TEXTO.slice(3).map(([nome, rotulo]) => (
+            <label key={nome}>{rotulo}<textarea rows={2} {...campo(nome)} /></label>
+          ))}
+          {CAMPOS_LISTA.slice(5).map(([nome, rotulo]) => (
+            <label key={nome}>
+              {rotulo}
+              <textarea rows={2} {...campo(nome)} />
+              <small className="ajuda">Um item por linha; cada linha será apresentada como uma informação separada.</small>
+            </label>
+          ))}
+        </fieldset>
         <fieldset>
           <legend>Blocos adicionais</legend>
           {extras.map((extra, indice) => (
             <div className="formulario" key={indice}>
               <label>Tipo
                 <select value={extra.tipo} onChange={(evento) => atualizarExtra(indice, "tipo", evento.target.value)}>
-                  {TIPOS_EXTRA.map((tipo) => <option key={tipo} value={tipo}>{tipo}</option>)}
+                  {TIPOS_EXTRA.map(([tipo, rotulo]) => <option key={tipo} value={tipo}>{rotulo}</option>)}
                 </select>
               </label>
               <label>Título<input value={extra.titulo} required onChange={(evento) => atualizarExtra(indice, "titulo", evento.target.value)} /></label>
@@ -305,7 +322,7 @@ export default function GuiaVacinas({ onAlteracao, foco, onFocoConsumido }) {
 
   return (
     <section>
-      <h2>Guia de vacinas</h2>
+      <h1>Guia clínico-comercial</h1>
       <p className="ajuda">Somente vacinas aprovadas com fonte vinculada entram em src/data/guia_vacinas.json após executar a publicação explicitamente.</p>
       {erro && (
         <div className="erro" role="alert">

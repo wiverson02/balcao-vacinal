@@ -330,101 +330,6 @@ h3 {
   background: transparent;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
-  gap: 16px;
-}
-
-details.c {
-  min-width: 0;
-  padding: 18px;
-  border: 1px solid var(--bd);
-  border-top: 4px solid var(--pr);
-  border-radius: 15px;
-  background: var(--card);
-  box-shadow: 0 3px 12px rgb(0 0 0 / 16%);
-}
-
-details.c[open] {
-  border-top-color: var(--ac);
-}
-
-details.c summary {
-  position: relative;
-  display: flex;
-  min-height: 48px;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 2px;
-  padding-right: 32px;
-  cursor: pointer;
-  list-style: none;
-}
-
-details.c summary::-webkit-details-marker {
-  display: none;
-}
-
-details.c summary::after {
-  position: absolute;
-  top: 50%;
-  right: 2px;
-  color: #ffffff;
-  content: "+";
-  font-size: 24px;
-  font-weight: 500;
-  line-height: 1;
-  transform: translateY(-50%);
-}
-
-details.c[open] summary::after {
-  content: "−";
-}
-
-details.c summary b {
-  max-width: 100%;
-  margin-bottom: 5px;
-  padding: 4px 10px;
-  border-radius: 8px;
-  background: var(--ac);
-  color: var(--atx);
-  font-size: 12px;
-  font-weight: 750;
-  overflow-wrap: anywhere;
-}
-
-.diferencial {
-  display: inline-block;
-  max-width: 100%;
-  margin-bottom: 2px;
-  padding: 3px 8px;
-  border: 1px solid var(--bd);
-  border-radius: 999px;
-  background: var(--soft);
-  color: var(--tx);
-  font-size: 12px;
-  font-weight: 650;
-  line-height: 1.35;
-  overflow-wrap: anywhere;
-}
-
-details.c summary small {
-  color: var(--tx);
-  font-size: 18px;
-  font-weight: 650;
-  line-height: 1.4;
-  overflow-wrap: anywhere;
-}
-
-details.c p {
-  margin: 13px 0 0;
-  padding-top: 12px;
-  border-top: 1px dashed var(--bd);
-  overflow-wrap: anywhere;
-}
-
 .warn {
   margin: 16px 0;
   padding: 13px 16px;
@@ -589,45 +494,6 @@ ul.pd {
   padding-left: 22px;
 }
 
-.pill {
-  display: inline-block;
-  margin-right: 6px;
-  padding: 3px 10px;
-  border-radius: 9px;
-  background: var(--ac);
-  color: var(--atx);
-  font-size: 13px;
-  font-weight: 700;
-}
-
-details.c p.fi {
-  color: var(--mu);
-  font-size: 15px;
-}
-
-details.c p.beneficio {
-  border-top: 1px solid var(--bd);
-  color: var(--tx);
-}
-
-.guia-detalhe,
-.extra {
-  margin: 8px 0 0;
-  padding: 8px 10px;
-  border-left: 3px solid var(--ac);
-  background: var(--soft);
-  overflow-wrap: anywhere;
-}
-
-.extra p {
-  margin: 4px 0 0;
-}
-
-.extra-alerta,
-.extra-contraindicacao {
-  border-left-color: #b3261e;
-}
-
 @media (max-width: 640px) {
   .top {
     padding: 10px 16px 2px;
@@ -678,14 +544,6 @@ details.c p.beneficio {
 
   .ln label:nth-child(3) input[type="date"] {
     width: 100%;
-  }
-
-  .grid {
-    gap: 12px;
-  }
-
-  details.c {
-    padding: 16px;
   }
 
   footer {

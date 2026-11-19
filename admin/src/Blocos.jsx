@@ -125,6 +125,7 @@ export default function Blocos({ onAlteracao, foco, onFocoConsumido }) {
 
   return (
     <>
+      <h1>Estrutura do calendário</h1>
       <p className="ajuda">Blocos são as faixas de idade da criança e os grupos (adolescente, adulto, idoso, gestante). A idade mínima das faixas é a que o app usa na Caderneta e no Início.</p>
       {erro && <div className="erro" role="alert"><p>{erro}</p><button type="button" disabled={carregando || salvando} onClick={() => retryAction ? void tentar(retryAction) : void carregar()}>Tentar novamente</button></div>}
       {carregando && <p role="status">Carregando blocos...</p>}

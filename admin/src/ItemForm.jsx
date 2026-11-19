@@ -1,12 +1,19 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CardConferenciaFonte, StudioSplit } from "./Studio";
+import Card from "../../src/components/Card";
 
 const vazio = { nome: "", protege: "", esquema: "", fonte_id: "", pagina: "", trecho: "", extras: [] };
 const limpar = (v) => (v.trim() === "" ? null : v.trim());
-const TIPOS_EXTRA = ["alerta", "nota", "esquema", "contraindicacao"];
+const TIPOS_EXTRA = [
+  ["alerta", "Alerta"],
+  ["nota", "Nota"],
+  ["esquema", "Esquema"],
+  ["contraindicacao", "Contraindicação"],
+];
 
-export default function ItemForm({ item, fontes, onSalvar, onCancelar, onExcluir }) {
+export default function ItemForm({ item, fontes, onSalvar, onCancelar, onExcluir, privado }) {
   const formRef = useRef(null);
+  useEffect(() => { formRef.current?.querySelector("input, select, textarea")?.focus(); }, []);
   const [v, setV] = useState(() => ({
     ...vazio,
     ...item,
@@ -59,17 +66,10 @@ export default function ItemForm({ item, fontes, onSalvar, onCancelar, onExcluir
   }
 
   const preview = (
-    <article className="cartao-preview">
-      <header><b>{v.nome.trim() || "Nome da vacina"}</b></header>
-      <p className="preview-protecao">{v.protege.trim() || "Protege contra"}</p>
-      <p>{v.esquema.trim() || "O esquema da vacina aparecerá aqui."}</p>
-      {v.extras.filter((extra) => extra.titulo.trim() || extra.conteudo.trim()).map((extra, indice) => (
-        <section className={`preview-extra preview-extra-${extra.tipo}`} key={indice}>
-          <b>{extra.titulo.trim() || extra.tipo}</b>
-          <p>{extra.conteudo.trim() || "Conteúdo do bloco adicional"}</p>
-        </section>
-      ))}
-    </article>
+    <Card
+      v={[v.nome.trim() || "Nome da vacina", v.protege.trim(), v.esquema.trim(), v.extras]}
+      privado={privado}
+    />
   );
 
   return (
@@ -83,7 +83,7 @@ export default function ItemForm({ item, fontes, onSalvar, onCancelar, onExcluir
             Fonte
             <select {...campo("fonte_id")}>
               <option value="">— escolha —</option>
-              {fontes.map((f) => <option key={f.id} value={f.id}>{f.id} · {f.titulo}</option>)}
+              {fontes.map((f) => <option key={f.id} value={f.id}>{f.instituicao} · {f.titulo}</option>)}
             </select>
           </label>
           <label>Página<input {...campo("pagina")} placeholder="ex.: 4" /></label>
@@ -103,7 +103,7 @@ export default function ItemForm({ item, fontes, onSalvar, onCancelar, onExcluir
                     extras: v.extras.map((x, i) => i === indice ? { ...x, tipo: e.target.value } : x),
                   })}
                 >
-                  {TIPOS_EXTRA.map((tipo) => <option key={tipo} value={tipo}>{tipo}</option>)}
+                  {TIPOS_EXTRA.map(([tipo, rotulo]) => <option key={tipo} value={tipo}>{rotulo}</option>)}
                 </select>
               </label>
               <label>

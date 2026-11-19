@@ -245,6 +245,8 @@ describe("tela de vacinas", () => {
     fireEvent.change(screen.getByLabelText("Nome da vacina"), { target: { value: "BCG atualizada" } });
     const preview = screen.getByLabelText("Preview ao vivo");
     expect(within(preview).getByText("BCG atualizada")).toBeTruthy();
+    fireEvent.click(within(preview).getByRole("button", { name: "Tema Claro" }));
+    expect(preview.className).toContain("tema-claro");
     fireEvent.click(within(preview).getByRole("button", { name: "Tema Escuro" }));
     expect(preview.className).toContain("tema-escuro");
   });
@@ -294,12 +296,11 @@ describe("tela de fontes", () => {
   it("cadastra uma fonte", async () => {
     await abrirFontes();
     fireEvent.click(screen.getByRole("button", { name: "+ Nova fonte" }));
-    fireEvent.change(screen.getByLabelText(/^Id/), { target: { value: "fonte-teste" } });
     fireEvent.change(screen.getByLabelText("Instituição"), { target: { value: "Instituição teste" } });
     fireEvent.change(screen.getByLabelText("Título do documento"), { target: { value: "Documento teste" } });
     fireEvent.click(screen.getByRole("button", { name: "Salvar" }));
     await waitFor(() => expect(api.criarFonte).toHaveBeenCalledWith(expect.objectContaining({
-      id: "fonte-teste",
+      id: "instituicao-teste-documento-teste",
       instituicao: "Instituição teste",
       titulo: "Documento teste",
       ordem: 2,
@@ -330,7 +331,7 @@ describe("tela de fontes", () => {
 describe("tela de blocos", () => {
   async function abrirBlocos() {
     render(<App />);
-    fireEvent.click(await screen.findByRole("tab", { name: "Blocos" }));
+    fireEvent.click(await screen.findByRole("tab", { name: "Estrutura" }));
     expect(await screen.findByText("Ao nascer")).toBeTruthy();
   }
 
@@ -374,8 +375,8 @@ describe("tela de blocos", () => {
 describe("tela do guia de vacinas", () => {
   async function abrirGuia() {
     render(<App />);
-    fireEvent.click(await screen.findByRole("tab", { name: "Guia" }));
-    expect(await screen.findByText("Guia de vacinas", { selector: "h2" })).toBeTruthy();
+    fireEvent.click(await screen.findByRole("tab", { name: "Guia clínico" }));
+    expect(await screen.findByRole("heading", { name: "Guia clínico-comercial" })).toBeTruthy();
   }
 
   it("mostra a data de atualização das fichas do Guia", async () => {
@@ -425,9 +426,9 @@ describe("tela do guia de vacinas", () => {
     fireEvent.change(screen.getByLabelText("Fonte"), { target: { value: "f1" } });
     const conferencia = screen.getByLabelText("Card de Conferência da Fonte");
     expect(within(conferencia).getByText("SBIm")).toBeTruthy();
-    expect(within(conferencia).getByText("Não informada neste registro.")).toBeTruthy();
+    expect(within(conferencia).getByText("Não suportado no cadastro do Guia.")).toBeTruthy();
     const preview = screen.getByLabelText("Preview ao vivo");
-    expect(within(preview).getByText("Vacina teste")).toBeTruthy();
+    expect(within(preview).getByText("Vacina teste", { selector: "b" })).toBeTruthy();
     fireEvent.click(screen.getByRole("button", { name: "Revisar e aprovar" }));
     expect(screen.getByRole("region", { name: "Resumo da aprovação" })).toBeTruthy();
     expect(api.criarGuiaVacina).not.toHaveBeenCalled();
@@ -443,7 +444,7 @@ describe("tela do guia de vacinas", () => {
 describe("prontidão, busca e filtros globais", () => {
   it("mostra as contagens do semáforo e filtra os blocos sem item aprovado", async () => {
     render(<App />);
-    expect(await screen.findByRole("heading", { name: "Semáforo de Prontidão para Publicar" })).toBeTruthy();
+    fireEvent.click(await screen.findByText("Prontidão para publicar"));
     expect(screen.getByRole("button", { name: "1 bloco sem itens aprovados (bloqueante)" })).toBeTruthy();
     expect(screen.getByRole("button", { name: "1 aprovado sem fonte conferida" })).toBeTruthy();
     expect(screen.getByRole("button", { name: "1 rascunho pendente" })).toBeTruthy();
@@ -458,16 +459,19 @@ describe("prontidão, busca e filtros globais", () => {
     render(<App />);
     const resultados = async () => screen.findByRole("region", { name: "Resultados globais" });
 
-    fireEvent.click(await screen.findByRole("button", { name: "Rascunhos" }));
+    fireEvent.click(await screen.findByText("Filtros rápidos"));
+    fireEvent.click(screen.getByRole("button", { name: "Rascunhos" }));
     let area = await resultados();
     expect(within(area).getByText("Hepatite B")).toBeTruthy();
     expect(within(area).queryByText("BCG")).toBeNull();
 
+    fireEvent.click(screen.getByText("Filtro: Rascunhos"));
     fireEvent.click(screen.getByRole("button", { name: "Aprovados" }));
     area = await resultados();
     expect(within(area).getByText("BCG")).toBeTruthy();
     expect(within(area).queryByText("Hepatite B")).toBeNull();
 
+    fireEvent.click(screen.getByText("Filtro: Aprovados"));
     fireEvent.click(screen.getByRole("button", { name: "Sem fonte conferida" }));
     area = await resultados();
     expect(within(area).getByText("BCG")).toBeTruthy();
@@ -479,7 +483,7 @@ describe("prontidão, busca e filtros globais", () => {
       { id: "f1", ordem: 1, instituicao: "SBIm", titulo: "Documento localizável", conferido_em: null },
     ]);
     render(<App />);
-    const busca = await screen.findByRole("searchbox", { name: "Busca global" });
+    const busca = await screen.findByRole("searchbox", { name: "Buscar em tudo" });
     fireEvent.keyDown(window, { key: "k", ctrlKey: true });
     expect(document.activeElement).toBe(busca);
     fireEvent.change(busca, { target: { value: "localizável" } });
@@ -500,12 +504,12 @@ describe("prontidão, busca e filtros globais", () => {
       extras: [],
     }]);
     render(<App />);
-    const busca = await screen.findByRole("searchbox", { name: "Busca global" });
+    const busca = await screen.findByRole("searchbox", { name: "Buscar em tudo" });
     fireEvent.change(busca, { target: { value: "termo de busca" } });
     const resultados = await screen.findByRole("region", { name: "Resultados globais" });
     fireEvent.click(within(resultados).getByRole("button", { name: /Vacina Pesquisa/ }));
 
-    const guiaTab = await screen.findByRole("tab", { name: "Guia" });
+    const guiaTab = await screen.findByRole("tab", { name: "Guia clínico" });
     expect(guiaTab.getAttribute("aria-selected")).toBe("true");
     expect(await screen.findByLabelText("Slug")).toBeTruthy();
   });
@@ -513,8 +517,8 @@ describe("prontidão, busca e filtros globais", () => {
   it("marca a aba ativa como selecionada para tecnologia assistiva", async () => {
     render(<App />);
     const tablist = await screen.findByRole("tablist", { name: "Seções do painel" });
-    expect(within(tablist).getByRole("tab", { name: "Vacinas" }).getAttribute("aria-selected")).toBe("true");
-    fireEvent.click(within(tablist).getByRole("tab", { name: "Guia" }));
-    expect(within(tablist).getByRole("tab", { name: "Guia" }).getAttribute("aria-selected")).toBe("true");
+    expect(within(tablist).getByRole("tab", { name: "Calendário" }).getAttribute("aria-selected")).toBe("true");
+    fireEvent.click(within(tablist).getByRole("tab", { name: "Guia clínico" }));
+    expect(within(tablist).getByRole("tab", { name: "Guia clínico" }).getAttribute("aria-selected")).toBe("true");
   });
 });

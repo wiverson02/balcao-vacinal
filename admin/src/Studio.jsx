@@ -1,5 +1,20 @@
 import { useId, useState } from "react";
 
+const moverTabComSetas = (evento) => {
+  if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(evento.key)) return;
+  const abas = [...evento.currentTarget.querySelectorAll('[role="tab"]')];
+  const indice = abas.indexOf(document.activeElement);
+  if (indice < 0) return;
+  evento.preventDefault();
+  const proximo = evento.key === "Home"
+    ? 0
+    : evento.key === "End"
+      ? abas.length - 1
+      : (indice + (evento.key === "ArrowRight" ? 1 : abas.length - 1)) % abas.length;
+  abas[proximo]?.focus();
+  abas[proximo]?.click();
+};
+
 export function formatarAtualizadoEm(valor) {
   if (!valor) return "não informado";
   const data = new Date(valor);
@@ -10,7 +25,7 @@ export function formatarAtualizadoEm(valor) {
   }).format(data);
 }
 
-export function CardConferenciaFonte({ fonte, pagina, secao }) {
+export function CardConferenciaFonte({ fonte, pagina, secao, referenciaNaoSuportada = false }) {
   if (!fonte) return <p className="ajuda">Selecione uma fonte para conferir o conteúdo.</p>;
   const referencia = [pagina && `p. ${pagina}`, secao].filter(Boolean).join(" · ");
   const urlExterna = /^https?:\/\//i.test(fonte.url ?? "") ? fonte.url : null;
@@ -21,7 +36,8 @@ export function CardConferenciaFonte({ fonte, pagina, secao }) {
       <dl>
         <dt>Instituição</dt><dd>{fonte.instituicao}</dd>
         <dt>Título</dt><dd>{fonte.titulo}</dd>
-        <dt>Página / seção</dt><dd>{referencia || "Não informada neste registro."}</dd>
+        <dt>Página / seção</dt>
+        <dd>{referencia || (referenciaNaoSuportada ? "Não suportado no cadastro do Guia." : "Não informado.")}</dd>
         <dt>Conferido em</dt>
         <dd>
           {fonte.conferido_em
@@ -39,12 +55,12 @@ export function CardConferenciaFonte({ fonte, pagina, secao }) {
 
 export function StudioSplit({ children, preview }) {
   const [abaMovel, setAbaMovel] = useState("editar");
-  const [tema, setTema] = useState("claro");
+  const [tema, setTema] = useState("escuro");
   const id = useId();
 
   return (
     <div className="studio">
-      <div className="studio-abas-movel" role="tablist" aria-label="Modo Estúdio">
+      <div className="studio-abas-movel" role="tablist" aria-label="Modo Estúdio" onKeyDown={moverTabComSetas}>
         <button
           type="button"
           role="tab"
@@ -84,7 +100,7 @@ export function StudioSplit({ children, preview }) {
               <button type="button" aria-pressed={tema === "escuro"} onClick={() => setTema("escuro")}>Tema Escuro</button>
             </div>
           </div>
-          <div className="preview-publico">{preview}</div>
+          <div className={`preview-publico tema-${tema}`}>{preview}</div>
         </aside>
       </div>
     </div>
